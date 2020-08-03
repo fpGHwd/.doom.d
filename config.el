@@ -58,9 +58,13 @@
 ;; my own config
 ;;(keyfreq-mode 1)
 (setq pyim-default-scheme 'microsoft-shuangpin)
+(setq pyim-dicts
+      '((:name "dict1" :file "~/.eim/pyim-bigdict.pyim")))
+;; 使用终端emacs，中文的反应速度理想，显示情况更好
 
 (require 'leetcode)
 (setq leetcode-prefer-language "cpp")
 (setq leetcode-save-solutions t)
 (setq leetcode-directory "~/Dropbox/leetcode")
+
 (global-hl-line-mode 1)
