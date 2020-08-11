@@ -21,15 +21,21 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-font (font-spec :family "Monospace" :size 16)
+      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 14)
+      doom-unicode-font (font-spec :family "Sarasa Term SC" :size 15)
+      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
+
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-one-light)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/org/")
+(require 'org)
+(setq org-directory "~/Dropbox/text/org/")
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -57,14 +63,43 @@
 
 ;; my own config
 ;;(keyfreq-mode 1)
+(require 'pyim)
+(setq pyim-page-tooltip 'posframe)
 (setq pyim-default-scheme 'microsoft-shuangpin)
 (setq pyim-dicts
-      '((:name "dict1" :file "~/.eim/pyim-bigdict.pyim")))
-;; 使用终端emacs，中文的反应速度理想，显示情况更好
+      '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim")))
+;(setq pyim-punctuation-translate-p 'auto)
+;(setq pyim-punctuation-half-width-functions 1)
+
+; postframe color setting
+(require 'posframe)
+(setq posframe-arghandler #'my-posframe-arghandler)
+(defun my-posframe-arghandler (buffer-or-name arg-name value)
+  (let ((info '(:internal-border-width 10 :background-color "#007BA7")))
+    (or (plist-get info arg-name) value))) ; 蔚蓝色
+
 
 (require 'leetcode)
 (setq leetcode-prefer-language "cpp")
 (setq leetcode-save-solutions t)
-(setq leetcode-directory "~/Dropbox/leetcode")
+(setq leetcode-directory "~/Dropbox/project/leetcode")
 
-(global-hl-line-mode 1)
+(require 'youdao-dictionary)
+
+(require 'org-roam)
+(require 'org-roam-server)
+(setq org-roam-directory "~/Dropbox/text/roam/")
+(add-hook 'after-init-hook 'org-roam-mode)
+(setq org-roam-server-host "127.0.0.1"
+      org-roam-server-port 9090
+      org-roam-server-export-inline-images t
+      org-roam-server-authenticate nil
+      org-roam-server-label-truncate t
+      org-roam-server-label-truncate-length 60
+      org-roam-server-label-wrap-length 20)
+(org-roam-server-mode)
+(require 'org-roam-protocol)
+
+; org-roam
+(server-start)
+(require 'org-protocol)
