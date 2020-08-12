@@ -34,7 +34,7 @@
 ;(setq doom-theme 'doom-one)
 
 
-(setq fancy-splash-image "~/.doom.d/Emacs-logo.svg")
+(setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
 
 
 
@@ -109,3 +109,26 @@
 ; org-roam
 (server-start)
 (require 'org-protocol)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; deft ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'deft)
+(setq deft-directory "~/Dropbox/text/deft")
+(setq deft-extensions '("org"))
+(setq deft-default-extension "org")
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(setq deft-use-filter-string-for-filename t)
+(setq deft-auto-save-interval 0)
+;;key to launch deft
+(global-set-key (kbd "C-c d") 'deft)
+
+
+; auctex
+;; (setq latex-run-command "xelatex")
+(setq TeX-global-PDF-mode t TeX-engine 'xetex)
+(add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+(setq TeX-command-default "XeLaTeX")
+; https://emacs-china.org/t/emacs-latex/12658/4
