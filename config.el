@@ -30,8 +30,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one-light)
-;(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-one)
 
 
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
@@ -46,7 +46,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -67,7 +67,7 @@
 ;; they are implemented.
 
 
-;; my own config
+;; the below is my own config
 ;;(keyfreq-mode 1)
 (require 'pyim)
 (setq pyim-page-tooltip 'posframe)
@@ -84,7 +84,7 @@
   (let ((info '(:internal-border-width 10 :background-color "#007BA7")))
     (or (plist-get info arg-name) value))) ; 蔚蓝色
 
-
+; leetcode
 (require 'leetcode)
 (setq leetcode-prefer-language "cpp")
 (setq leetcode-save-solutions t)
@@ -92,24 +92,20 @@
 
 (require 'youdao-dictionary)
 
+; org-roam
 (require 'org-roam)
 (require 'org-roam-server)
+(require 'org-roam-protocol)
 (setq org-roam-directory "~/Dropbox/text/roam/")
 (add-hook 'after-init-hook 'org-roam-mode)
 (setq org-roam-server-host "127.0.0.1"
       org-roam-server-port 9090
       org-roam-server-export-inline-images t
-      org-roam-server-authenticate nil
-      org-roam-server-label-truncate t
-      org-roam-server-label-truncate-length 60
-      org-roam-server-label-wrap-length 20)
+      org-roam-server-authenticate nil)
 (org-roam-server-mode)
-(require 'org-roam-protocol)
-
-; org-roam
+; emacs server
 (server-start)
 (require 'org-protocol)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; deft ;;
@@ -125,10 +121,28 @@
 ;;key to launch deft
 (global-set-key (kbd "C-c d") 'deft)
 
-
-; auctex
+; auctex setting
 ;; (setq latex-run-command "xelatex")
+(require 'tex)
 (setq TeX-global-PDF-mode t TeX-engine 'xetex)
 (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
 (setq TeX-command-default "XeLaTeX")
 ; https://emacs-china.org/t/emacs-latex/12658/4
+
+; auto-save
+;; (setq auto-save-interval 300)
+(defun full-auto-save ()
+  (interactive)
+  (save-excursion
+    (dolist (buf (buffer-list))
+      (set-buffer buf)
+      (if (and (buffer-file-name) (buffer-modified-p))
+          (basic-save-buffer)))))
+(add-hook 'auto-save-hook 'full-auto-save)
+; https://www.emacswiki.org/emacs/AutoSave
+; maybe it's time for me to get myself config with emacs
+; if I have time, I will TODO
+(defun save-all ()
+  (interactive)
+  (save-some-buffers t))
+(add-hook 'focus-out-hook 'save-all)
