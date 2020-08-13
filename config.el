@@ -34,15 +34,11 @@
 (setq doom-theme 'doom-one)
 
 
-(setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
-
 
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(require 'org)
 (setq org-directory "~/Dropbox/text/org/")
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -107,9 +103,7 @@
 (server-start)
 (require 'org-protocol)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; deft ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; deft
 (require 'deft)
 (setq deft-directory "~/Dropbox/text/deft")
 (setq deft-extensions '("org"))
@@ -130,6 +124,7 @@
 ; https://emacs-china.org/t/emacs-latex/12658/4
 
 ; auto-save
+; https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto_002dSaving.html
 ;; (setq auto-save-interval 300)
 (defun full-auto-save ()
   (interactive)
@@ -146,3 +141,13 @@
   (interactive)
   (save-some-buffers t))
 (add-hook 'focus-out-hook 'save-all)
+
+; org
+(require 'org)
+(require 'find-lisp)
+(setq org-agenda-files (find-lisp-find-files "~/Dropbox/text/" org-agenda-file-regexp))
+(require 'org-refile)
+(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
+
+; logo
+(setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
