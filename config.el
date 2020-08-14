@@ -34,11 +34,10 @@
 (setq doom-theme 'doom-one)
 
 
-
-
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Dropbox/text/org/")
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -148,6 +147,21 @@
 (setq org-agenda-files (find-lisp-find-files "~/Dropbox/text/" org-agenda-file-regexp))
 (require 'org-refile)
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
+(setq org-log-done 'time)
+; https://emacs-orgmode.gnu.narkive.com/n5bQRs5t/o-multiple-recursive-directories-with-org-agenda-files
 
 ; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
+
+; org-mode done but no time
+;
+
+; gc
+(setq garbage-collection-messages t)
+(setq gc-cons-threshold (eval-when-compile (* 1024 1024 1024)))
+;(run-with-idle-timer 2 t (lambda () (garbage-collect)))
+; https://t.codebug.vip/questions-120317.htm
+
+; fullscreen when start
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up
