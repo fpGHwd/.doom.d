@@ -4,7 +4,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode nil)
- '(package-selected-packages (quote (leetcode youdao-dictionary posframe org-roam org-roam-server org-roam-protocol))))
+ '(package-selected-packages
+   (quote
+    (ivy-emms emms leetcode youdao-dictionary posframe org-roam org-roam-server org-roam-protocol))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

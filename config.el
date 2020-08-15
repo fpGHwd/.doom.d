@@ -157,7 +157,7 @@
 ;
 
 ; gc
-(setq garbage-collection-messages t)
+;(setq garbage-collection-messages t)
 (setq gc-cons-threshold (eval-when-compile (* 1024 1024 1024)))
 ;(run-with-idle-timer 2 t (lambda () (garbage-collect)))
 ; https://t.codebug.vip/questions-120317.htm
@@ -165,3 +165,134 @@
 ; fullscreen when start
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up
+
+; menu
+(menu-bar-mode 1)
+; toolbar
+(tool-bar-mode 1)
+
+; time
+(display-time-mode 1)
+(setq display-time-day-and-date t)
+
+;emms
+;(require 'emms)
+;(require 'emms-setup)
+;; (emms-all)
+;; (emms-default-players)
+
+;; (setq emms-source-file-default-directory "~/Music/")
+; https://www.gnu.org/software/emms/manual/#Quickstart-Guide
+;
+;(require 'emms-setup)
+;
+
+; counsel-google switch to google, It's fine for me here
+(require 'counsel)
+(setq counsel-search-engine 'google)
+
+
+; org
+; https://www.zmonster.me/2018/02/28/org-mode-capture.html
+(add-to-list 'org-capture-templates '("z" "ZMonster"))
+(add-to-list 'org-capture-templates '("zt" "Tasks"))
+(add-to-list 'org-capture-templates
+             '("ztr" "Book Reading Task" entry
+               (file+olp "~/Dropbox/text/org/task.org" "Reading" "Book")
+               "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
+(add-to-list 'org-capture-templates
+             '("ztw" "Work Task" entry
+               (file+headline "~/Dropbox/text/org/task.org" "Work")
+               "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
+(add-to-list 'org-capture-templates
+             '("zj" "Journal" entry (file "~/Dropbox/text/org/journal.org")
+               "* %U - %^{heading}\n  %?"))
+(add-to-list 'org-capture-templates
+             '("zi" "Inbox" entry (file "~/Dropbox/text/org/inbox.org")
+               "* %U - %^{heading} %^g\n %?\n"))
+(add-to-list 'org-capture-templates
+             '("zn" "Notes" entry (file "~/Dropbox/text/org/notes/inbox.org")
+               "* %^{heading} %t %^g\n  %?\n"))
+
+(defun get-year-and-month ()
+  (list (format-time-string "%Y年") (format-time-string "%m月")))
+
+
+(defun find-month-tree ()
+  (let* ((path (get-year-and-month))
+         (level 1)
+         end)
+    (unless (derived-mode-p 'org-mode)
+      (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
+    (goto-char (point-min))             ;移动到 buffer 的开始位置
+    ;; 先定位表示年份的 headline，再定位表示月份的 headline
+    (dolist (heading path)
+      (let ((re (format org-complex-heading-regexp-format
+                        (regexp-quote heading)))
+            (cnt 0))
+        (if (re-search-forward re end t)
+            (goto-char (point-at-bol))  ;如果找到了 headline 就移动到对应的位置
+          (progn                        ;否则就新建一个 headline
+            (or (bolp) (insert "\n"))
+            (if (/= (point) (point-min)) (org-end-of-subtree t t))
+            (insert (make-string level ?*) " " heading "\n"))))
+      (setq level (1+ level))
+      (setq end (save-excursion (org-end-of-subtree t t))))
+    (org-end-of-subtree)))
+(add-to-list 'org-capture-templates
+             '("zb" "Billing" plain
+               (file+function "~/Dropbox/text/org/billing.org" find-month-tree)
+               " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
+
+(add-to-list 'org-capture-templates
+             '("zc" "Contacts" table-line (file "~/Dropbox/text/org/contacts.org")
+               "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
+
+(add-to-list 'org-capture-templates '("zp" "Protocol"))
+(add-to-list 'org-capture-templates
+             '("zpb" "Protocol Bookmarks" entry
+               (file+headline "~/Dropbox/text/org/web.org" "Bookmarks")
+               "* %U - %:annotation" :immediate-finish t :kill-buffer t))
+(add-to-list 'org-capture-templates
+             '("zpn" "Protocol Bookmarks" entry
+               (file+headline "~/Dropbox/text/org/web.org" "Notes")
+               "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
+  (org-capture-put :target (list 'file+headline
+                                 (nth 1 (org-capture-get :target))
+                                 (org-capture-get :annotation)))
+  (org-capture-put-target-region-and-position)
+  (widen)
+  (let ((hd (nth 2 (org-capture-get :target))))
+    (goto-char (point-min))
+    (if (re-search-forward
+         (format org-complex-heading-regexp-format (regexp-quote hd)) nil t)
+        (org-end-of-subtree)
+      (goto-char (point-max))
+      (or (bolp) (insert "\n"))
+      (insert "* " hd "\n"))))
+(add-to-list 'org-capture-templates
+             '("zpa" "Protocol Annotation" plain
+               (file+function "~/Dropbox/text/org/web.org" org-capture-template-goto-link)
+               "  %U - %?\n\n  %:initial" :empty-lines 1))
+(defun generate-anki-note-body ()
+  (interactive)
+  (message "Fetching note types...")
+  (let ((note-types (sort (anki-editor-note-types) #'string-lessp))
+        (decks (sort (anki-editor-deck-names) #'string-lessp))
+        deck note-type fields)
+    (setq deck (completing-read "Choose a deck: " decks))
+    (setq note-type (completing-read "Choose a note type: " note-types))
+    (message "Fetching note fields...")
+    (setq fields (anki-editor--anki-connect-invoke-result "modelFieldNames" `((modelName . ,note-type))))
+    (concat "  :PROPERTIES:\n"
+            "  :ANKI_DECK: " deck "\n"
+            "  :ANKI_NOTE_TYPE: " note-type "\n"
+            "  :END:\n\n"
+            (mapconcat (lambda (str) (concat "** " str))
+                       fields
+                       "\n\n"))))
+(add-to-list 'org-capture-templates
+             `("zv" "Vocabulary" entry
+               (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
+               ,(concat "* %^{heading} :note:\n"
+                        "%(generate-anki-note-body)\n")))
