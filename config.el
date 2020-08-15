@@ -303,4 +303,3 @@
                         "%(generate-anki-note-body)\n")))
 
 ; ----- end of ZMonster's org settings
-
