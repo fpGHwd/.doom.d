@@ -214,6 +214,11 @@
              '("zn" "Notes" entry (file "~/Dropbox/text/org/notes/inbox.org")
                "* %^{heading} %t %^g\n  %?\n"))
 
+(add-to-list 'org-capture-templates '("w" "Wangding"))
+(add-to-list 'org-capture-templates
+             '("wm" "Milestone" entry (file "~/Dropbox/text/org/milestone.org")
+               "* %^{heading} %t %^g\n  %?\n"))
+
 (defun get-year-and-month ()
   (list (format-time-string "%Y年") (format-time-string "%m月")))
 
@@ -296,3 +301,6 @@
                (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
                ,(concat "* %^{heading} :note:\n"
                         "%(generate-anki-note-body)\n")))
+
+; ----- end of ZMonster's org settings
+
