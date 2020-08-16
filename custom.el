@@ -6,7 +6,7 @@
  '(delete-selection-mode nil)
  '(package-selected-packages
    (quote
-    (ivy-emms emms leetcode youdao-dictionary posframe org-roam org-roam-server org-roam-protocol))))
+    (command-log-mode youdao-dictionary posframe org-roam-server org-roam-bibtex org-download leetcode ivy-emms company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

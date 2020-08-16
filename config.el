@@ -31,8 +31,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one-light)
-(setq doom-theme 'doom-one)
-
+;; (setq doom-theme 'doom-one)
+(setq doom-theme 'doom-moonlight)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -144,7 +144,9 @@
 ; org
 (require 'org)
 (require 'find-lisp)
-(setq org-agenda-files (find-lisp-find-files "~/Dropbox/text/" org-agenda-file-regexp))
+(setq org-directory-my-own "~/Dropbox/text/")
+(setq org-directory-my-own-exclude "~/Dropbox/text/org/bak/")
+(setq org-agenda-files (find-lisp-find-files org-directory-my-own org-agenda-file-regexp))
 (require 'org-refile)
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
 (setq org-log-done 'time)
@@ -163,17 +165,17 @@
 ; https://t.codebug.vip/questions-120317.htm
 
 ; fullscreen when start
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;(add-to-list 'default-frame-alist '(fullscreen . maximized))
 ; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up
 
 ; menu
-(menu-bar-mode 1)
+;; (menu-bar-mode 1)
 ; toolbar
-(tool-bar-mode 1)
+;; (tool-bar-mode 1)
 
 ; time
-(display-time-mode 1)
-(setq display-time-day-and-date t)
+;; (display-time-mode 1)
+;; (setq display-time-day-and-date t)
 
 ;emms
 ;(require 'emms)
@@ -192,6 +194,8 @@
 (setq counsel-search-engine 'google)
 
 
+; --- ZMonster's org-capture template
+;
 ; org
 ; https://www.zmonster.me/2018/02/28/org-mode-capture.html
 (add-to-list 'org-capture-templates '("z" "ZMonster"))
@@ -217,7 +221,7 @@
 (add-to-list 'org-capture-templates '("w" "Wangding"))
 (add-to-list 'org-capture-templates
              '("wm" "Milestone" entry (file "~/Dropbox/text/org/milestone.org")
-               "* %^{heading} %t %^g\n  %?\n"))
+               "* %^{heading} %t %^g\n%?\n"))
 
 (defun get-year-and-month ()
   (list (format-time-string "%Y年") (format-time-string "%m月")))
@@ -303,3 +307,11 @@
                         "%(generate-anki-note-body)\n")))
 
 ; ----- end of ZMonster's org settings
+
+; smex
+;(require 'smex)
+;(smex-initialize)
+;(global-set-key (kbd "M-x") 'smex)
+;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
