@@ -21,10 +21,10 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-;(setq doom-font (font-spec :family "Monaco" :size 16)
-;      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 14)
-;      doom-unicode-font (font-spec :family "Sarasa Term SC" :size 15)
-;      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
+(setq doom-font (font-spec :family "Monaco" :size 16)
+      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
+      doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
+      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -36,7 +36,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/text/org/")
+(setq org-directory "~/Dropbox/text/")
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -72,6 +72,7 @@
 ;(setq pyim-punctuation-translate-p 'auto)
 ;(setq pyim-punctuation-half-width-functions 1)
 
+
 ; postframe color setting
 ;; (require 'posframe)
 ;; (setq posframe-arghandler #'my-posframe-arghandler)
@@ -85,22 +86,22 @@
 (setq leetcode-save-solutions t)
 (setq leetcode-directory "~/Dropbox/project/leetcode")
 
-(require 'youdao-dictionary)
+;; (require 'youdao-dictionary)
 
 ; org-roam
-(require 'org-roam)
-(require 'org-roam-server)
-(require 'org-roam-protocol)
-(setq org-roam-directory "~/Dropbox/text/roam/")
-(add-hook 'after-init-hook 'org-roam-mode)
-(setq org-roam-server-host "127.0.0.1"
-      org-roam-server-port 9090
-      org-roam-server-export-inline-images t
-      org-roam-server-authenticate nil)
-(org-roam-server-mode)
+;; (require 'org-roam)
+;; (require 'org-roam-server)
+;; (require 'org-roam-protocol)
+;; (setq org-roam-directory "~/Dropbox/text/roam/")
+;; (add-hook 'after-init-hook 'org-roam-mode)
+;; (setq org-roam-server-host "127.0.0.1"
+;;       org-roam-server-port 9090
+;;       org-roam-server-export-inline-images t
+;;       org-roam-server-authenticate nil)
+;; (org-roam-server-mode)
 ; emacs server
-(server-start)
-(require 'org-protocol)
+;; (server-start)
+;; jk(require 'org-protocol)
 
 ; deft
 ;; (require 'deft)
@@ -144,9 +145,9 @@
 ; org
 (require 'org)
 (require 'find-lisp)
-(setq org-directory-my-own "~/Dropbox/text/")
-(setq org-directory-my-own-exclude "~/Dropbox/text/org/bak/")
-(setq org-agenda-files (find-lisp-find-files org-directory-my-own org-agenda-file-regexp))
+;; (setq org-directory-my-own "~/Dropbox/text/")
+;; (setq org-directory-my-own-exclude "~/Dropbox/text/org/bak/")
+(setq org-agenda-files (find-lisp-find-files org-directory org-agenda-file-regexp))
 (require 'org-refile)
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
 (setq org-log-done 'time)
@@ -190,8 +191,8 @@
 ;
 
 ; counsel-google switch to google, It's fine for me here
-;;(require 'counsel)
-;;(setq counsel-search-engine 'google)
+(require 'counsel)
+(setq counsel-search-engine 'google)
 
 ; --- ZMonster's org-capture template
 ;
