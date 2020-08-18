@@ -66,11 +66,12 @@
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
 
-(use-package pyim
-  :custom
-  (pyim-default-scheme 'microsoft-shuangpin "Change to microsoft-shuangpin")
-  (pyim-dicts
-   '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim"))))
+;; pyim
+;; (use-package pyim
+;;   :custom
+;;  (pyim-default-scheme 'microsoft-shuangpin "Change to microsoft-shuangpin")
+;;  (pyim-dicts
+;;   '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim"))))
 
 ;; leetcode
 (use-package leetcode
@@ -225,6 +226,14 @@
 ;; Now I think org-mode is enough, tsuzuku...
 
 ;; rime
+;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
 (use-package rime
+  :init
+  (require 'posframe)
   :custom
-  (default-input-method "rime"))
+  (default-input-method "rime")
+  (rime-user-data-dir "~/.config/ibus/rime")
+  (rime-posframe-properties (list :background-color "#333333"
+                                  :foreground-color "#dcdccc"
+                                  :font "Monaco"))
+  (rime-show-candidate 'posframe))
