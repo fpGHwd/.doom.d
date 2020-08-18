@@ -81,24 +81,20 @@
 
 ;; (require 'youdao-dictionary)
 
-(use-package files
-  :init
-  (defun full-auto-save ()
-    (interactive)
-    (save-excursion
-      (dolist (buf (buffer-list))
-        (set-buffer buf)
-        (if (and (buffer-file-name) (buffer-modified-p))
-            (basic-save-buffer)))))
-  :hook ((auto-save-hook . full-auto-save)))
+(defun full-auto-save ()
+  (interactive)
+  (save-excursion
+    (dolist (buf (buffer-list))
+      (set-buffer buf)
+      (if (and (buffer-file-name) (buffer-modified-p))
+          (basic-save-buffer)))))
+(add-hook 'auto-save-hook 'full-auto-save)
 
-(use-package frame
-  :init
-  (defun save-all ()
-    (interactive)
-    (save-some-buffers t))
-  :hook
-  ((focus-out-hook . save-all)))
+(defun save-all ()
+  (interactive)
+  (save-some-buffers t))
+(add-hook 'focus-out-hook 'save-all)
+
 
 (use-package counsel
   :custom
@@ -220,6 +216,10 @@
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
+;; org-download
 (use-package org-download
   :hook
   ((dired-mode-hook . org-download-enable)))
+
+;; org-roam
+;; now I think org-mode is enough, tuzuku...
