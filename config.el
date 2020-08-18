@@ -62,7 +62,7 @@
 ;; they are implemented.
 
 
-;; the below is my own config
+;; my own config
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
 
@@ -72,17 +72,7 @@
   (pyim-dicts
    '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim"))))
 
-
-; postframe color setting
-;; (require 'posframe)
-;; (setq posframe-arghandler #'my-posframe-arghandler)
-;; (defun my-posframe-arghandler (buffer-or-name arg-name value)
-  ;; (let ((info '(:internal-border-width 10 :background-color "#007BA7")))
-    ;; (or (plist-get info arg-name) value))) ; 蔚蓝色
-
-; leetcode
-(require 'leetcode)
-
+;; leetcode
 (use-package leetcode
   :custom
   (leetcode-prefer-language "cpp")
@@ -90,53 +80,6 @@
   (leetcode-directory "~/Dropbox/project/leetcode"))
 
 ;; (require 'youdao-dictionary)
-
-                                        ; org-roam
-;; (require 'org-roam)
-;; (require 'org-roam-server)
-;; (require 'org-roam-protocol)
-;; (setq org-roam-directory "~/Dropbox/text/roam/")
-;; (add-hook 'after-init-hook 'org-roam-mode)
-;; (setq org-roam-server-host "127.0.0.1"
-;;       org-roam-server-port 9090
-;;       org-roam-server-export-inline-images t
-;;       org-roam-server-authenticate nil)
-;; (org-roam-server-mode)
-                                        ; emacs server
-;; (server-start)
-;; jk(require 'org-protocol)
-
-                                        ; deft
-;; (require 'deft)
-;; (setq deft-directory "~/Dropbox/text/deft")
-;; (setq deft-extensions '("org"))
-;; (setq deft-default-extension "org")
-;; (setq deft-text-mode 'org-mode)
-;; (setq deft-use-filename-as-title t)
-;; (setq deft-use-filter-string-for-filename t)
-;; (setq deft-auto-save-interval 0)
-;; ;;key to launch deft
-;; (global-set-key (kbd "C-c d") 'deft)
-
-                                        ; auctex setting
-;; (setq latex-run-command "xelatex")
-;; (require 'tex)
-;; (setq TeX-global-PDF-mode t TeX-engine 'xetex)
-;; (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
-;; ;; (setq TeX-command-default "XeLaTeX")
-                                        ; https://emacs-china.org/t/emacs-latex/12658/4
-
-                                        ; auto-save
-                                        ; https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto_002dSaving.html
-;; (setq auto-save-interval 300)
-;; (defun full-auto-save ()
-;;   (interactive)
-;;   (save-excursion
-;;     (dolist (buf (buffer-list))
-;;       (set-buffer buf)
-;;       (if (and (buffer-file-name) (buffer-modified-p))
-;;           (basic-save-buffer)))))
-;; (add-hook 'auto-save-hook 'full-auto-save)
 
 (use-package files
   :init
@@ -149,9 +92,6 @@
             (basic-save-buffer)))))
   :hook ((auto-save-hook . full-auto-save)))
 
-                                        ; https://www.emacswiki.org/emacs/AutoSave
-                                        ; maybe it's time for me to get myself config with emacs
-                                        ; if I have time, I will TODO
 (use-package frame
   :init
   (defun save-all ()
@@ -160,69 +100,19 @@
   :hook
   ((focus-out-hook . save-all)))
 
-; org
-(require 'org)
-(require 'find-lisp)
-;; (setq org-directory-my-own "~/Dropbox/text/")
-;; (setq org-directory-my-own-exclude "~/Dropbox/text/org/bak/")
-(setq org-agenda-files (find-lisp-find-files org-directory org-agenda-file-regexp))
-(require 'org-refile)
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
-(setq org-log-done 'time)
-; https://emacs-orgmode.gnu.narkive.com/n5bQRs5t/o-multiple-recursive-directories-with-org-agenda-files
-
-
-
-; org-mode done but no time
-;
-
-; gc
-;(setq garbage-collection-messages t)
-;; (setq gc-cons-threshold (eval-when-compile (* 1024 1024 1024)))
-;(run-with-idle-timer 2 t (lambda () (garbage-collect)))
-; https://t.codebug.vip/questions-120317.htm
-
-; fullscreen when start
-;(add-to-list 'default-frame-alist '(fullscreen . maximized))
-; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up
-
-; menu
-;; (menu-bar-mode 1)
-; toolbar
-;; (tool-bar-mode 1)
-
-; time
-;; (display-time-mode 1)
-;; (setq display-time-day-and-date t)
-
-;emms
-;(require 'emms)
-;(require 'emms-setup)
-;; (emms-all)
-;; (emms-default-players)
-
-;; (setq emms-source-file-default-directory "~/Music/")
-; https://www.gnu.org/software/emms/manual/#Quickstart-Guide
-;
-;(require 'emms-setup)
-;
-
-; counsel-google switch to google, It's fine for me here
-;; (require 'counsel)
-;; (setq counsel-search-engine 'google)
 (use-package counsel
   :custom
   (counsel-search-engine 'google))
 
-                                        ; --- ZMonster's org-capture template
-                                        ;
-                                        ; org
-                                        ; https://www.zmonster.me/2018/02/28/org-mode-capture.html
-                                        ;
-                                        ;
 (use-package org
+  :custom
+  (org-log-done 'time)
   :init
-  (progn (add-to-list 'org-capture-templates '("z" "ZMonster"))
+  (progn (require 'find-lisp)
+         (require 'org-refile)
+         (setq org-agenda-files (find-lisp-find-files org-directory org-agenda-file-regexp))
+         (setq org-refile-targets (quote ((org-agenda-files :maxlevel .1))))
+         (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
                       '("ztr" "Book Reading Task" entry
@@ -257,15 +147,15 @@
                   end)
              (unless (derived-mode-p 'org-mode)
                (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
-             (goto-char (point-min))             ;移动到 buffer 的开始位置
+             (goto-char (point-min))    ;移动到 buffer 的开始位置
              ;; 先定位表示年份的 headline，再定位表示月份的 headline
              (dolist (heading path)
                (let ((re (format org-complex-heading-regexp-format
                                  (regexp-quote heading)))
                      (cnt 0))
                  (if (re-search-forward re end t)
-                     (goto-char (point-at-bol))  ;如果找到了 headline 就移动到对应的位置
-                   (progn                        ;否则就新建一个 headline
+                     (goto-char (point-at-bol)) ;如果找到了 headline 就移动到对应的位置
+                   (progn                       ;否则就新建一个 headline
                      (or (bolp) (insert "\n"))
                      (if (/= (point) (point-min)) (org-end-of-subtree t t))
                      (insert (make-string level ?*) " " heading "\n"))))
@@ -329,20 +219,6 @@
                         (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
-
-; ----- end of ZMonster's org settings
-
-; smex
-;; (require 'smex)
-;; (smex-initialize)
-;; (global-set-key (kbd "M-x") 'smex)
-;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-(require 'org-download)
-;; Drag-and-drop to `dired`
-(add-hook 'dired-mode-hook 'org-download-enable)
 
 (use-package org-download
   :hook
