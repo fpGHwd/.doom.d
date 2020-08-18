@@ -107,7 +107,7 @@
   (progn (require 'find-lisp)
          (require 'org-refile)
          (setq org-agenda-files (find-lisp-find-files org-directory org-agenda-file-regexp))
-         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
+         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
@@ -222,5 +222,9 @@
   ((dired-mode-hook . org-download-enable)))
 
 ;; org-roam
-;; now I think org-mode is enough, tuzuku...
-;;
+;; Now I think org-mode is enough, tsuzuku...
+
+;; rime
+(use-package rime
+  :custom
+  (default-input-method "rime"))
