@@ -65,7 +65,7 @@
 ;; the below is my own config
 ;;(keyfreq-mode 1)
 (require 'pyim)
-(setq pyim-page-tooltip 'posframe)
+;; (setq pyim-page-tooltip 'posframe)
 (setq pyim-default-scheme 'microsoft-shuangpin)
 (setq pyim-dicts
       '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim")))
@@ -73,11 +73,11 @@
 ;(setq pyim-punctuation-half-width-functions 1)
 
 ; postframe color setting
-(require 'posframe)
-(setq posframe-arghandler #'my-posframe-arghandler)
-(defun my-posframe-arghandler (buffer-or-name arg-name value)
-  (let ((info '(:internal-border-width 10 :background-color "#007BA7")))
-    (or (plist-get info arg-name) value))) ; 蔚蓝色
+;; (require 'posframe)
+;; (setq posframe-arghandler #'my-posframe-arghandler)
+;; (defun my-posframe-arghandler (buffer-or-name arg-name value)
+  ;; (let ((info '(:internal-border-width 10 :background-color "#007BA7")))
+    ;; (or (plist-get info arg-name) value))) ; 蔚蓝色
 
 ; leetcode
 (require 'leetcode)
@@ -103,23 +103,23 @@
 (require 'org-protocol)
 
 ; deft
-(require 'deft)
-(setq deft-directory "~/Dropbox/text/deft")
-(setq deft-extensions '("org"))
-(setq deft-default-extension "org")
-(setq deft-text-mode 'org-mode)
-(setq deft-use-filename-as-title t)
-(setq deft-use-filter-string-for-filename t)
-(setq deft-auto-save-interval 0)
-;;key to launch deft
-(global-set-key (kbd "C-c d") 'deft)
+;; (require 'deft)
+;; (setq deft-directory "~/Dropbox/text/deft")
+;; (setq deft-extensions '("org"))
+;; (setq deft-default-extension "org")
+;; (setq deft-text-mode 'org-mode)
+;; (setq deft-use-filename-as-title t)
+;; (setq deft-use-filter-string-for-filename t)
+;; (setq deft-auto-save-interval 0)
+;; ;;key to launch deft
+;; (global-set-key (kbd "C-c d") 'deft)
 
 ; auctex setting
 ;; (setq latex-run-command "xelatex")
-(require 'tex)
-(setq TeX-global-PDF-mode t TeX-engine 'xetex)
-(add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
-(setq TeX-command-default "XeLaTeX")
+;; (require 'tex)
+;; (setq TeX-global-PDF-mode t TeX-engine 'xetex)
+;; (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+;; ;; (setq TeX-command-default "XeLaTeX")
 ; https://emacs-china.org/t/emacs-latex/12658/4
 
 ; auto-save
@@ -160,7 +160,7 @@
 
 ; gc
 ;(setq garbage-collection-messages t)
-(setq gc-cons-threshold (eval-when-compile (* 1024 1024 1024)))
+;; (setq gc-cons-threshold (eval-when-compile (* 1024 1024 1024)))
 ;(run-with-idle-timer 2 t (lambda () (garbage-collect)))
 ; https://t.codebug.vip/questions-120317.htm
 
@@ -190,14 +190,14 @@
 ;
 
 ; counsel-google switch to google, It's fine for me here
-(require 'counsel)
-(setq counsel-search-engine 'google)
-
+;;(require 'counsel)
+;;(setq counsel-search-engine 'google)
 
 ; --- ZMonster's org-capture template
 ;
 ; org
 ; https://www.zmonster.me/2018/02/28/org-mode-capture.html
+(require 'org)
 (add-to-list 'org-capture-templates '("z" "ZMonster"))
 (add-to-list 'org-capture-templates '("zt" "Tasks"))
 (add-to-list 'org-capture-templates
@@ -309,9 +309,13 @@
 ; ----- end of ZMonster's org settings
 
 ; smex
-;(require 'smex)
-;(smex-initialize)
-;(global-set-key (kbd "M-x") 'smex)
-;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; (require 'smex)
+;; (smex-initialize)
+;; (global-set-key (kbd "M-x") 'smex)
+;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
-;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(require 'org-download)
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
