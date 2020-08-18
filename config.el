@@ -63,14 +63,14 @@
 
 
 ;; the below is my own config
-;;(keyfreq-mode 1)
-(require 'pyim)
-;; (setq pyim-page-tooltip 'posframe)
-(setq pyim-default-scheme 'microsoft-shuangpin)
-(setq pyim-dicts
-      '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim")))
-;(setq pyim-punctuation-translate-p 'auto)
-;(setq pyim-punctuation-half-width-functions 1)
+;; logo
+(setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
+
+(use-package pyim
+  :custom
+  (pyim-default-scheme 'microsoft-shuangpin "Change to microsoft-shuangpin")
+  (pyim-dicts
+   '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim"))))
 
 
 ; postframe color setting
@@ -82,13 +82,16 @@
 
 ; leetcode
 (require 'leetcode)
-(setq leetcode-prefer-language "cpp")
-(setq leetcode-save-solutions t)
-(setq leetcode-directory "~/Dropbox/project/leetcode")
+
+(use-package leetcode
+  :custom
+  (leetcode-prefer-language "cpp")
+  (leetcode-save-solutions t)
+  (leetcode-directory "~/Dropbox/project/leetcode"))
 
 ;; (require 'youdao-dictionary)
 
-; org-roam
+                                        ; org-roam
 ;; (require 'org-roam)
 ;; (require 'org-roam-server)
 ;; (require 'org-roam-protocol)
@@ -99,11 +102,11 @@
 ;;       org-roam-server-export-inline-images t
 ;;       org-roam-server-authenticate nil)
 ;; (org-roam-server-mode)
-; emacs server
+                                        ; emacs server
 ;; (server-start)
 ;; jk(require 'org-protocol)
 
-; deft
+                                        ; deft
 ;; (require 'deft)
 ;; (setq deft-directory "~/Dropbox/text/deft")
 ;; (setq deft-extensions '("org"))
@@ -115,32 +118,47 @@
 ;; ;;key to launch deft
 ;; (global-set-key (kbd "C-c d") 'deft)
 
-; auctex setting
+                                        ; auctex setting
 ;; (setq latex-run-command "xelatex")
 ;; (require 'tex)
 ;; (setq TeX-global-PDF-mode t TeX-engine 'xetex)
 ;; (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
 ;; ;; (setq TeX-command-default "XeLaTeX")
-; https://emacs-china.org/t/emacs-latex/12658/4
+                                        ; https://emacs-china.org/t/emacs-latex/12658/4
 
-; auto-save
-; https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto_002dSaving.html
+                                        ; auto-save
+                                        ; https://www.gnu.org/software/emacs/manual/html_node/elisp/Auto_002dSaving.html
 ;; (setq auto-save-interval 300)
-(defun full-auto-save ()
-  (interactive)
-  (save-excursion
-    (dolist (buf (buffer-list))
-      (set-buffer buf)
-      (if (and (buffer-file-name) (buffer-modified-p))
-          (basic-save-buffer)))))
-(add-hook 'auto-save-hook 'full-auto-save)
-; https://www.emacswiki.org/emacs/AutoSave
-; maybe it's time for me to get myself config with emacs
-; if I have time, I will TODO
-(defun save-all ()
-  (interactive)
-  (save-some-buffers t))
-(add-hook 'focus-out-hook 'save-all)
+;; (defun full-auto-save ()
+;;   (interactive)
+;;   (save-excursion
+;;     (dolist (buf (buffer-list))
+;;       (set-buffer buf)
+;;       (if (and (buffer-file-name) (buffer-modified-p))
+;;           (basic-save-buffer)))))
+;; (add-hook 'auto-save-hook 'full-auto-save)
+
+(use-package files
+  :init
+  (defun full-auto-save ()
+    (interactive)
+    (save-excursion
+      (dolist (buf (buffer-list))
+        (set-buffer buf)
+        (if (and (buffer-file-name) (buffer-modified-p))
+            (basic-save-buffer)))))
+  :hook ((auto-save-hook . full-auto-save)))
+
+                                        ; https://www.emacswiki.org/emacs/AutoSave
+                                        ; maybe it's time for me to get myself config with emacs
+                                        ; if I have time, I will TODO
+(use-package frame
+  :init
+  (defun save-all ()
+    (interactive)
+    (save-some-buffers t))
+  :hook
+  ((focus-out-hook . save-all)))
 
 ; org
 (require 'org)
@@ -153,8 +171,7 @@
 (setq org-log-done 'time)
 ; https://emacs-orgmode.gnu.narkive.com/n5bQRs5t/o-multiple-recursive-directories-with-org-agenda-files
 
-; logo
-(setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
+
 
 ; org-mode done but no time
 ;
@@ -191,121 +208,127 @@
 ;
 
 ; counsel-google switch to google, It's fine for me here
-(require 'counsel)
-(setq counsel-search-engine 'google)
+;; (require 'counsel)
+;; (setq counsel-search-engine 'google)
+(use-package counsel
+  :custom
+  (counsel-search-engine 'google))
 
-; --- ZMonster's org-capture template
-;
-; org
-; https://www.zmonster.me/2018/02/28/org-mode-capture.html
-(require 'org)
-(add-to-list 'org-capture-templates '("z" "ZMonster"))
-(add-to-list 'org-capture-templates '("zt" "Tasks"))
-(add-to-list 'org-capture-templates
-             '("ztr" "Book Reading Task" entry
-               (file+olp "~/Dropbox/text/org/task.org" "Reading" "Book")
-               "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
-(add-to-list 'org-capture-templates
-             '("ztw" "Work Task" entry
-               (file+headline "~/Dropbox/text/org/task.org" "Work")
-               "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
-(add-to-list 'org-capture-templates
-             '("zj" "Journal" entry (file "~/Dropbox/text/org/journal.org")
-               "* %U - %^{heading}\n  %?"))
-(add-to-list 'org-capture-templates
-             '("zi" "Inbox" entry (file "~/Dropbox/text/org/inbox.org")
-               "* %U - %^{heading} %^g\n %?\n"))
-(add-to-list 'org-capture-templates
-             '("zn" "Notes" entry (file "~/Dropbox/text/org/notes/inbox.org")
-               "* %^{heading} %t %^g\n  %?\n"))
+                                        ; --- ZMonster's org-capture template
+                                        ;
+                                        ; org
+                                        ; https://www.zmonster.me/2018/02/28/org-mode-capture.html
+                                        ;
+                                        ;
+(use-package org
+  :init
+  (progn (add-to-list 'org-capture-templates '("z" "ZMonster"))
+         (add-to-list 'org-capture-templates '("zt" "Tasks"))
+         (add-to-list 'org-capture-templates
+                      '("ztr" "Book Reading Task" entry
+                        (file+olp "~/Dropbox/text/org/task.org" "Reading" "Book")
+                        "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
+         (add-to-list 'org-capture-templates
+                      '("ztw" "Work Task" entry
+                        (file+headline "~/Dropbox/text/org/task.org" "Work")
+                        "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
+         (add-to-list 'org-capture-templates
+                      '("zj" "Journal" entry (file "~/Dropbox/text/org/journal.org")
+                        "* %U - %^{heading}\n  %?"))
+         (add-to-list 'org-capture-templates
+                      '("zi" "Inbox" entry (file "~/Dropbox/text/org/inbox.org")
+                        "* %U - %^{heading} %^g\n %?\n"))
+         (add-to-list 'org-capture-templates
+                      '("zn" "Notes" entry (file "~/Dropbox/text/org/notes/inbox.org")
+                        "* %^{heading} %t %^g\n  %?\n"))
 
-(add-to-list 'org-capture-templates '("w" "Wangding"))
-(add-to-list 'org-capture-templates
-             '("wm" "Milestone" entry (file "~/Dropbox/text/org/milestone.org")
-               "* %^{heading} %t %^g\n%?\n"))
+         (add-to-list 'org-capture-templates '("w" "Wangding"))
+         (add-to-list 'org-capture-templates
+                      '("wm" "Milestone" entry (file "~/Dropbox/text/org/milestone.org")
+                        "* %^{heading} %t %^g\n%?\n"))
 
-(defun get-year-and-month ()
-  (list (format-time-string "%Y年") (format-time-string "%m月")))
+         (defun get-year-and-month ()
+           (list (format-time-string "%Y年") (format-time-string "%m月")))
 
 
-(defun find-month-tree ()
-  (let* ((path (get-year-and-month))
-         (level 1)
-         end)
-    (unless (derived-mode-p 'org-mode)
-      (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
-    (goto-char (point-min))             ;移动到 buffer 的开始位置
-    ;; 先定位表示年份的 headline，再定位表示月份的 headline
-    (dolist (heading path)
-      (let ((re (format org-complex-heading-regexp-format
-                        (regexp-quote heading)))
-            (cnt 0))
-        (if (re-search-forward re end t)
-            (goto-char (point-at-bol))  ;如果找到了 headline 就移动到对应的位置
-          (progn                        ;否则就新建一个 headline
-            (or (bolp) (insert "\n"))
-            (if (/= (point) (point-min)) (org-end-of-subtree t t))
-            (insert (make-string level ?*) " " heading "\n"))))
-      (setq level (1+ level))
-      (setq end (save-excursion (org-end-of-subtree t t))))
-    (org-end-of-subtree)))
-(add-to-list 'org-capture-templates
-             '("zb" "Billing" plain
-               (file+function "~/Dropbox/text/org/billing.org" find-month-tree)
-               " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
+         (defun find-month-tree ()
+           (let* ((path (get-year-and-month))
+                  (level 1)
+                  end)
+             (unless (derived-mode-p 'org-mode)
+               (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
+             (goto-char (point-min))             ;移动到 buffer 的开始位置
+             ;; 先定位表示年份的 headline，再定位表示月份的 headline
+             (dolist (heading path)
+               (let ((re (format org-complex-heading-regexp-format
+                                 (regexp-quote heading)))
+                     (cnt 0))
+                 (if (re-search-forward re end t)
+                     (goto-char (point-at-bol))  ;如果找到了 headline 就移动到对应的位置
+                   (progn                        ;否则就新建一个 headline
+                     (or (bolp) (insert "\n"))
+                     (if (/= (point) (point-min)) (org-end-of-subtree t t))
+                     (insert (make-string level ?*) " " heading "\n"))))
+               (setq level (1+ level))
+               (setq end (save-excursion (org-end-of-subtree t t))))
+             (org-end-of-subtree)))
+         (add-to-list 'org-capture-templates
+                      '("zb" "Billing" plain
+                        (file+function "~/Dropbox/text/org/billing.org" find-month-tree)
+                        " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
-(add-to-list 'org-capture-templates
-             '("zc" "Contacts" table-line (file "~/Dropbox/text/org/contacts.org")
-               "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
+         (add-to-list 'org-capture-templates
+                      '("zc" "Contacts" table-line (file "~/Dropbox/text/org/contacts.org")
+                        "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
-(add-to-list 'org-capture-templates '("zp" "Protocol"))
-(add-to-list 'org-capture-templates
-             '("zpb" "Protocol Bookmarks" entry
-               (file+headline "~/Dropbox/text/org/web.org" "Bookmarks")
-               "* %U - %:annotation" :immediate-finish t :kill-buffer t))
-(add-to-list 'org-capture-templates
-             '("zpn" "Protocol Bookmarks" entry
-               (file+headline "~/Dropbox/text/org/web.org" "Notes")
-               "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
-  (org-capture-put :target (list 'file+headline
-                                 (nth 1 (org-capture-get :target))
-                                 (org-capture-get :annotation)))
-  (org-capture-put-target-region-and-position)
-  (widen)
-  (let ((hd (nth 2 (org-capture-get :target))))
-    (goto-char (point-min))
-    (if (re-search-forward
-         (format org-complex-heading-regexp-format (regexp-quote hd)) nil t)
-        (org-end-of-subtree)
-      (goto-char (point-max))
-      (or (bolp) (insert "\n"))
-      (insert "* " hd "\n"))))
-(add-to-list 'org-capture-templates
-             '("zpa" "Protocol Annotation" plain
-               (file+function "~/Dropbox/text/org/web.org" org-capture-template-goto-link)
-               "  %U - %?\n\n  %:initial" :empty-lines 1))
-(defun generate-anki-note-body ()
-  (interactive)
-  (message "Fetching note types...")
-  (let ((note-types (sort (anki-editor-note-types) #'string-lessp))
-        (decks (sort (anki-editor-deck-names) #'string-lessp))
-        deck note-type fields)
-    (setq deck (completing-read "Choose a deck: " decks))
-    (setq note-type (completing-read "Choose a note type: " note-types))
-    (message "Fetching note fields...")
-    (setq fields (anki-editor--anki-connect-invoke-result "modelFieldNames" `((modelName . ,note-type))))
-    (concat "  :PROPERTIES:\n"
-            "  :ANKI_DECK: " deck "\n"
-            "  :ANKI_NOTE_TYPE: " note-type "\n"
-            "  :END:\n\n"
-            (mapconcat (lambda (str) (concat "** " str))
-                       fields
-                       "\n\n"))))
-(add-to-list 'org-capture-templates
-             `("zv" "Vocabulary" entry
-               (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
-               ,(concat "* %^{heading} :note:\n"
-                        "%(generate-anki-note-body)\n")))
+         (add-to-list 'org-capture-templates '("zp" "Protocol"))
+         (add-to-list 'org-capture-templates
+                      '("zpb" "Protocol Bookmarks" entry
+                        (file+headline "~/Dropbox/text/org/web.org" "Bookmarks")
+                        "* %U - %:annotation" :immediate-finish t :kill-buffer t))
+         (add-to-list 'org-capture-templates
+                      '("zpn" "Protocol Bookmarks" entry
+                        (file+headline "~/Dropbox/text/org/web.org" "Notes")
+                        "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
+                      (org-capture-put :target (list 'file+headline
+                                                     (nth 1 (org-capture-get :target))
+                                                     (org-capture-get :annotation)))
+                      (org-capture-put-target-region-and-position)
+                      (widen)
+                      (let ((hd (nth 2 (org-capture-get :target))))
+                        (goto-char (point-min))
+                        (if (re-search-forward
+                             (format org-complex-heading-regexp-format (regexp-quote hd)) nil t)
+                            (org-end-of-subtree)
+                          (goto-char (point-max))
+                          (or (bolp) (insert "\n"))
+                          (insert "* " hd "\n"))))
+         (add-to-list 'org-capture-templates
+                      '("zpa" "Protocol Annotation" plain
+                        (file+function "~/Dropbox/text/org/web.org" org-capture-template-goto-link)
+                        "  %U - %?\n\n  %:initial" :empty-lines 1))
+         (defun generate-anki-note-body ()
+           (interactive)
+           (message "Fetching note types...")
+           (let ((note-types (sort (anki-editor-note-types) #'string-lessp))
+                 (decks (sort (anki-editor-deck-names) #'string-lessp))
+                 deck note-type fields)
+             (setq deck (completing-read "Choose a deck: " decks))
+             (setq note-type (completing-read "Choose a note type: " note-types))
+             (message "Fetching note fields...")
+             (setq fields (anki-editor--anki-connect-invoke-result "modelFieldNames" `((modelName . ,note-type))))
+             (concat "  :PROPERTIES:\n"
+                     "  :ANKI_DECK: " deck "\n"
+                     "  :ANKI_NOTE_TYPE: " note-type "\n"
+                     "  :END:\n\n"
+                     (mapconcat (lambda (str) (concat "** " str))
+                                fields
+                                "\n\n"))))
+         (add-to-list 'org-capture-templates
+                      `("zv" "Vocabulary" entry
+                        (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
+                        ,(concat "* %^{heading} :note:\n"
+                                 "%(generate-anki-note-body)\n")))))
 
 ; ----- end of ZMonster's org settings
 
@@ -320,3 +343,7 @@
 (require 'org-download)
 ;; Drag-and-drop to `dired`
 (add-hook 'dired-mode-hook 'org-download-enable)
+
+(use-package org-download
+  :hook
+  ((dired-mode-hook . org-download-enable)))
