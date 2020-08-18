@@ -41,7 +41,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type nil)
+(setq display-line-numbers-type t)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -107,7 +107,7 @@
   (progn (require 'find-lisp)
          (require 'org-refile)
          (setq org-agenda-files (find-lisp-find-files org-directory org-agenda-file-regexp))
-         (setq org-refile-targets (quote ((org-agenda-files :maxlevel .1))))
+         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
