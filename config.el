@@ -233,7 +233,7 @@
   :init
   (progn
     (require 'posframe)
-    ;; https://github.com/DogLooksGood/emacs-rime
+    ;; https://github.com/DogLooksGood/emacs-rime 候选框最后一项不显示
     (defun +rime--posframe-display-content-a (args)
       "给 `rime--posframe-display-content' 传入的字符串加一个全角空
 格，以解决 `posframe' 偶尔吃字的问题。"
