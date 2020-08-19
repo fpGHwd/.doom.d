@@ -21,10 +21,15 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;;
 (setq doom-font (font-spec :family "Monaco" :size 16)
-      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
+      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
+;; (setq doom-font (font-spec :family "mononoki" :size 18 :weight 'light)
+;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
+;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 17)
+;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 24))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -234,5 +239,5 @@
   (rime-user-data-dir "~/.config/ibus/rime")
   (rime-posframe-properties (list :background-color "#333333"
                                   :foreground-color "#dcdccc"
-                                  :font "Monaco"))
+                                  :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe))
