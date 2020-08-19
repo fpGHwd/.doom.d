@@ -251,7 +251,7 @@
       (error "Function `rime--posframe-display-content' is not available.")))
   :custom
   (default-input-method "rime")
-  (rime-user-data-dir "~/.config/ibus/rime")
+  (rime-user-data-dir "~/.doom.d/rime")
   (rime-posframe-properties (list :background-color "#333333"
                                   :foreground-color "#dcdccc"
                                   :font "Sarasa UI SC"))
