@@ -1,4 +1,4 @@
-;c;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;; $DOOMDIR/config.el
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -136,7 +136,6 @@
 
          (defun get-year-and-month ()
            (list (format-time-string "%Y年") (format-time-string "%m月")))
-
 
          (defun find-month-tree ()
            (let* ((path (get-year-and-month))
