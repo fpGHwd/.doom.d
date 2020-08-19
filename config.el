@@ -68,6 +68,7 @@
 
 
 ;; my own config
+
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
 
@@ -85,8 +86,6 @@
   (leetcode-save-solutions t)
   (leetcode-directory "~/Dropbox/project/leetcode"))
 
-;; (require 'youdao-dictionary)
-
 (defun full-auto-save ()
   (interactive)
   (save-excursion
@@ -99,8 +98,7 @@
 (defun save-all ()
   (interactive)
   (save-some-buffers t))
-(add-hook 'after-focus-change-function 'save-all)
-
+(add-hook 'focus-out-hook 'save-all)
 
 (use-package counsel
   :custom
@@ -233,7 +231,23 @@
 ;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
 (use-package rime
   :init
-  (require 'posframe)
+  (progn
+    (require 'posframe)
+    ;; https://github.com/DogLooksGood/emacs-rime
+    (defun +rime--posframe-display-content-a (args)
+      "给 `rime--posframe-display-content' 传入的字符串加一个全角空
+格，以解决 `posframe' 偶尔吃字的问题。"
+      (cl-destructuring-bind (content) args
+        (let ((newresult (if (string-blank-p content)
+                             content
+                           (concat content "　"))))
+          (list newresult))))
+
+    (if (fboundp 'rime--posframe-display-content)
+        (advice-add 'rime--posframe-display-content
+                    :filter-args
+                    #'+rime--posframe-display-content-a)
+      (error "Function `rime--posframe-display-content' is not available.")))
   :custom
   (default-input-method "rime")
   (rime-user-data-dir "~/.config/ibus/rime")
@@ -241,3 +255,5 @@
                                   :foreground-color "#dcdccc"
                                   :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe))
+
+;; https://emacs.nasy.moe/

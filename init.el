@@ -183,4 +183,4 @@
   :custom
   (url-automatic-caching t)
   :bind
-  )
+  ("C-c y" . youdao-dictionary-search-at-point))
