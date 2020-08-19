@@ -1,4 +1,4 @@
-;; $DOOMDIR/config.el
+;; $DOOMDIR/config.el 
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -94,7 +94,7 @@
 (defun save-all ()
   (interactive)
   (save-some-buffers t))
-(add-hook 'focus-out-hook 'save-all)
+(add-hook 'after-focus-change-function 'save-all)
 
 
 (use-package counsel
