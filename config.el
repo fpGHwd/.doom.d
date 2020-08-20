@@ -41,7 +41,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/text/")
+(setq org-directory "~/Dropbox/text/org")
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -72,13 +72,6 @@
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
 
-;; pyim
-;; (use-package pyim
-;;   :custom
-;;  (pyim-default-scheme 'microsoft-shuangpin "Change to microsoft-shuangpin")
-;;  (pyim-dicts
-;;   '((:name "dict1" :file "~/Dropbox/emacs/pyim-bigdict.pyim"))))
-
 ;; leetcode
 (use-package leetcode
   :custom
@@ -86,6 +79,7 @@
   (leetcode-save-solutions t)
   (leetcode-directory "~/Dropbox/project/leetcode"))
 
+;; autosave
 (defun full-auto-save ()
   (interactive)
   (save-excursion
@@ -100,17 +94,19 @@
   (save-some-buffers t))
 (add-hook 'focus-out-hook 'save-all)
 
+;; counsel
 (use-package counsel
   :custom
   (counsel-search-engine 'google))
 
+;; org
 (use-package org
   :custom
   (org-log-done 'time)
   :init
   (progn (require 'find-lisp)
          (require 'org-refile)
-         (setq org-agenda-files (find-lisp-find-files org-directory org-agenda-file-regexp))
+         (setq org-agenda-files (find-lisp-find-files "~/Dropbox/text" org-agenda-file-regexp))
          (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
@@ -257,4 +253,5 @@
                                   :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe))
 
+;; TODO
 ;; https://emacs.nasy.moe/
