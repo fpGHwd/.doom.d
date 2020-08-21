@@ -73,13 +73,6 @@
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
 
-;; leetcode
-(use-package leetcode
-  :custom
-  (leetcode-prefer-language "cpp")
-  (leetcode-save-solutions t)
-  (leetcode-directory "~/Dropbox/project/leetcode"))
-
 ;; autosave
 (defun full-auto-save ()
   (interactive)
@@ -94,6 +87,14 @@
   (interactive)
   (save-some-buffers t))
 (add-hook 'focus-out-hook 'save-all)
+
+
+;; leetcode
+(use-package leetcode
+  :custom
+  (leetcode-prefer-language "cpp")
+  (leetcode-save-solutions t)
+  (leetcode-directory "~/Dropbox/project/leetcode"))
 
 ;; counsel
 (use-package counsel
@@ -286,7 +287,7 @@
     (add-hook 'org2nikola-after-hook 'org2nikola-after-hook-setup)))
 
 ;; Java
-;; see modules/lang/java/README.org
+;; refer to modules/lang/java/README.org
 
 ;; spotify
 (use-package helm-spotify-plus
