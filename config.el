@@ -98,7 +98,7 @@
 ;; counsel
 (use-package counsel
   :bind
-  ("C-x w c" . counsel-google)
+  ("C-x w g" . counsel-google)
   :custom
   (counsel-search-engine 'google))
 
