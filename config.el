@@ -261,7 +261,6 @@
 
 ;; nikola
 (use-package org2nikola
-  :load-path "/home/wd/Dropbox/emacs/extensions/org2nikola"
   :custom
   (org2nikola-output-root-directory "~/.config/nikola")
   (org2nikola-use-verbose-metadata t)
