@@ -68,6 +68,7 @@
 
 
 ;; my own config
+;; https://github.com/jwiegley/use-package
 
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
@@ -253,16 +254,11 @@
                                   :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe))
 
-;; TODO
 ;; https://emacs.nasy.moe/
 
 ;; nikola
-;; (use-package nikola
-;;   :custom
-;;   (nikola-output-root-directory "~/.config/nikola/"))
-;; (require 'ox-nikola)
-(add-to-list 'load-path "/home/wd/Dropbox/emacs/extensions/org2nikola")
 (use-package org2nikola
+  :load-path "/home/wd/Dropbox/emacs/extensions/org2nikola"
   :custom
   (org2nikola-output-root-directory "~/.config/nikola")
   (org2nikola-use-verbose-metadata t)
@@ -286,3 +282,6 @@
         ))
 
     (add-hook 'org2nikola-after-hook 'org2nikola-after-hook-setup)))
+
+;; Java
+;; see modules/lang/java/README.org
