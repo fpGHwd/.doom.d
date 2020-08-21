@@ -97,6 +97,8 @@
 
 ;; counsel
 (use-package counsel
+  :bind
+  ("C-x w c" . counsel-google)
   :custom
   (counsel-search-engine 'google))
 
@@ -285,3 +287,8 @@
 
 ;; Java
 ;; see modules/lang/java/README.org
+
+;; spotify
+(use-package helm-spotify-plus
+  :bind
+  ("C-x w s" . helm-spotify-plus))
