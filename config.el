@@ -272,14 +272,14 @@
       "see https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/ for setup
  run `ln -s ~/projs/redguardtoo.github.io ~/.config/nikola/output`, btw"
       (let ((url (concat "https://fpghwd.github.io/posts/" slug "/index.html"))
-            cmd)
+            (cmd nil)
+            (nikola-dir (file-truename "~/.config/nikola/"))
+            (nikola-output-path (file-truename (concat nikola-dir "output/"))))
         ;; copy the blog url into kill-ring
         (kill-new url)
         (message "%s => kill-ring" url)
         ;; nikola is building posts ...
-        (setq nikola-dir (file-truename "~/.config/nikola/"))
         (shell-command (format "cd %s && nikola build" nikola-dir))
-        (setq nikola-output-path (file-truename "~/.config/nikola/output/"))
         (setq cmd (format "cd %s && git add . && git commit -m 'updated' && git push origin master" nikola-output-path))
         ;; (message cmd)
         (shell-command cmd)
