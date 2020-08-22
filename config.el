@@ -90,6 +90,7 @@
 
 
 ;; leetcode
+;; https://github.com/kaiwk/leetcode.el
 (use-package leetcode
   :custom
   (leetcode-prefer-language "cpp")
@@ -220,6 +221,7 @@
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org-download
+;; https://github.com/abo-abo/org-download
 (use-package org-download
   :hook
   ((dired-mode-hook . org-download-enable)))
@@ -242,6 +244,7 @@
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
+;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
 (use-package org-roam-server
   :init
   (require 'org-roam-protocol)
@@ -266,6 +269,7 @@
 
 ;; rime
 ;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
+;; https://github.com/DogLooksGood/emacs-rime
 (use-package rime
   :init
   (progn
@@ -297,6 +301,7 @@
 ;; https://emacs.nasy.moe/
 
 ;; nikola
+;; https://github.com/redguardtoo/org2nikola
 (use-package org2nikola
   :custom
   (org2nikola-output-root-directory "~/.config/nikola")
@@ -326,11 +331,13 @@
 ;; refer to modules/lang/java/README.org
 
 ;; spotify
+;; https://github.com/wandersoncferreira/helm-spotify-plus
 (use-package helm-spotify-plus
   :bind
   ("C-x w s" . helm-spotify-plus))
 
 ;; telega
+;; https://github.com/zevlg/telega.el
 (use-package telega
   :commands (telega)
   :defer t
@@ -353,6 +360,7 @@
   ("C-x w y" . youdao-dictionary-search-at-point-posframe))
 
 ;; podcaster
+;; https://github.com/lujun9972/podcaster
 (use-package! podcaster
   :custom
   (podcaster-feeds-urls '("https://pythonhunter.org/episodes/feed.xml"
