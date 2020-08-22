@@ -229,8 +229,7 @@
 (use-package org-roam
   :ensure t
   :hook
-  ((after-init . org-roam-mode)
-   (after-init . server-start))
+  (after-init . org-roam-mode)
   :custom
   (org-roam-directory "~/Dropbox/text/roam/")
   :bind (:map org-roam-mode-map
@@ -240,6 +239,7 @@
          :map org-mode-map
          (("C-c n i" . org-roam-insert)) ;; not work
          (("C-c n I" . org-roam-insert-immediate)))) ;; neither work
+
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
 (use-package org-roam-server
@@ -247,7 +247,8 @@
   (require 'org-roam-protocol)
   :ensure t
   :hook
-  (after-init . org-roam-server-mode)
+  ((after-init . server-start)          ;; emacs-server starts
+   (after-init . org-roam-server-mode))
   :config
   (setq org-roam-server-host "127.0.0.1"
         org-roam-server-port 9090
