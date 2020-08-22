@@ -323,4 +323,4 @@
 (use-package! podcaster
   :custom
   (podcaster-feeds-urls '("https://pythonhunter.org/episodes/feed.xml"
-                          )))
+                          "http://voice.beartalking.com/rss")))
