@@ -296,4 +296,25 @@
 ;; telega
 (use-package telega
   :commands (telega)
-  :defer t)
+  :defer t
+  :custom
+  (telega-notifications-mode 1)
+  (telega-proxies (list
+       '(:server "1.2.3.4" :port 8080 :enable :false
+                 :type (:@type "proxyTypeSocks5"
+                               :username "rkn" :password "jopa"))
+       '(:server "127.0.0.1" :port 1080 :enable t
+         :type (:@type "proxyTypeSocks5"))
+       )))
+
+
+;; server
+(server-start)
+
+
+;; youdao-dictionary
+(use-package youdao-dictionary
+  :custom
+  (url-automatic-caching t)
+  :bind
+  ("C-x w y" . youdao-dictionary-search-at-point-posframe))
