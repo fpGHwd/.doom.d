@@ -318,3 +318,9 @@
   (url-automatic-caching t)
   :bind
   ("C-x w y" . youdao-dictionary-search-at-point-posframe))
+
+;; podcaster
+(use-package! podcaster
+  :custom
+  (podcaster-feeds-urls '("https://pythonhunter.org/episodes/feed.xml"
+                          )))
