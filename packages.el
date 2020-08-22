@@ -18,6 +18,7 @@
 (package! helm-w3m)
 (package! podcaster)
 (package! org-roam)
+(package! org-roam-server)
 
 
 ;; To install a package directly from a remote git repo, you must specify a

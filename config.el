@@ -225,20 +225,43 @@
   ((dired-mode-hook . org-download-enable)))
 
 ;; org-roam
-;; TODO
+;; https://github.com/org-roam/org-roam
 (use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/Dropbox/text/roam/")
-      :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph-show))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate))))
+  :ensure t
+  :hook
+  ((after-init . org-roam-mode)
+   (after-init . server-start))
+  :custom
+  (org-roam-directory "~/Dropbox/text/roam/")
+  :bind (:map org-roam-mode-map
+         (("C-c n l" . org-roam)
+          ("C-c n f" . org-roam-find-file)
+          ("C-c n g" . org-roam-graph-show))
+         :map org-mode-map
+         (("C-c n i" . org-roam-insert)) ;; not work
+         (("C-c n I" . org-roam-insert-immediate)))) ;; neither work
+;; org-roam-server
+;; https://github.com/org-roam/org-roam-server
+(use-package org-roam-server
+  :init
+  (require 'org-roam-protocol)
+  :ensure t
+  :hook
+  (after-init . org-roam-server-mode)
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 9090
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+;; org-roam protocol
+
 
 ;; rime
 ;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
@@ -319,10 +342,6 @@
        '(:server "127.0.0.1" :port 1080 :enable t
          :type (:@type "proxyTypeSocks5"))
        )))
-
-
-;; server
-(server-start)
 
 
 ;; youdao-dictionary
