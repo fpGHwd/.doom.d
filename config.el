@@ -225,7 +225,20 @@
   ((dired-mode-hook . org-download-enable)))
 
 ;; org-roam
-;; Now I think org-mode is enough, tsuzuku...
+;; TODO
+(use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/Dropbox/text/roam/")
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-graph-show))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))
+              (("C-c n I" . org-roam-insert-immediate))))
 
 ;; rime
 ;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
