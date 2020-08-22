@@ -292,3 +292,8 @@
 (use-package helm-spotify-plus
   :bind
   ("C-x w s" . helm-spotify-plus))
+
+;; telega
+(use-package telega
+  :commands (telega)
+  :defer t)

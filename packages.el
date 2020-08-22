@@ -23,6 +23,12 @@
 (package! org2nikola
   :recipe (:host github :repo "redguardtoo/org2nikola"))
 
+(package! telega
+  :recipe (:host github
+           :repo "zevlg/telega.el"
+           :branch "master"
+           :files (:defaults "etc" "server" "Makefile")))
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':
