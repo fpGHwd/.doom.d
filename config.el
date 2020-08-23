@@ -89,8 +89,7 @@
 (add-hook 'focus-out-hook 'save-all)
 
 
-;; leetcode
-;; https://github.com/kaiwk/leetcode.el
+;; leetcode 
 (use-package leetcode
   :custom
   (leetcode-prefer-language "cpp")
@@ -221,7 +220,6 @@
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org-download
-;; https://github.com/abo-abo/org-download
 (use-package org-download
   :hook
   ((dired-mode-hook . org-download-enable)))
@@ -250,7 +248,7 @@
   (require 'org-roam-protocol)
   :ensure t
   :hook
-  ((after-init . server-start)          ;; emacs-server starts
+  ((after-init . server-start) ;; emacs-server starts
    (after-init . org-roam-server-mode))
   :config
   (setq org-roam-server-host "127.0.0.1"
@@ -344,12 +342,12 @@
   :custom
   (telega-notifications-mode 1)
   (telega-proxies (list
-       '(:server "1.2.3.4" :port 8080 :enable :false
-                 :type (:@type "proxyTypeSocks5"
-                               :username "rkn" :password "jopa"))
-       '(:server "127.0.0.1" :port 1080 :enable t
-         :type (:@type "proxyTypeSocks5"))
-       )))
+                   '(:server "1.2.3.4" :port 8080 :enable :false
+                     :type (:@type "proxyTypeSocks5"
+                            :username "rkn" :password "jopa"))
+                   '(:server "127.0.0.1" :port 1080 :enable t
+                     :type (:@type "proxyTypeSocks5"))
+                   )))
 
 
 ;; youdao-dictionary
