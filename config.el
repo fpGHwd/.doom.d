@@ -221,8 +221,8 @@
 
 ;; org-download
 (use-package org-download
-  :hook
-  ((dired-mode-hook . org-download-enable)))
+  :init
+  (add-hook 'dired-mode-hook 'org-download-enable))
 
 ;; org-roam
 ;; https://github.com/org-roam/org-roam
@@ -370,3 +370,21 @@
 (setq spotify-songs-list "~/Dropbox/text/spotify-songs-list.txt")
 ;; readfile create list
 ;; items in the list and search and play
+
+
+;; org picture
+(setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+
+
+;; tranparent emacs
+;; https://www.emacswiki.org/emacs/TransparentEmacs
+;; (set-frame-parameter (selected-frame) 'alpha '(85 . 50))
+;; (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
+
+
+;; latex
+; https://emacs-china.org/t/emacs-latex/12658/4
+(setq latex-run-command "xelatex")
+(setq TeX-global-PDF-mode t TeX-engine 'xetex)
+;; (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+(setq TeX-command-default "XeLaTeX")
