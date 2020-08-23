@@ -72,6 +72,8 @@
 
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
+(setq gc-cons-threshold (* 1000 1024 1024))
+(setq gc-cons-percentage 5)
 
 ;; autosave
 (defun full-auto-save ()
@@ -82,12 +84,10 @@
       (if (and (buffer-file-name) (buffer-modified-p))
           (basic-save-buffer)))))
 (add-hook 'auto-save-hook 'full-auto-save)
-
 (defun save-all ()
   (interactive)
   (save-some-buffers t))
 (add-hook 'focus-out-hook 'save-all)
-
 
 ;; leetcode 
 (use-package leetcode
@@ -135,7 +135,7 @@
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
                       '("wm" "Milestone" entry (file "~/Dropbox/text/org/milestone.org")
-                        "* %^{heading} %t %^g\n%?\n"))
+                        "* %^{heading} %t %^g\n%?\n" :prepend t))
 
          (defun get-year-and-month ()
            (list (format-time-string "%Y年") (format-time-string "%m月")))
@@ -227,7 +227,6 @@
 ;; org-roam
 ;; https://github.com/org-roam/org-roam
 (use-package org-roam
-  :ensure t
   :hook
   (after-init . org-roam-mode)
   :custom
@@ -246,7 +245,6 @@
 (use-package org-roam-server
   :init
   (require 'org-roam-protocol)
-  :ensure t
   :hook
   ((after-init . server-start) ;; emacs-server starts
    (after-init . org-roam-server-mode))
@@ -361,7 +359,14 @@
 ;; https://github.com/lujun9972/podcaster
 (use-package! podcaster
   :custom
-  (podcaster-feeds-urls '("https://pythonhunter.org/episodes/feed.xml"
-                          "http://voice.beartalking.com/rss"
+  (podcaster-feeds-urls '("http://voice.beartalking.com/rss"
                           "https://feed.podbean.com/speakmylanguage/feed.xml"
-                          "https://www.ximalaya.com/album/203355.xml")))
+                          "http://feed.thisamericanlife.org/talpodcast"
+                          "https://fs.blog/knowledge-project/feed/"
+                          "https://jamesaltucher.com/podcasts/feed/")))
+;; https://www.douban.com/note/763676277/
+
+;; read list and play song by spotify
+(setq spotify-songs-list "~/Dropbox/text/spotify-songs-list.txt")
+;; readfile create list
+;; items in the list and search and play
