@@ -1,4 +1,4 @@
-;; $DOOMDIR/config.el 
+;; $DOOMDIR/config.el
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -223,43 +223,29 @@
 (setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
-;; https://github.com/org-roam/org-roam
-;; (use-package org-roam
-;;   :hook
-;;   (after-init . org-roam-mode)
-;;   :custom
-;;   (org-roam-directory "~/Dropbox/text/roam/")
-;;   :bind (:map org-roam-mode-map
-;;          (("C-c n l" . org-roam)
-;;           ("C-c n f" . org-roam-find-file)
-;;           ("C-c n g" . org-roam-graph-show))
-;;          :map org-mode-map
-;;          (("C-c n i" . org-roam-insert)) ;; not work
-;;          (("C-c n I" . org-roam-insert-immediate)))) ;; neither work
 (setq org-roam-directory "~/Dropbox/text/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
 ;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
-(use-package org-roam-server
-  :init
-  (require 'org-roam-protocol)
-  :hook
-  ((after-init . server-start) ;; emacs-server starts
-   (after-init . org-roam-server-mode))
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 9090
-        org-roam-server-authenticate nil
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
-;; org-roam protocol
+;; (use-package org-roam-server
+;;   :init
+;;   (require 'org-roam-protocol)
+;;   :hook
+;;   ((after-init . server-start) ;; emacs-server starts
+;;    (after-init . org-roam-server-mode))
+;;   :config
+;;   (setq org-roam-server-host "127.0.0.1"
+;;         org-roam-server-port 9090
+;;         org-roam-server-authenticate nil
+;;         org-roam-server-export-inline-images t
+;;         org-roam-server-serve-files nil
+;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+;;         org-roam-server-network-poll t
+;;         org-roam-server-network-arrows nil
+;;         org-roam-server-network-label-truncate t
+;;         org-roam-server-network-label-truncate-length 60
+;;         org-roam-server-network-label-wrap-length 20))
 
 
 ;; rime
@@ -322,14 +308,6 @@
 
     (add-hook 'org2nikola-after-hook 'org2nikola-after-hook-setup)))
 
-;; Java
-;; refer to modules/lang/java/README.org
-
-;; spotify
-;; https://github.com/wandersoncferreira/helm-spotify-plus
-;; (use-package helm-spotify-plus
-;;   :bind
-;;   ("C-x w s" . helm-spotify-plus))
 
 ;; telega
 ;; https://github.com/zevlg/telega.el
@@ -339,20 +317,9 @@
   :custom
   (telega-notifications-mode 1)
   (telega-proxies (list
-                   '(:server "1.2.3.4" :port 8080 :enable :false
-                     :type (:@type "proxyTypeSocks5"
-                            :username "rkn" :password "jopa"))
                    '(:server "127.0.0.1" :port 1080 :enable t
-                     :type (:@type "proxyTypeSocks5"))
-                   )))
+                     :type (:@type "proxyTypeSocks5")))))
 
-
-;; youdao-dictionary
-;; (use-package youdao-dictionary
-;;   :custom
-;;   (url-automatic-caching t)
-;;   :bind
-;;   ("C-x w y" . youdao-dictionary-search-at-point-posframe))
 
 ;; podcaster
 ;; https://github.com/lujun9972/podcaster
@@ -364,17 +331,6 @@
                           "https://fs.blog/knowledge-project/feed/"
                           "https://jamesaltucher.com/podcasts/feed/")))
 ;; https://www.douban.com/note/763676277/
-
-
-;; TODO read list and play song by spotify
-;; (setq spotify-songs-list "~/Dropbox/text/spotify-songs-list.txt")
-;; readfile create list
-;; items in the list and search and play
-
-;; tranparent emacs
-;; https://www.emacswiki.org/emacs/TransparentEmacs
-;; (set-frame-parameter (selected-frame) 'alpha '(85 . 90))
-;; (add-to-list 'default-frame-alist '(alpha . (85 . 90)))
 
 
 ;; latex
@@ -389,10 +345,22 @@
 (map!
  :leader
  (:prefix-map ("," . "reverved keys")
-  :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point
+  :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point-posframe
   :desc "spotify" "s" #'helm-spotify-plus
   :desc "podcaster" "p" #'podcaster
   :desc "leetcode" "l" #'leetcode
   :desc "counsel-google" "g" #'counsel-google
   :desc "clipboard-yank" "v" #'clipboard-yank
-  :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save))
+  :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
+  :desc "org-download-screenshot" "d" #'org-download-screenshot))
+
+;; org-journal
+(setq org-journal-dir "~/Dropbox/text/journal/")
+(setq org-journal-date-format "%A, %d %B %Y")
+(setq org-journal-file-type "monthly")
+
+;; wayland not support maim
+;; https://github.com/naelstrof/maim/issues/67
+;; org-download-screenshot
+;; (setq org-download-screenshot-method "gnome-screenshot -a -f %s")
+;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
