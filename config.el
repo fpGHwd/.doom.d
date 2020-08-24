@@ -137,6 +137,19 @@
                       '("wm" "Milestone" entry (file "~/Dropbox/text/org/milestone.org")
                         "* %^{heading} %t %^g\n%?\n" :prepend t))
 
+         ;; https://github.com/bastibe/org-journal
+         (defun org-journal-find-location ()
+           ;; Open today's journal, but specify a non-nil prefix argument in order to
+           ;; inhibit inserting the heading; org-capture will insert the heading.
+           (org-journal-new-entry t)
+           ;; Position point on the journal's top-level heading so that org-capture
+           ;; will add the new entry as a child entry.
+           (goto-char (point-min)))
+         (add-to-list 'org-capture-templates
+                      '("wj" "Journal entry" entry (function org-journal-find-location)
+                        "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?"))
+
+
          (defun get-year-and-month ()
            (list (format-time-string "%Y年") (format-time-string "%m月")))
 
@@ -217,7 +230,9 @@
                       `("zv" "Vocabulary" entry
                         (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
-                                 "%(generate-anki-note-body)\n")))))
+                                 "%(generate-anki-note-body)\n")))
+
+         ))
 
 ;; org picture
 (setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
@@ -339,6 +354,7 @@
 (setq TeX-global-PDF-mode t TeX-engine 'xetex)
 (setq TeX-command-default "XeLaTeX")
 
+
 ;; map!
 ;; map is just like a evil-define-key's warpper
 ;; https://emacs-china.org/t/topic/5089
@@ -352,12 +368,15 @@
   :desc "counsel-google" "g" #'counsel-google
   :desc "clipboard-yank" "v" #'clipboard-yank
   :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
-  :desc "org-download-screenshot" "d" #'org-download-screenshot))
+  :desc "org-download-screenshot" "d" #'org-download-screenshot
+  :desc "org-journal-new-insert" "j" #'org-journal-new-entry))
+
 
 ;; org-journal
 (setq org-journal-dir "~/Dropbox/text/journal/")
 (setq org-journal-date-format "%A, %d %B %Y")
-(setq org-journal-file-type "monthly")
+(setq org-journal-file-type 'monthly)
+
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
