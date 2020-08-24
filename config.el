@@ -98,8 +98,8 @@
 
 ;; counsel
 (use-package counsel
-  :bind
-  ("C-x w g" . counsel-google)
+  ;; :bind
+  ;; ("C-x w g" . counsel-google)
   :custom
   (counsel-search-engine 'google))
 
@@ -327,9 +327,9 @@
 
 ;; spotify
 ;; https://github.com/wandersoncferreira/helm-spotify-plus
-(use-package helm-spotify-plus
-  :bind
-  ("C-x w s" . helm-spotify-plus))
+;; (use-package helm-spotify-plus
+;;   :bind
+;;   ("C-x w s" . helm-spotify-plus))
 
 ;; telega
 ;; https://github.com/zevlg/telega.el
@@ -348,17 +348,15 @@
 
 
 ;; youdao-dictionary
-(use-package youdao-dictionary
-  :custom
-  (url-automatic-caching t)
-  :bind
-  ("C-x w y" . youdao-dictionary-search-at-point-posframe))
+;; (use-package youdao-dictionary
+;;   :custom
+;;   (url-automatic-caching t)
+;;   :bind
+;;   ("C-x w y" . youdao-dictionary-search-at-point-posframe))
 
 ;; podcaster
 ;; https://github.com/lujun9972/podcaster
 (use-package! podcaster
-  :bind
-  ("C-x w p" . podcaster)
   :custom
   (podcaster-feeds-urls '("http://voice.beartalking.com/rss"
                           "https://feed.podbean.com/speakmylanguage/feed.xml"
@@ -375,8 +373,8 @@
 
 ;; tranparent emacs
 ;; https://www.emacswiki.org/emacs/TransparentEmacs
-(set-frame-parameter (selected-frame) 'alpha '(85 . 90))
-(add-to-list 'default-frame-alist '(alpha . (85 . 90)))
+;; (set-frame-parameter (selected-frame) 'alpha '(85 . 90))
+;; (add-to-list 'default-frame-alist '(alpha . (85 . 90)))
 
 
 ;; latex
@@ -384,3 +382,14 @@
 (setq latex-run-command "xelatex")
 (setq TeX-global-PDF-mode t TeX-engine 'xetex)
 (setq TeX-command-default "XeLaTeX")
+
+;; map
+(map!
+ :leader
+ :desc "test map"
+ (:prefix-map ("," . "reverved keys")
+  :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point
+  :desc "spotify" "s" #'helm-spotify-plus
+  :desc "podcaster" "p" #'podcaster
+  :desc "leetcode" "l" #'leetcode
+  :desc "counsel-google" "g" #'counsel-google))
