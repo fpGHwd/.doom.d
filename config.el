@@ -219,25 +219,24 @@
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
-;; org-download
-(use-package org-download
-  :init
-  (add-hook 'dired-mode-hook 'org-download-enable))
+;; org picture
+(setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
 ;; https://github.com/org-roam/org-roam
-(use-package org-roam
-  :hook
-  (after-init . org-roam-mode)
-  :custom
-  (org-roam-directory "~/Dropbox/text/roam/")
-  :bind (:map org-roam-mode-map
-         (("C-c n l" . org-roam)
-          ("C-c n f" . org-roam-find-file)
-          ("C-c n g" . org-roam-graph-show))
-         :map org-mode-map
-         (("C-c n i" . org-roam-insert)) ;; not work
-         (("C-c n I" . org-roam-insert-immediate)))) ;; neither work
+;; (use-package org-roam
+;;   :hook
+;;   (after-init . org-roam-mode)
+;;   :custom
+;;   (org-roam-directory "~/Dropbox/text/roam/")
+;;   :bind (:map org-roam-mode-map
+;;          (("C-c n l" . org-roam)
+;;           ("C-c n f" . org-roam-find-file)
+;;           ("C-c n g" . org-roam-graph-show))
+;;          :map org-mode-map
+;;          (("C-c n i" . org-roam-insert)) ;; not work
+;;          (("C-c n I" . org-roam-insert-immediate)))) ;; neither work
+(setq org-roam-directory "~/Dropbox/text/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -358,6 +357,8 @@
 ;; podcaster
 ;; https://github.com/lujun9972/podcaster
 (use-package! podcaster
+  :bind
+  ("C-x w p" . podcaster)
   :custom
   (podcaster-feeds-urls '("http://voice.beartalking.com/rss"
                           "https://feed.podbean.com/speakmylanguage/feed.xml"
@@ -366,25 +367,20 @@
                           "https://jamesaltucher.com/podcasts/feed/")))
 ;; https://www.douban.com/note/763676277/
 
-;; read list and play song by spotify
-(setq spotify-songs-list "~/Dropbox/text/spotify-songs-list.txt")
+
+;; TODO read list and play song by spotify
+;; (setq spotify-songs-list "~/Dropbox/text/spotify-songs-list.txt")
 ;; readfile create list
 ;; items in the list and search and play
 
-
-;; org picture
-(setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
-
-
 ;; tranparent emacs
 ;; https://www.emacswiki.org/emacs/TransparentEmacs
-;; (set-frame-parameter (selected-frame) 'alpha '(85 . 50))
-;; (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
+(set-frame-parameter (selected-frame) 'alpha '(85 . 90))
+(add-to-list 'default-frame-alist '(alpha . (85 . 90)))
 
 
 ;; latex
 ; https://emacs-china.org/t/emacs-latex/12658/4
 (setq latex-run-command "xelatex")
 (setq TeX-global-PDF-mode t TeX-engine 'xetex)
-;; (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
 (setq TeX-command-default "XeLaTeX")

@@ -12,12 +12,10 @@
 (package! rime)
 (package! youdao-dictionary)
 (package! posframe)
-(package! org-download)
 (package! leetcode)
 (package! w3m)
 (package! helm-w3m)
 (package! podcaster)
-(package! org-roam)
 (package! org-roam-server)
 (package! command-log-mode)
 
