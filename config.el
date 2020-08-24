@@ -383,13 +383,16 @@
 (setq TeX-global-PDF-mode t TeX-engine 'xetex)
 (setq TeX-command-default "XeLaTeX")
 
-;; map
+;; map!
+;; map is just like a evil-define-key's warpper
+;; https://emacs-china.org/t/topic/5089
 (map!
  :leader
- :desc "test map"
  (:prefix-map ("," . "reverved keys")
   :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point
   :desc "spotify" "s" #'helm-spotify-plus
   :desc "podcaster" "p" #'podcaster
   :desc "leetcode" "l" #'leetcode
-  :desc "counsel-google" "g" #'counsel-google))
+  :desc "counsel-google" "g" #'counsel-google
+  :desc "clipboard-yank" "v" #'clipboard-yank
+  :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save))
