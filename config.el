@@ -88,6 +88,7 @@
   (interactive)
   (save-some-buffers t))
 (add-hook 'focus-out-hook 'save-all)
+(add-hook 'doom-switch-buffer-hook 'save-all)
 
 ;; leetcode 
 (use-package leetcode
@@ -144,10 +145,10 @@
            (org-journal-new-entry t)
            ;; Position point on the journal's top-level heading so that org-capture
            ;; will add the new entry as a child entry.
-           (goto-char (point-min)))
+           )
          (add-to-list 'org-capture-templates
-                      '("wj" "Journal entry" entry (function org-journal-find-location)
-                        "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?"))
+                      '("wj" "Journal entry" plain (function org-journal-find-location)
+                        "** %(format-time-string org-journal-time-format)%?"))
 
 
          (defun get-year-and-month ()
@@ -230,9 +231,7 @@
                       `("zv" "Vocabulary" entry
                         (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
-                                 "%(generate-anki-note-body)\n")))
-
-         ))
+                                 "%(generate-anki-note-body)\n")))))
 
 ;; org picture
 (setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
@@ -243,24 +242,24 @@
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
 ;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
-;; (use-package org-roam-server
-;;   :init
-;;   (require 'org-roam-protocol)
-;;   :hook
-;;   ((after-init . server-start) ;; emacs-server starts
-;;    (after-init . org-roam-server-mode))
-;;   :config
-;;   (setq org-roam-server-host "127.0.0.1"
-;;         org-roam-server-port 9090
-;;         org-roam-server-authenticate nil
-;;         org-roam-server-export-inline-images t
-;;         org-roam-server-serve-files nil
-;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-;;         org-roam-server-network-poll t
-;;         org-roam-server-network-arrows nil
-;;         org-roam-server-network-label-truncate t
-;;         org-roam-server-network-label-truncate-length 60
-;;         org-roam-server-network-label-wrap-length 20))
+(use-package org-roam-server
+  :init
+  (require 'org-roam-protocol)
+  :hook
+  ((after-init . server-start) ;; emacs-server starts
+   (after-init . org-roam-server-mode))
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 9090
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
 
 
 ;; rime
@@ -310,7 +309,7 @@
       (let ((url (concat "https://fpghwd.github.io/posts/" slug "/index.html"))
             (cmd nil)
             (nikola-dir (file-truename "~/.config/nikola/"))
-            (nikola-output-path (file-truename (concat nikola-dir "output/"))))
+            (nikola-output-path (file-truename "~/.config/nikola/output")))
         ;; copy the blog url into kill-ring
         (kill-new url)
         (message "%s => kill-ring" url)
@@ -318,8 +317,7 @@
         (shell-command (format "cd %s && nikola build" nikola-dir))
         (setq cmd (format "cd %s && git add . && git commit -m 'updated' && git push origin master" nikola-output-path))
         ;; (message cmd)
-        (shell-command cmd)
-        ))
+        (shell-command cmd)))
 
     (add-hook 'org2nikola-after-hook 'org2nikola-after-hook-setup)))
 
@@ -369,17 +367,25 @@
   :desc "clipboard-yank" "v" #'clipboard-yank
   :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
   :desc "org-download-screenshot" "d" #'org-download-screenshot
-  :desc "org-journal-new-insert" "j" #'org-journal-new-entry))
+  :desc "org-journal-new-insert" "j" #'org-journal-new-entry
+  :desc "deft" "f" #'deft
+  :desc "eshell" "e" #'eshell))
 
 
 ;; org-journal
-(setq org-journal-dir "~/Dropbox/text/journal/")
-(setq org-journal-date-format "%A, %d %B %Y")
-(setq org-journal-file-type 'monthly)
+(setq org-journal-dir "~/Dropbox/text/journal/"
+      org-journal-date-format "%A, %d %B %Y"
+      org-journal-file-type 'monthly)
 
+
+;; deft
+(setq deft-directory "~/Dropbox/text/deft")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
 ;; org-download-screenshot
 ;; (setq org-download-screenshot-method "gnome-screenshot -a -f %s")
 ;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
+
+;; tabnine
+(add-to-list 'company-backends 'company-tabnine)
