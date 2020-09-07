@@ -22,15 +22,36 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 ;;
-(setq doom-font (font-spec :family "Monaco" :size 16)
+(setq doom-font (font-spec :family "Consolas" :size 16)
       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
+;; (setq doom-font (font-spec :family "Monaco" :size 16)
+;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
+;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
+;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
 ;; (setq doom-font (font-spec :family "mononoki" :size 18 :weight 'light)
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 17)
 ;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 24))
 
+;; italic when comment and keyword
+;;       https://www.reddit.com/r/emacs/comments/f531pt/doom_wherehow_to_change_syntax_highlighting/
+(custom-set-faces! '(font-lock-comment-face :slant italic) '(font-lock-keyword-face :slant italic))
+
+;; line spacing
+;; https://www.reddit.com/r/emacs/comments/3hag14/line_spacing/
+(setq line-spacing 0.2)
+;; http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html
+(defun xah-toggle-line-spacing ()
+  "Toggle line spacing between no extra space to extra half line height.
+URL `http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html'
+Version 2017-06-02"
+  (interactive)
+  (if line-spacing
+      (setq line-spacing nil)
+    (setq line-spacing 0.2))
+  (redraw-frame (selected-frame))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
