@@ -62,7 +62,8 @@ Version 2017-06-02"
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme 'doom-one)
-(setq doom-theme 'doom-moonlight)
+;; (setq doom-theme 'doom-moonlight)
+(setq doom-theme 'doom-gruvbox-light)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -324,6 +325,8 @@ Version 2017-06-02"
                              rime-predicate-space-after-cc-p
                              rime-predicate-current-uppercase-letter-p
                              rime-predicate-punctuation-after-space-cc-p)))
+;; temporary english predict
+;; https://github.com/DogLooksGood/emacs-rime
 
 
 ;; nikola
