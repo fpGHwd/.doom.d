@@ -130,7 +130,7 @@
                       '("zi" "Inbox" entry (file "~/Dropbox/text/org/inbox.org")
                         "* %U - %^{heading} %^g\n %?\n"))
          (add-to-list 'org-capture-templates
-                      '("zn" "Notes" entry (file "~/Dropbox/text/org/notes/inbox.org")
+                      '("zn" "Notes" entry (file "~/Dropbox/text/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
