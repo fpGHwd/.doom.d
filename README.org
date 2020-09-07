@@ -4,7 +4,7 @@
 #+STARTUP: inlineimages nofold
 
 * Table of Contents :TOC_3:noexport:
-- [[#print-screen][print screen]]
+- [[#print-screen][Print screen]]
 - [[#description][Description]]
   - [[#maintainers][Maintainers]]
   - [[#module-flags][Module Flags]]
@@ -15,7 +15,7 @@
 - [[#configuration][Configuration]]
 - [[#troubleshooting][Troubleshooting]]
 
-* print screen
+* Print screen
  [[file:image/1.png][首页]]
  [[file:image/2.png][代码]]
 

@@ -316,7 +316,14 @@ Version 2017-06-02"
   (rime-posframe-properties (list :background-color "#333333"
                                   :foreground-color "#dcdccc"
                                   :font "Sarasa UI SC"))
-  (rime-show-candidate 'posframe))
+  (rime-show-candidate 'posframe)
+  (rime-disable-predicates '(rime-predicate-after-ascii-char-p
+                             rime-predicate-prog-in-code-p
+                             rime-predicate-punctuation-line-begin-p
+                             rime-predicate-punctuation-after-ascii-p
+                             rime-predicate-space-after-cc-p
+                             rime-predicate-current-uppercase-letter-p
+                             rime-predicate-punctuation-after-space-cc-p)))
 
 
 ;; nikola
