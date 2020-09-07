@@ -42,7 +42,6 @@
 ;; line spacing
 ;; https://www.reddit.com/r/emacs/comments/3hag14/line_spacing/
 (setq line-spacing 0.2)
-
 ;; http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html
 (defun xah-toggle-line-spacing ()
   "Toggle line spacing between no extra space to extra half line height.
@@ -54,6 +53,7 @@ Version 2017-06-02"
     (setq line-spacing 0.2))
   (redraw-frame (selected-frame)))
 ;; https://stackoverflow.com/questions/7899949/is-there-an-emacs-hook-that-runs-after-every-buffer-is-created
+;; TODO change line-spacing when in programming buffer only
 (add-hook 'after-change-major-mode-hook 'xah-toggle-line-spacing)
 ;; https://emacs.nasy.moe/
 
