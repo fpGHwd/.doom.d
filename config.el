@@ -42,6 +42,7 @@
 ;; line spacing
 ;; https://www.reddit.com/r/emacs/comments/3hag14/line_spacing/
 (setq line-spacing 0.2)
+
 ;; http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html
 (defun xah-toggle-line-spacing ()
   "Toggle line spacing between no extra space to extra half line height.
@@ -51,7 +52,10 @@ Version 2017-06-02"
   (if line-spacing
       (setq line-spacing nil)
     (setq line-spacing 0.2))
-  (redraw-frame (selected-frame))
+  (redraw-frame (selected-frame)))
+;; https://stackoverflow.com/questions/7899949/is-there-an-emacs-hook-that-runs-after-every-buffer-is-created
+(add-hook 'after-change-major-mode-hook 'xah-toggle-line-spacing)
+;; https://emacs.nasy.moe/
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -314,7 +318,6 @@ Version 2017-06-02"
                                   :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe))
 
-;; https://emacs.nasy.moe/
 
 ;; nikola
 ;; https://github.com/redguardtoo/org2nikola
