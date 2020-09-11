@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
-       ;;chinese
+       ;; chinese
        ;;japanese
 
        :completion
@@ -25,7 +25,7 @@
        ivy               ; a search engine for love and life
 
        :ui
-       deft              ; notational velocity for Emacs
+       ;; deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
@@ -107,8 +107,8 @@
        :lang
        ;;agda              ; types of types of types of types...
        (cc +lsp)                ; C/C++/Obj-C madness
-       clojure           ; java with a lisp
-       common-lisp       ; if you've seen one lisp, you've seen them all
+       ;; clojure           ; java with a lisp
+       ;; common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
@@ -129,9 +129,9 @@
        ;;idris             ;
        ;;json              ; At least it ain't XML
        (java +meghanada) ; the poster child for carpal tunnel syndrome
-       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
+       ;; (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
-       kotlin            ; a better, slicker Java(Script)
+       ;; kotlin            ; a better, slicker Java(Script)
        (latex +cdlatex +lsp)             ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
@@ -145,7 +145,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp)            ; beautiful is better than ugly
+       ;; (python +lsp)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -154,7 +154,7 @@
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       scheme            ; a fully conniving family of lisps
+       ;; scheme            ; a fully conniving family of lisps
        ;; sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
@@ -169,7 +169,7 @@
        ;;(wanderlust +gmail)
 
        :app
-       ;;calendar
+       calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought

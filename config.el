@@ -41,7 +41,7 @@
 
 ;; line spacing
 ;; https://www.reddit.com/r/emacs/comments/3hag14/line_spacing/
-(setq line-spacing 0.2)
+;; (setq line-spacing 0.2)
 ;; http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html
 (defun xah-toggle-line-spacing ()
   "Toggle line spacing between no extra space to extra half line height.
@@ -54,8 +54,9 @@ Version 2017-06-02"
   (redraw-frame (selected-frame)))
 ;; https://stackoverflow.com/questions/7899949/is-there-an-emacs-hook-that-runs-after-every-buffer-is-created
 ;; TODO change line-spacing when in programming buffer only
-(add-hook 'after-change-major-mode-hook 'xah-toggle-line-spacing)
+;; (add-hook 'after-change-major-mode-hook 'xah-toggle-line-spacing)
 ;; https://emacs.nasy.moe/
+;; TODO telega needn't line-spacing
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -310,7 +311,8 @@ Version 2017-06-02"
         (advice-add 'rime--posframe-display-content
                     :filter-args
                     #'+rime--posframe-display-content-a)
-      (error "Function `rime--posframe-display-content' is not available.")))
+      (error "Function `rime--posframe-display-content' is not available."))
+    )
   :custom
   (default-input-method "rime")
   (rime-user-data-dir "~/.doom.d/rime")
@@ -319,12 +321,10 @@ Version 2017-06-02"
                                   :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe)
   (rime-disable-predicates '(rime-predicate-after-ascii-char-p
-                             rime-predicate-prog-in-code-p
-                             rime-predicate-punctuation-line-begin-p
-                             rime-predicate-punctuation-after-ascii-p
-                             rime-predicate-space-after-cc-p
-                             rime-predicate-current-uppercase-letter-p
-                             rime-predicate-punctuation-after-space-cc-p)))
+                             ;; rime-predicate-space-after-cc-p
+                             rime-predicate-current-uppercase-letter-p))
+  ;;; support shift-l, shift-r, control-l, control-r
+  (rime-inline-ascii-trigger 'shift-l))
 ;; temporary english predict
 ;; https://github.com/DogLooksGood/emacs-rime
 
@@ -344,10 +344,10 @@ Version 2017-06-02"
             (cmd nil)
             (nikola-dir (file-truename "~/.config/nikola/"))
             (nikola-output-path (file-truename "~/.config/nikola/output")))
+        ;; nikola is building posts ...
         ;; copy the blog url into kill-ring
         (kill-new url)
         (message "%s => kill-ring" url)
-        ;; nikola is building posts ...
         (shell-command (format "cd %s && nikola build" nikola-dir))
         (setq cmd (format "cd %s && git add . && git commit -m 'updated' && git push origin master" nikola-output-path))
         ;; (message cmd)
@@ -405,6 +405,8 @@ Version 2017-06-02"
   :desc "deft" "f" #'deft
   :desc "eshell" "e" #'eshell))
 
+;; TODO rime-force-enable keybinding
+;; https://github.com/DogLooksGood/emacs-rime
 
 ;; org-journal
 (setq org-journal-dir "~/Dropbox/text/journal/"
@@ -413,13 +415,66 @@ Version 2017-06-02"
 
 
 ;; deft
-(setq deft-directory "~/Dropbox/text/deft")
+;; (setq deft-directory "~/Dropbox/text/deft")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
 ;; org-download-screenshot
-;; (setq org-download-screenshot-method "gnome-screenshot -a -f %s")
+;; (use-package! org-download
+;;  :config
+;;  (org-download-screenshot-method "gnome-screenshot -a -f %s"))
+(setq org-download-screenshot-method "gnome-screenshot -a -f %s")
 ;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
 
 ;; tabnine
 (add-to-list 'company-backends 'company-tabnine)
+
+;; TODO fullscreen after emacs start(hook)
+;; TODO emacs hook
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
+(add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
+
+
+;; cal-china-x
+;; https://emacs-china.org/t/topic/1365
+;; (use-package 'cal-china
+;;   (defconst cal-china-x-chinese-holidays
+;;     '((holiday-fixed 1 1 "元旦")
+;;       (holiday-lunar 12 23 "小年" 0)
+;;       (holiday-lunar 1 1 "春节" 0)
+;;       (holiday-lunar 1 5 "破五" 0)
+;;       (holiday-lunar 1 15 "元宵节" 0)
+;;       (holiday-lunar 2 2 "龙抬头" 0)
+;;       (holiday-solar-term "清明" "清明节")
+;;       (holiday-fixed 5 1 "劳动节")
+;;       (holiday-lunar 5 5 "端午节" 0)
+;;       (holiday-lunar 7 15 "中元节" 0)
+;;       (holiday-lunar 8 15 "中秋节" 0)
+;;       (holiday-lunar 9 9 "重阳节" 0)
+;;       (holiday-fixed 10 1 "国庆节"))
+;;     "Pre-defined Chinese public holidays.
+;; You can add this to your `calendar-holidays'."))
+
+;; lunar
+;; https://emacs-china.org/t/topic/2119/13
+;; (defun my--diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
+;;   (if year
+;;       (let* ((d-date (diary-make-date lunar-month lunar-day year))
+;;              (a-date (calendar-absolute-from-gregorian d-date))
+;;              (c-date (calendar-chinese-from-absolute a-date))
+;;              (cycle (car c-date))
+;;              (yy (cadr c-date))
+;;              (y (+ (* 100 cycle) yy)))
+;;         (diary-chinese-anniversary lunar-month lunar-day y mark))
+;;     (diary-chinese-anniversary lunar-month lunar-day year mark)))
+
+;; carcadian
+;; https://github.com/guidoschmidt/circadian.el
+(use-package! circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 30.4)
+  (setq calendar-longitude 114.9)
+  (setq circadian-themes '((:sunrise . doom-gruvbox-light)
+                           (:sunset  . doom-gruvbox)))
+  (circadian-setup))

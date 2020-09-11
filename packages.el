@@ -16,9 +16,11 @@
 (package! w3m)
 (package! helm-w3m)
 (package! podcaster)
-(package! org-roam-server)
+;; (package! org-roam-server)
 (package! command-log-mode)
 (package! company-tabnine)
+;; (package! cal-china-x)
+(package! circadian)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
