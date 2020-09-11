@@ -36,7 +36,7 @@
 ;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 24))
 
 ;; italic when comment and keyword
-;;       https://www.reddit.com/r/emacs/comments/f531pt/doom_wherehow_to_change_syntax_highlighting/
+;; https://www.reddit.com/r/emacs/comments/f531pt/doom_wherehow_to_change_syntax_highlighting/
 (custom-set-faces! '(font-lock-comment-face :slant italic) '(font-lock-keyword-face :slant italic))
 
 ;; line spacing
@@ -320,9 +320,9 @@ Version 2017-06-02"
                                   :foreground-color "#dcdccc"
                                   :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe)
-  (rime-disable-predicates '(rime-predicate-after-ascii-char-p
+  (rime-disable-predicates '(rime-predicate-auto-english-p
                              ;; rime-predicate-space-after-cc-p
-                             rime-predicate-current-uppercase-letter-p))
+                             rime-predicate-current-uppercase-letter-p)) 
   ;;; support shift-l, shift-r, control-l, control-r
   (rime-inline-ascii-trigger 'shift-l))
 ;; temporary english predict
@@ -427,11 +427,15 @@ Version 2017-06-02"
 ;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
 
 ;; tabnine
-(add-to-list 'company-backends 'company-tabnine)
+(use-package! company-tabnine
+  :init
+  (add-to-list 'company-backends 'company-tabnine))
+;; (add-to-list 'company-backends 'company-tabnine)
 
 ;; TODO fullscreen after emacs start(hook)
 ;; TODO emacs hook
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
+;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen #'+workspace/restore-last-session)
 (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
 
 
