@@ -64,17 +64,16 @@ Version 2017-06-02"
 ;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme 'doom-one)
 ;; (setq doom-theme 'doom-moonlight)
-(setq doom-theme 'doom-gruvbox-light)
+;; (setq doom-theme 'doom-gruvbox-light)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/text/org")
+(setq org-directory "~/Documents/to-encfs/text/org")
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -122,7 +121,7 @@ Version 2017-06-02"
   :custom
   (leetcode-prefer-language "cpp")
   (leetcode-save-solutions t)
-  (leetcode-directory "~/Dropbox/project/leetcode"))
+  (leetcode-directory "~/Documents/to-encfs/text/leetcode"))
 
 ;; counsel
 (use-package counsel
@@ -138,31 +137,31 @@ Version 2017-06-02"
   :init
   (progn (require 'find-lisp)
          (require 'org-refile)
-         (setq org-agenda-files (find-lisp-find-files "~/Dropbox/text" org-agenda-file-regexp))
+         (setq org-agenda-files (find-lisp-find-files "~/Documents/to-encfs/text" org-agenda-file-regexp))
          (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
                       '("ztr" "Book Reading Task" entry
-                        (file+olp "~/Dropbox/text/org/task.org" "Reading" "Book")
+                        (file+olp "~/Documents/to-encfs/text/org/task.org" "Reading" "Book")
                         "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
                       '("ztw" "Work Task" entry
-                        (file+headline "~/Dropbox/text/org/task.org" "Work")
+                        (file+headline "~/Documents/to-encfs/text/org/task.org" "Work")
                         "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
-                      '("zj" "Journal" entry (file "~/Dropbox/text/org/journal.org")
+                      '("zj" "Journal" entry (file "~/Documents/to-encfs/text/org/journal.org")
                         "* %U - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
-                      '("zi" "Inbox" entry (file "~/Dropbox/text/org/inbox.org")
+                      '("zi" "Inbox" entry (file "~/Documents/to-encfs/text/org/inbox.org")
                         "* %U - %^{heading} %^g\n %?\n"))
          (add-to-list 'org-capture-templates
-                      '("zn" "Notes" entry (file "~/Dropbox/text/org/notes.org")
+                      '("zn" "Notes" entry (file "~/Documents/to-encfs/text/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestone" entry (file "~/Dropbox/text/org/milestone.org")
+                      '("wm" "Milestone" entry (file "~/Documents/to-encfs/text/org/milestone.org")
                         "* %^{heading} %t %^g\n%?\n" :prepend t))
 
          ;; https://github.com/bastibe/org-journal
@@ -204,21 +203,21 @@ Version 2017-06-02"
              (org-end-of-subtree)))
          (add-to-list 'org-capture-templates
                       '("zb" "Billing" plain
-                        (file+function "~/Dropbox/text/org/billing.org" find-month-tree)
+                        (file+function "~/Documents/to-encfs/text/org/billing.org" find-month-tree)
                         " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
          (add-to-list 'org-capture-templates
-                      '("zc" "Contacts" table-line (file "~/Dropbox/text/org/contacts.org")
+                      '("zc" "Contacts" table-line (file "~/Documents/to-encfs/text/org/contacts.org")
                         "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
          (add-to-list 'org-capture-templates '("zp" "Protocol"))
          (add-to-list 'org-capture-templates
                       '("zpb" "Protocol Bookmarks" entry
-                        (file+headline "~/Dropbox/text/org/web.org" "Bookmarks")
+                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Bookmarks")
                         "* %U - %:annotation" :immediate-finish t :kill-buffer t))
          (add-to-list 'org-capture-templates
                       '("zpn" "Protocol Bookmarks" entry
-                        (file+headline "~/Dropbox/text/org/web.org" "Notes")
+                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Notes")
                         "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
                       (org-capture-put :target (list 'file+headline
                                                      (nth 1 (org-capture-get :target))
@@ -235,7 +234,7 @@ Version 2017-06-02"
                           (insert "* " hd "\n"))))
          (add-to-list 'org-capture-templates
                       '("zpa" "Protocol Annotation" plain
-                        (file+function "~/Dropbox/text/org/web.org" org-capture-template-goto-link)
+                        (file+function "~/Documents/to-encfs/text/org/web.org" org-capture-template-goto-link)
                         "  %U - %?\n\n  %:initial" :empty-lines 1))
          (defun generate-anki-note-body ()
            (interactive)
@@ -256,7 +255,7 @@ Version 2017-06-02"
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "~/Dropbox/text/org/anki.org" "Vocabulary")
+                        (file+headline "~/Documents/to-encfs/text/org/anki.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
@@ -264,7 +263,7 @@ Version 2017-06-02"
 (setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
-(setq org-roam-directory "~/Dropbox/text/roam")
+(setq org-roam-directory "~/Documents/to-encfs/text/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -403,19 +402,21 @@ Version 2017-06-02"
   :desc "org-download-screenshot" "d" #'org-download-screenshot
   :desc "org-journal-new-insert" "j" #'org-journal-new-entry
   :desc "deft" "f" #'deft
-  :desc "eshell" "e" #'eshell))
+  :desc "eshell" "e" #'eshell
+  :desc "org-roam-find-file" "r" #'org-roam-find-file))
+;; TODO org-roam-find-file r f f
 
 ;; TODO rime-force-enable keybinding
 ;; https://github.com/DogLooksGood/emacs-rime
 
 ;; org-journal
-(setq org-journal-dir "~/Dropbox/text/journal/"
+(setq org-journal-dir "~/Documents/to-encfs/text/journal/"
       org-journal-date-format "%A, %d %B %Y"
       org-journal-file-type 'monthly)
 
 
 ;; deft
-;; (setq deft-directory "~/Dropbox/text/deft")
+;; (setq deft-directory "~/Documents/to-encfs/text/deft")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
@@ -427,10 +428,48 @@ Version 2017-06-02"
 ;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
 
 ;; tabnine
+;; https://github.com/TommyX12/company-tabnine
 (use-package! company-tabnine
   :init
   (add-to-list 'company-backends 'company-tabnine))
 ;; (add-to-list 'company-backends 'company-tabnine)
+;; TODO https://emacs-china.org/t/tabnine/9988/39
+;; (defun company//sort-by-tabnine (candidates)
+;;   (if (or (functionp company-backend)
+;;           (not (and (listp company-backend) (memq 'company-tabnine company-backend))))
+;;       candidates
+;;     (let ((candidates-table (make-hash-table :test #'equal))
+;;           candidates-1
+;;           candidates-2)
+;;       (dolist (candidate candidates)
+;;         (if (eq (get-text-property 0 'company-backend candidate)
+;;                 'company-tabnine)
+;;             (unless (gethash candidate candidates-table)
+;;               (push candidate candidates-2))
+;;           (push candidate candidates-1)
+;;           (puthash candidate t candidates-table)))
+;;       (setq candidates-1 (nreverse candidates-1))
+;;       (setq candidates-2 (nreverse candidates-2))
+;;       (nconc (seq-take candidates-1 2)
+;;              (seq-take candidates-2 2)
+;;              (seq-drop candidates-1 2)
+;;              (seq-drop candidates-2 2)))))
+
+;; (add-to-list 'company-transformers 'company//sort-by-tabnine t)
+;; `:separate`  使得不同 backend 分开排序
+;; (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))
+
+;; The free version of TabNine is good enough,
+;; and below code is recommended that TabNine not always
+;; prompt me to purchase a paid version in a large project.
+;; (defadvice company-echo-show (around disable-tabnine-upgrade-message activate)
+;;   (let ((company-message-func (ad-get-arg 0)))
+;;     (when (and company-message-func
+;;                (stringp (funcall company-message-func)))
+;;       (unless (string-match "The free version of TabNine only indexes up to" (funcall company-message-func))
+;;         ad-do-it))))
+
+
 
 ;; TODO fullscreen after emacs start(hook)
 ;; TODO emacs hook
@@ -479,6 +518,6 @@ Version 2017-06-02"
   :config
   (setq calendar-latitude 30.4)
   (setq calendar-longitude 114.9)
-  (setq circadian-themes '((:sunrise . doom-gruvbox-light)
-                           (:sunset  . doom-gruvbox)))
+  (setq circadian-themes '((:sunrise . doom-one-light)
+                           (:sunset  . doom-one)))
   (circadian-setup))
