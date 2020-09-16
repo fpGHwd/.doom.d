@@ -416,7 +416,7 @@
 
 
 ;; deft
-;; (setq deft-directory "~/Documents/to-encfs/text/deft")
+(setq deft-directory "~/Documents/to-encfs/text/org/deft")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
