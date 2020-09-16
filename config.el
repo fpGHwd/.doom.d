@@ -43,15 +43,15 @@
 ;; https://www.reddit.com/r/emacs/comments/3hag14/line_spacing/
 ;; (setq line-spacing 0.2)
 ;; http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html
-(defun xah-toggle-line-spacing ()
-  "Toggle line spacing between no extra space to extra half line height.
-URL `http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html'
-Version 2017-06-02"
-  (interactive)
-  (if line-spacing
-      (setq line-spacing nil)
-    (setq line-spacing 0.2))
-  (redraw-frame (selected-frame)))
+;; (defun xah-toggle-line-spacing ()
+;;   "Toggle line spacing between no extra space to extra half line height.
+;; URL `http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html'
+;; Version 2017-06-02"
+;;   (interactive)
+;;   (if line-spacing
+;;       (setq line-spacing nil)
+;;     (setq line-spacing 0.2))
+;;   (redraw-frame (selected-frame)))
 ;; https://stackoverflow.com/questions/7899949/is-there-an-emacs-hook-that-runs-after-every-buffer-is-created
 ;; TODO change line-spacing when in programming buffer only
 ;; (add-hook 'after-change-major-mode-hook 'xah-toggle-line-spacing)
@@ -102,19 +102,19 @@ Version 2017-06-02"
 (setq gc-cons-percentage 5)
 
 ;; autosave
-(defun full-auto-save ()
-  (interactive)
-  (save-excursion
-    (dolist (buf (buffer-list))
-      (set-buffer buf)
-      (if (and (buffer-file-name) (buffer-modified-p))
-          (basic-save-buffer)))))
-(add-hook 'auto-save-hook 'full-auto-save)
-(defun save-all ()
-  (interactive)
-  (save-some-buffers t))
-(add-hook 'focus-out-hook 'save-all)
-(add-hook 'doom-switch-buffer-hook 'save-all)
+;; (defun full-auto-save ()
+;;   (interactive)
+;;   (save-excursion
+;;     (dolist (buf (buffer-list))
+;;       (set-buffer buf)
+;;       (if (and (buffer-file-name) (buffer-modified-p))
+;;           (basic-save-buffer)))))
+;; (add-hook 'auto-save-hook 'full-auto-save)
+;; (defun save-all ()
+;;   (interactive)
+;;   (save-some-buffers t))
+;; (add-hook 'focus-out-hook 'save-all)
+;; (add-hook 'doom-switch-buffer-hook 'save-all)
 
 ;; leetcode 
 (use-package leetcode
@@ -260,10 +260,10 @@ Version 2017-06-02"
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org picture
-(setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+(setq org-image-actual-height (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
-(setq org-roam-directory "~/Documents/to-encfs/text/roam")
+(setq org-roam-directory "~/Documents/to-encfs/text/org/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -410,7 +410,7 @@ Version 2017-06-02"
 ;; https://github.com/DogLooksGood/emacs-rime
 
 ;; org-journal
-(setq org-journal-dir "~/Documents/to-encfs/text/journal/"
+(setq org-journal-dir "~/Documents/to-encfs/text/org/journal/"
       org-journal-date-format "%A, %d %B %Y"
       org-journal-file-type 'monthly)
 
@@ -514,7 +514,6 @@ Version 2017-06-02"
 ;; carcadian
 ;; https://github.com/guidoschmidt/circadian.el
 (use-package! circadian
-  :ensure t
   :config
   (setq calendar-latitude 30.4)
   (setq calendar-longitude 114.9)
