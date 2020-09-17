@@ -334,6 +334,17 @@
   :custom
   (org2nikola-output-root-directory "~/.config/nikola")
   (org2nikola-use-verbose-metadata t)
+  (org2nikola-process-output-html-function (lambda (html-text title post-slug)
+                                             (progn
+                                               (let* ((file-path (progn (string-match "\\/home.*[a-z0-9-]\\{34\\}.\\{27\\}.png" html-text)
+                                                                        (match-string 0 html-text))))
+                                                 (setq cmd (format "cp %s /home/wd/.config/nikola/images/" file-path))
+                                                 (shell-command cmd))
+                                               (replace-regexp-in-string
+                                                "file:.*[a-z0-9-]\\{34\\}\/"
+                                                "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
+                                                html-text)
+                                               )))
   :init
   (progn
     (defun org2nikola-after-hook-setup (title slug)
