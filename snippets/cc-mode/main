@@ -1,0 +1,10 @@
+# key: mainfunction for leetcode
+# name: mfl
+# --
+int main(int argc, char **argv){
+    $1;
+    auto solution = new Solution();
+    solution->$2($3);
+
+    return 0;
+}

@@ -334,17 +334,32 @@
   :custom
   (org2nikola-output-root-directory "~/.config/nikola")
   (org2nikola-use-verbose-metadata t)
-  (org2nikola-process-output-html-function (lambda (html-text title post-slug)
-                                             (progn
-                                               (let* ((file-path (progn (string-match "\\/home.*[a-z0-9-]\\{34\\}.\\{27\\}.png" html-text)
-                                                                        (match-string 0 html-text))))
-                                                 (setq cmd (format "cp %s /home/wd/.config/nikola/images/" file-path))
-                                                 (shell-command cmd))
-                                               (replace-regexp-in-string
-                                                "file:.*[a-z0-9-]\\{34\\}\/"
-                                                "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
-                                                html-text)
-                                               )))
+  ;; (org2nikola-process-output-html-function
+  ;;  (lambda (html-text title post-slug)
+  ;;    (progn
+  ;;      (let* ((re-str "\\/home\\/.+?\\.\\(png\\|jpg\\|jpeg\\|bmp\\)"))
+  ;;        (let* ((files-list (s-match-strings-all re-str html-text)))
+  ;;          (dolist (file-path files-list)
+  ;;            (shell-command
+  ;;             cmd (format "cp %s /home/wd/.config/nikola/images/"
+  ;;                         (car file-path))))))
+  ;;      (replace-regexp-in-string
+  ;;       "\\(file:.+?\\/\\)[0-9a-zA-Z_-]+?\\(.png\\|.jpeg\\|.bmp\\|.gif\\|.jpg\\)"
+  ;;       "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
+  ;;       html-text nil nil 1))))
+  (org2nikola-process-output-html-function
+ (lambda (html-text title post-slug)
+   (progn (let* ((re-str "\\/home\\/.+?\\.png"))
+            (let* ((files-list (s-match-strings-all re-str html-text)))
+              (dolist (file-path files-list)
+                ;; (message (format "file-path: %s" (car file-path)))
+                (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path)))
+                (message cmd)
+                (shell-command cmd))))
+          (replace-regexp-in-string
+           "file:.+?\\/[a-z0-9-]\\{34\\}\\/"
+           "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
+           html-text))))
   :init
   (progn
     (defun org2nikola-after-hook-setup (title slug)
@@ -531,3 +546,16 @@
   (setq circadian-themes '((:sunrise . doom-one-light)
                            (:sunset  . doom-one)))
   (circadian-setup))
+
+(use-package! anki-editor)
+(use-package! anki-connect)
+
+(use-package! rainbow-fart
+  :hook (prog-mode . rainbow-fart-mode)
+  :custom
+  (rainbow-fart-voice-model "JustKowalski")
+  (rainbow-fart-keyword-interval nil))
+;; https://github.com/lujun9972/emacs-rainbow-fart
+
+;; TODO autosave prog-mode
+;; TODO balance window when change

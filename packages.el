@@ -21,6 +21,9 @@
 (package! company-tabnine)
 ;; (package! cal-china-x)
 (package! circadian)
+(package! anki-editor)
+(package! anki-vocabulary)
+(package! anki-mode)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
@@ -35,6 +38,12 @@
            :repo "zevlg/telega.el"
            :branch "master"
            :files (:defaults "etc" "server" "Makefile")))
+
+(package! rainbow-fart
+  :recipe (:host github
+           :repo "stardiviner/emacs-rainbow-fart"
+           :branch "master"
+           :files (:defaults "voices")))
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
