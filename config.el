@@ -98,8 +98,11 @@
 
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
-(setq gc-cons-threshold (* 1000 1024 1024))
-(setq gc-cons-percentage 5)
+
+;; garbage
+(setq gc-cons-threshold most-positive-fixnum)
+(add-hook 'focus-out-hook #'garbage-collect)
+(add-hook 'after-init-hook #'(lambda () (setq gc-cons-threshold (* 50 1024 1024))))
 
 ;; autosave
 ;; (defun full-auto-save ()
