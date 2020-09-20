@@ -557,8 +557,17 @@
   :hook (prog-mode . rainbow-fart-mode)
   :custom
   (rainbow-fart-voice-model "JustKowalski")
-  (rainbow-fart-keyword-interval nil))
+  (rainbow-fart-keyword-interval 10))
 ;; https://github.com/lujun9972/emacs-rainbow-fart
 
 ;; TODO autosave prog-mode
 ;; TODO balance window when change
+
+;; TODO clang-format
+;; https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+;; org archive location
+(setq org-archive-location "~/Documents/to-encfs/text/org/archive.org::")
+
+;; unsave query functions when left with unsaved customization
+(add-hook 'kill-emacs-query-functions 'custom-prompt-customize-unsaved-options)
