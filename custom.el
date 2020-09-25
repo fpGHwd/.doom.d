@@ -3,7 +3,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(Man-width t)
+ '(Man-width-max nil)
+ '(geiser-default-implementation 'mit)
+ '(latex-run-command "xelatex")
+ '(org-archive-location "~/Documents/to-encfs/text/org/archive.org::* From %s")
+ '(scheme-mit-dialect t)
+ '(woman-locale "en_US.UTF-8"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

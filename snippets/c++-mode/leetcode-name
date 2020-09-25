@@ -1,0 +1,30 @@
+# -*- mode: snippet -*-
+# name: leetcode-name
+# key: leetcode-key         
+# --
+
+#include<iostream>
+#include<vector>
+#include<map>
+#include<set>
+#include<queue>
+#include<string>
+#include<algorithm>
+#include<numeric>
+
+
+using namespace std;
+
+class Solution {
+public:
+
+};
+
+
+int main(int argc, char *argv[]) {
+
+    auto solution = new Solution();
+
+    return 0;
+
+}

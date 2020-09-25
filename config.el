@@ -113,11 +113,14 @@
 ;;       (if (and (buffer-file-name) (buffer-modified-p))
 ;;           (basic-save-buffer)))))
 ;; (add-hook 'auto-save-hook 'full-auto-save)
-;; (defun save-all ()
-;;   (interactive)
-;;   (save-some-buffers t))
-;; (add-hook 'focus-out-hook 'save-all)
-;; (add-hook 'doom-switch-buffer-hook 'save-all)
+(defun save-all ()
+  (interactive)
+  (save-some-buffers t))
+(add-hook 'focus-out-hook #'save-all)
+
+
+
+
 
 ;; leetcode 
 (use-package leetcode
@@ -258,7 +261,7 @@
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "~/Documents/to-encfs/text/org/anki.org" "Vocabulary")
+                        (file+headline "~/Documents/to-encfs/text/anki/anki-cards.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
@@ -266,7 +269,7 @@
 (setq org-image-actual-height (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
-(setq org-roam-directory "~/Documents/to-encfs/text/org/roam")
+(setq org-roam-directory "~/Documents/to-encfs/text/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -356,7 +359,7 @@
             (let* ((files-list (s-match-strings-all re-str html-text)))
               (dolist (file-path files-list)
                 ;; (message (format "file-path: %s" (car file-path)))
-                (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path)))
+                (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path))) ;; TODO rewrite with mapconcat
                 (message cmd)
                 (shell-command cmd))))
           (replace-regexp-in-string
@@ -425,13 +428,13 @@
   :desc "spotify" "s" #'helm-spotify-plus
   :desc "podcaster" "p" #'podcaster
   :desc "leetcode" "l" #'leetcode
-  :desc "counsel-google" "g" #'counsel-google
+  :desc "counsel-search" "g" #'counsel-search
   :desc "clipboard-yank" "v" #'clipboard-yank
   :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
   :desc "org-download-screenshot" "d" #'org-download-screenshot
   :desc "org-journal-new-insert" "j" #'org-journal-new-entry
   :desc "deft" "f" #'deft
-  :desc "eshell" "e" #'eshell
+  ;; :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
   :desc "org-roam-find-file" "r" #'org-roam-find-file))
 ;; TODO org-roam-find-file r f f
 
@@ -439,13 +442,13 @@
 ;; https://github.com/DogLooksGood/emacs-rime
 
 ;; org-journal
-(setq org-journal-dir "~/Documents/to-encfs/text/org/journal/"
+(setq org-journal-dir "~/Documents/to-encfs/text/journal/"
       org-journal-date-format "%A, %d %B %Y"
       org-journal-file-type 'monthly)
 
 
 ;; deft
-(setq deft-directory "~/Documents/to-encfs/text/org/deft")
+(setq deft-directory "~/Documents/to-encfs/text/deft")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
@@ -458,9 +461,9 @@
 
 ;; tabnine
 ;; https://github.com/TommyX12/company-tabnine
-(use-package! company-tabnine
-  :init
-  (add-to-list 'company-backends 'company-tabnine))
+;; (use-package! company-tabnine
+;;   :init
+;;   (add-to-list 'company-backends 'company-tabnine))
 ;; (add-to-list 'company-backends 'company-tabnine)
 ;; TODO https://emacs-china.org/t/tabnine/9988/39
 ;; (defun company//sort-by-tabnine (candidates)
@@ -499,33 +502,12 @@
 ;;         ad-do-it))))
 
 
-
 ;; TODO fullscreen after emacs start(hook)
 ;; TODO emacs hook
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
 ;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen #'+workspace/restore-last-session)
 (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
 
-
-;; cal-china-x
-;; https://emacs-china.org/t/topic/1365
-;; (use-package 'cal-china
-;;   (defconst cal-china-x-chinese-holidays
-;;     '((holiday-fixed 1 1 "元旦")
-;;       (holiday-lunar 12 23 "小年" 0)
-;;       (holiday-lunar 1 1 "春节" 0)
-;;       (holiday-lunar 1 5 "破五" 0)
-;;       (holiday-lunar 1 15 "元宵节" 0)
-;;       (holiday-lunar 2 2 "龙抬头" 0)
-;;       (holiday-solar-term "清明" "清明节")
-;;       (holiday-fixed 5 1 "劳动节")
-;;       (holiday-lunar 5 5 "端午节" 0)
-;;       (holiday-lunar 7 15 "中元节" 0)
-;;       (holiday-lunar 8 15 "中秋节" 0)
-;;       (holiday-lunar 9 9 "重阳节" 0)
-;;       (holiday-fixed 10 1 "国庆节"))
-;;     "Pre-defined Chinese public holidays.
-;; You can add this to your `calendar-holidays'."))
 
 ;; lunar
 ;; https://emacs-china.org/t/topic/2119/13
@@ -550,6 +532,7 @@
                            (:sunset  . doom-one)))
   (circadian-setup))
 
+;; TODO anki vocabulary capture failed
 (use-package! anki-editor)
 (use-package! anki-connect)
 
@@ -557,17 +540,40 @@
   :hook (prog-mode . rainbow-fart-mode)
   :custom
   (rainbow-fart-voice-model "JustKowalski")
-  (rainbow-fart-keyword-interval 10))
+  (rainbow-fart-keyword-interval 10)
+  (rainbow-fart-time-interval nil))
 ;; https://github.com/lujun9972/emacs-rainbow-fart
+
 
 ;; TODO autosave prog-mode
 ;; TODO balance window when change
 
+
 ;; TODO clang-format
 ;; https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 
-;; org archive location
-(setq org-archive-location "~/Documents/to-encfs/text/org/archive.org::")
 
 ;; unsave query functions when left with unsaved customization
 (add-hook 'kill-emacs-query-functions 'custom-prompt-customize-unsaved-options)
+
+
+;; telega font
+(when (member "Sarasa Mono SC" (font-family-list))
+  (make-face 'telega-align-by-sarasa)
+  (set-face-font 'telega-align-by-sarasa (font-spec :family "Sarasa Mono SC"))
+  (add-hook! '(telega-chat-mode-hook telega-root-mode-hook)
+    (buffer-face-set 'telega-align-by-sarasa)))
+
+
+(when (member "Noto Color Emoji" (font-family-list))
+    (set-fontset-font 't 'symbol
+      (font-spec :family "Noto Color Emoji")
+      nil 'prepend))
+
+
+;; valign
+;; (add-hook 'org-mode-hook #'valign-mode)
+;; https://github.com/casouri/valign
+
+
+;;
