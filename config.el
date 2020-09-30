@@ -581,3 +581,4 @@
 
 
 ;;
+(setq pdf-view-use-unicode-ligther nil)
