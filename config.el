@@ -108,6 +108,19 @@
 (add-hook 'focus-out-hook #'garbage-collect)
 (add-hook 'after-init-hook #'(lambda () (setq gc-cons-threshold (* 50 1024 1024))))
 
+
+;; https://github.com/hlissner/doom-emacs/issues/3372
+;; (require 'loadhist)
+;; (file-dependents (feature-file 'cl))
+
+;;
+(eval-and-compile
+  (setq use-package-always-ensure t)
+  (setq use-package-always-defer t)
+  (setq use-package-expand-minimally t)
+  (setq use-package-enable-imenu-support t))
+
+
 ;; autosave
 ;; (defun full-auto-save ()
 ;;   (interactive)
@@ -127,21 +140,21 @@
 
 
 ;; leetcode 
-(use-package leetcode
+(use-package! leetcode
   :custom
   (leetcode-prefer-language "cpp")
   (leetcode-save-solutions t)
   (leetcode-directory "~/Documents/to-encfs/text/leetcode"))
 
 ;; counsel
-(use-package counsel
+(use-package! counsel
   ;; :bind
   ;; ("C-x w g" . counsel-google)
   :custom
   (counsel-search-engine 'google))
 
 ;; org
-(use-package org
+(use-package! org
   :custom
   (org-log-done 'time)
   :init
@@ -301,7 +314,7 @@
 ;; rime
 ;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
 ;; https://github.com/DogLooksGood/emacs-rime
-(use-package rime
+(use-package! rime
   :init
   (progn
     (require 'posframe)
@@ -340,7 +353,7 @@
 
 ;; nikola
 ;; https://github.com/redguardtoo/org2nikola
-(use-package org2nikola
+(use-package! org2nikola
   :custom
   (org2nikola-output-root-directory "~/.config/nikola")
   (org2nikola-use-verbose-metadata t)
@@ -393,7 +406,7 @@
 
 ;; telega
 ;; https://github.com/zevlg/telega.el
-(use-package telega
+(use-package! telega
   :commands (telega)
   :defer t
   :custom
@@ -429,17 +442,18 @@
  :leader
  (:prefix-map ("," . "reverved keys")
   :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point-posframe
-  :desc "spotify" "s" #'helm-spotify-plus
-  :desc "podcaster" "p" #'podcaster
-  :desc "leetcode" "l" #'leetcode
+  ;; :desc "spotify" "s" #'helm-spotify-plus
+  ;; :desc "podcaster" "p" #'podcaster
+  ;; :desc "leetcode" "l" #'leetcode
   :desc "counsel-search" "g" #'counsel-search
   :desc "clipboard-yank" "v" #'clipboard-yank
   :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
   :desc "org-download-screenshot" "d" #'org-download-screenshot
-  :desc "org-journal-new-insert" "j" #'org-journal-new-entry
-  :desc "deft" "f" #'deft
+  ;; :desc "org-journal-new-insert" "j" #'org-journal-new-entry
+  ;; :desc "deft" "f" #'deft
   ;; :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
-  :desc "org-roam-find-file" "r" #'org-roam-find-file))
+  ;; :desc "org-roam-find-file" "r" #'org-roam-find-file
+  ))
 ;; TODO org-roam-find-file r f f
 
 ;; TODO rime-force-enable keybinding
@@ -510,7 +524,7 @@
 ;; TODO emacs hook
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
 ;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen #'+workspace/restore-last-session)
-;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
+(add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
 
 
 ;; lunar
@@ -528,24 +542,24 @@
 
 ;; carcadian
 ;; https://github.com/guidoschmidt/circadian.el
-(use-package! circadian
-  :config
-  (setq calendar-latitude 30.4)
-  (setq calendar-longitude 114.9)
-  (setq circadian-themes '((:sunrise . doom-one-light)
-                           (:sunset  . doom-one)))
-  (circadian-setup))
+;; (use-package! circadian
+;;   :config
+;;   (setq calendar-latitude 30.4)
+;;   (setq calendar-longitude 114.9)
+;;   (setq circadian-themes '((:sunrise . doom-one-light)
+;;                            (:sunset  . doom-one)))
+;;   (circadian-setup))
 
 ;; TODO anki vocabulary capture failed
 (use-package! anki-editor)
 (use-package! anki-connect)
 
-(use-package! rainbow-fart
-  :hook (prog-mode . rainbow-fart-mode)
-  :custom
-  (rainbow-fart-voice-model "JustKowalski")
-  (rainbow-fart-keyword-interval 10)
-  (rainbow-fart-time-interval nil))
+;; (use-package! rainbow-fart
+;;   :hook (prog-mode . rainbow-fart-mode)
+;;   :custom
+;;   (rainbow-fart-voice-model "JustKowalski")
+;;   (rainbow-fart-keyword-interval 10)
+;;   (rainbow-fart-time-interval nil))
 ;; https://github.com/lujun9972/emacs-rainbow-fart
 
 
@@ -580,5 +594,5 @@
 ;; https://github.com/casouri/valign
 
 
-;;
+;; org-capture
 (setq pdf-view-use-unicode-ligther nil)

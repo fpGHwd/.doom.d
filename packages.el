@@ -8,17 +8,17 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
-(package! helm-spotify-plus)
+;; (package! helm-spotify-plus)
 (package! rime)
 (package! youdao-dictionary)
 (package! posframe)
 (package! leetcode)
-(package! w3m)
-(package! helm-w3m)
-(package! podcaster)
+;; (package! w3m)
+;; (package! helm-w3m)
+;; (package! podcaster)
 ;; (package! org-roam-server)
 (package! command-log-mode)
-(package! company-tabnine)
+;; (package! company-tabnine)
 ;; (package! cal-china-x)
 (package! circadian)
 (package! anki-editor)
@@ -33,17 +33,17 @@
 (package! org2nikola
   :recipe (:host github :repo "redguardtoo/org2nikola"))
 
-(package! telega
-  :recipe (:host github
-           :repo "zevlg/telega.el"
-           :branch "master"
-           :files (:defaults "etc" "server" "Makefile")))
+;; (package! telega
+;;   :recipe (:host github
+;;            :repo "zevlg/telega.el"
+;;            :branch "master"
+;;            :files (:defaults "etc" "server" "Makefile")))
 
-(package! rainbow-fart
-  :recipe (:host github
-           :repo "stardiviner/emacs-rainbow-fart"
-           :branch "master"
-           :files (:defaults "voices")))
+;; (package! rainbow-fart
+;;   :recipe (:host github
+;;            :repo "stardiviner/emacs-rainbow-fart"
+;;            :branch "master"
+;;            :files (:defaults "voices")))
 
 (package! valign
   :recipe (:host github
