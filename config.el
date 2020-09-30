@@ -22,6 +22,10 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 ;;
+;; (setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 16)
+;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
+;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
+;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
 (setq doom-font (font-spec :family "Consolas" :size 16)
       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
@@ -506,7 +510,7 @@
 ;; TODO emacs hook
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
 ;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen #'+workspace/restore-last-session)
-(add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
+;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
 
 
 ;; lunar
@@ -572,7 +576,7 @@
 
 
 ;; valign
-;; (add-hook 'org-mode-hook #'valign-mode)
+(add-hook 'org-mode-hook #'valign-mode)
 ;; https://github.com/casouri/valign
 
 
