@@ -33,11 +33,11 @@
 (package! org2nikola
   :recipe (:host github :repo "redguardtoo/org2nikola"))
 
-;; (package! telega
-;;   :recipe (:host github
-;;            :repo "zevlg/telega.el"
-;;            :branch "master"
-;;            :files (:defaults "etc" "server" "Makefile")))
+(package! telega
+  :recipe (:host github
+           :repo "zevlg/telega.el"
+           :branch "master"
+           :files (:defaults "etc" "server" "Makefile")))
 
 ;; (package! rainbow-fart
 ;;   :recipe (:host github

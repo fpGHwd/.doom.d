@@ -177,8 +177,8 @@
                         "* %U - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
                       '("zi" "Inbox" entry (file "~/Documents/to-encfs/text/org/inbox.org")
-                        "* %U - %^{heading} %^g\n %?\n"))
          (add-to-list 'org-capture-templates
+                        "* %U - %^{heading} %^g\n %?\n"))
                       '("zn" "Notes" entry (file "~/Documents/to-encfs/text/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
 
@@ -466,7 +466,7 @@
 
 
 ;; deft
-(setq deft-directory "~/Documents/to-encfs/text/deft")
+(setq deft-directory "~/Documents/to-encfs/text/deft/")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
