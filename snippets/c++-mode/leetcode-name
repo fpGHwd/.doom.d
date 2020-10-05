@@ -13,6 +13,7 @@
 #include<numeric>
 #include<stack>
 #include<cstring>
+#include<deque>
 
 
 using namespace std;

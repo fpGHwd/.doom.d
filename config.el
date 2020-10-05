@@ -136,9 +136,6 @@
 (add-hook 'focus-out-hook #'save-all)
 
 
-
-
-
 ;; leetcode 
 (use-package! leetcode
   :custom
@@ -283,7 +280,8 @@
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org picture
-(setq org-image-actual-height (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+(setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+;; (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
 (setq org-roam-directory "~/Dropbox/to-encfs/text/roam")
@@ -291,24 +289,24 @@
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
 ;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
-;; (use-package org-roam-server
-;;   :init
-;;   (require 'org-roam-protocol)
-;;   :hook
-;;   ((after-init . server-start) ;; emacs-server starts
-;;    (after-init . org-roam-server-mode))
-;;   :config
-;;   (setq org-roam-server-host "127.0.0.1"
-;;         org-roam-server-port 9090
-;;         org-roam-server-authenticate nil
-;;         org-roam-server-export-inline-images t
-;;         org-roam-server-serve-files nil
-;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-;;         org-roam-server-network-poll t
-;;         org-roam-server-network-arrows nil
-;;         org-roam-server-network-label-truncate t
-;;         org-roam-server-network-label-truncate-length 60
-;;         org-roam-server-network-label-wrap-length 20))
+(use-package org-roam-server
+  :init
+  (require 'org-roam-protocol)
+  :hook
+  ((after-init . server-start) ;; emacs-server starts
+   (after-init . org-roam-server-mode))
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 9090
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
 
 
 ;; rime
@@ -371,18 +369,18 @@
   ;;       "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
   ;;       html-text nil nil 1))))
   (org2nikola-process-output-html-function
- (lambda (html-text title post-slug)
-   (progn (let* ((re-str "\\/home\\/.+?\\.png"))
-            (let* ((files-list (s-match-strings-all re-str html-text)))
-              (dolist (file-path files-list)
-                ;; (message (format "file-path: %s" (car file-path)))
-                (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path))) ;; TODO rewrite with mapconcat
-                (message cmd)
-                (shell-command cmd))))
-          (replace-regexp-in-string
-           "file:.+?\\/[a-z0-9-]\\{34\\}\\/"
-           "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
-           html-text))))
+   (lambda (html-text title post-slug)
+     (progn (let* ((re-str "\\/home\\/.+?\\.png"))
+              (let* ((files-list (s-match-strings-all re-str html-text)))
+                (dolist (file-path files-list)
+                  ;; (message (format "file-path: %s" (car file-path)))
+                  (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path))) ;; TODO rewrite with mapconcat
+                  (message cmd)
+                  (shell-command cmd))))
+            (replace-regexp-in-string
+             "file:.+?\\/[a-z0-9-]\\{34\\}\\/"
+             "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
+             html-text))))
   :init
   (progn
     (defun org2nikola-after-hook-setup (title slug)
@@ -444,15 +442,15 @@
   :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point-posframe
   ;; :desc "spotify" "s" #'helm-spotify-plus
   ;; :desc "podcaster" "p" #'podcaster
-  ;; :desc "leetcode" "l" #'leetcode
+  :desc "leetcode" "l" #'leetcode
   :desc "counsel-search" "g" #'counsel-search
   :desc "clipboard-yank" "v" #'clipboard-yank
   :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
   :desc "org-download-screenshot" "d" #'org-download-screenshot
-  ;; :desc "org-journal-new-insert" "j" #'org-journal-new-entry
-  ;; :desc "deft" "f" #'deft
-  ;; :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
-  ;; :desc "org-roam-find-file" "r" #'org-roam-find-file
+  :desc "org-journal-new-insert" "j" #'org-journal-new-entry
+  :desc "deft" "f" #'deft
+  :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
+  :desc "org-roam-find-file" "r" #'org-roam-find-file
   ))
 ;; TODO org-roam-find-file r f f
 
@@ -474,7 +472,7 @@
 ;; (use-package! org-download
 ;;  :config
 ;;  (org-download-screenshot-method "gnome-screenshot -a -f %s"))
-(setq org-download-screenshot-method "gnome-screenshot -a -f %s")
+;; (setq org-download-screenshot-method "gnome-screenshot -a -f %s")
 ;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
 
 ;; tabnine
@@ -542,24 +540,24 @@
 
 ;; carcadian
 ;; https://github.com/guidoschmidt/circadian.el
-;; (use-package! circadian
-;;   :config
-;;   (setq calendar-latitude 30.4)
-;;   (setq calendar-longitude 114.9)
-;;   (setq circadian-themes '((:sunrise . doom-one-light)
-;;                            (:sunset  . doom-one)))
-;;   (circadian-setup))
+(use-package! circadian
+  :config
+  (setq calendar-latitude 30.4)
+  (setq calendar-longitude 114.9)
+  (setq circadian-themes '((:sunrise . doom-one-light)
+                           (:sunset  . doom-one)))
+  (circadian-setup))
 
 ;; TODO anki vocabulary capture failed
 (use-package! anki-editor)
 (use-package! anki-connect)
 
-;; (use-package! rainbow-fart
-;;   :hook (prog-mode . rainbow-fart-mode)
-;;   :custom
-;;   (rainbow-fart-voice-model "JustKowalski")
-;;   (rainbow-fart-keyword-interval 10)
-;;   (rainbow-fart-time-interval nil))
+(use-package! rainbow-fart
+  :hook (prog-mode . rainbow-fart-mode)
+  :custom
+  (rainbow-fart-voice-model "JustKowalski")
+  (rainbow-fart-keyword-interval 10)
+  (rainbow-fart-time-interval nil))
 ;; https://github.com/lujun9972/emacs-rainbow-fart
 
 
@@ -594,5 +592,5 @@
 ;; https://github.com/casouri/valign
 
 
-;; org-capture
+;; delay when org-capture
 (setq pdf-view-use-unicode-ligther nil)

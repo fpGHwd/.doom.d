@@ -13,17 +13,17 @@
 (package! youdao-dictionary)
 (package! posframe)
 (package! leetcode)
-;; (package! w3m)
-;; (package! helm-w3m)
-;; (package! podcaster)
-;; (package! org-roam-server)
+(package! w3m)
+(package! helm-w3m)
+(package! podcaster)
+(package! org-roam-server)
 (package! command-log-mode)
-;; (package! company-tabnine)
-;; (package! cal-china-x)
-(package! circadian)
+(package! company-tabnine)
+(package! cal-china-x)
 (package! anki-editor)
 (package! anki-vocabulary)
 (package! anki-mode)
+(package! telega)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
@@ -33,17 +33,17 @@
 (package! org2nikola
   :recipe (:host github :repo "redguardtoo/org2nikola"))
 
-(package! telega
-  :recipe (:host github
-           :repo "zevlg/telega.el"
-           :branch "master"
-           :files (:defaults "etc" "server" "Makefile")))
-
-;; (package! rainbow-fart
+;; (package! telega
 ;;   :recipe (:host github
-;;            :repo "stardiviner/emacs-rainbow-fart"
+;;            :repo "zevlg/telega.el"
 ;;            :branch "master"
-;;            :files (:defaults "voices")))
+;;            :files (:defaults "etc" "server" "Makefile")))
+
+(package! rainbow-fart
+  :recipe (:host github
+           :repo "stardiviner/emacs-rainbow-fart"
+           :branch "master"
+           :files (:defaults "voices")))
 
 (package! valign
   :recipe (:host github
