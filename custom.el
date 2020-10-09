@@ -8,8 +8,9 @@
  '(browse-url-browser-function 'browse-url-firefox)
  '(geiser-default-implementation 'mit)
  '(latex-run-command "xelatex")
- '(org-archive-location "~/Dropbox/to-encfs/text/org/archive.org::* From %s")
+ '(org-archive-location "~/Documents/to-encfs/text/org/archive.org::* From %s")
  '(scheme-mit-dialect t)
+ '(telega-notifications-mode t)
  '(woman-locale "en_US.UTF-8"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

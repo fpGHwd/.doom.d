@@ -8,7 +8,7 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
-;; (package! helm-spotify-plus)
+(package! helm-spotify-plus)
 (package! rime)
 (package! youdao-dictionary)
 (package! posframe)
@@ -48,6 +48,11 @@
 (package! valign
   :recipe (:host github
            :repo "casouri/valign"
+           :branch "master"))
+
+(package! eaf
+  :recipe (:host github
+           :repo "manateelazycat/emacs-application-framework"
            :branch "master"))
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el

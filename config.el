@@ -72,7 +72,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/to-encfs/text/org")
+(setq org-directory "~/Documents/to-encfs/text/org")
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -141,7 +141,7 @@
   :custom
   (leetcode-prefer-language "cpp")
   (leetcode-save-solutions t)
-  (leetcode-directory "~/Dropbox/to-encfs/text/leetcode"))
+  (leetcode-directory "~/Documents/to-encfs/text/leetcode"))
 
 ;; counsel
 (use-package! counsel
@@ -157,31 +157,31 @@
   :init
   (progn (require 'find-lisp)
          (require 'org-refile)
-         (setq org-agenda-files (find-lisp-find-files "~/Dropbox/to-encfs/text" org-agenda-file-regexp))
+         (setq org-agenda-files (find-lisp-find-files "~/Documents/to-encfs/text" org-agenda-file-regexp))
          (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
                       '("ztr" "Book Reading Task" entry
-                        (file+olp "~/Dropbox/to-encfs/text/org/task.org" "Reading" "Book")
+                        (file+olp "~/Documents/to-encfs/text/org/task.org" "Reading" "Book")
                         "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
                       '("ztw" "Work Task" entry
-                        (file+headline "~/Dropbox/to-encfs/text/org/task.org" "Work")
+                        (file+headline "~/Documents/to-encfs/text/org/task.org" "Work")
                         "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
-                      '("zj" "Journal" entry (file "~/Dropbox/to-encfs/text/org/journal.org")
+                      '("zj" "Journal" entry (file "~/Documents/to-encfs/text/org/journal.org")
                         "* %U - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
-                      '("zi" "Inbox" entry (file "~/Dropbox/to-encfs/text/org/inbox.org")
+                      '("zi" "Inbox" entry (file "~/Documents/to-encfs/text/org/inbox.org")
          (add-to-list 'org-capture-templates
                         "* %U - %^{heading} %^g\n %?\n"))
-                      '("zn" "Notes" entry (file "~/Dropbox/to-encfs/text/org/notes.org")
+                      '("zn" "Notes" entry (file "~/Documents/to-encfs/text/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestone" entry (file "~/Dropbox/to-encfs/text/org/milestone.org")
+                      '("wm" "Milestone" entry (file "~/Documents/to-encfs/text/org/milestone.org")
                         "* %^{heading} %t %^g\n%?\n" :prepend t))
 
          ;; https://github.com/bastibe/org-journal
@@ -223,21 +223,21 @@
              (org-end-of-subtree)))
          (add-to-list 'org-capture-templates
                       '("zb" "Billing" plain
-                        (file+function "~/Dropbox/to-encfs/text/org/billing.org" find-month-tree)
+                        (file+function "~/Documents/to-encfs/text/org/billing.org" find-month-tree)
                         " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
          (add-to-list 'org-capture-templates
-                      '("zc" "Contacts" table-line (file "~/Dropbox/to-encfs/text/org/contacts.org")
+                      '("zc" "Contacts" table-line (file "~/Documents/to-encfs/text/org/contacts.org")
                         "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
          (add-to-list 'org-capture-templates '("zp" "Protocol"))
          (add-to-list 'org-capture-templates
                       '("zpb" "Protocol Bookmarks" entry
-                        (file+headline "~/Dropbox/to-encfs/text/org/web.org" "Bookmarks")
+                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Bookmarks")
                         "* %U - %:annotation" :immediate-finish t :kill-buffer t))
          (add-to-list 'org-capture-templates
                       '("zpn" "Protocol Bookmarks" entry
-                        (file+headline "~/Dropbox/to-encfs/text/org/web.org" "Notes")
+                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Notes")
                         "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
                       (org-capture-put :target (list 'file+headline
                                                      (nth 1 (org-capture-get :target))
@@ -254,7 +254,7 @@
                           (insert "* " hd "\n"))))
          (add-to-list 'org-capture-templates
                       '("zpa" "Protocol Annotation" plain
-                        (file+function "~/Dropbox/to-encfs/text/org/web.org" org-capture-template-goto-link)
+                        (file+function "~/Documents/to-encfs/text/org/web.org" org-capture-template-goto-link)
                         "  %U - %?\n\n  %:initial" :empty-lines 1))
          (defun generate-anki-note-body ()
            (interactive)
@@ -275,7 +275,7 @@
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "~/Dropbox/to-encfs/text/anki/anki-cards.org" "Vocabulary")
+                        (file+headline "~/Documents/to-encfs/text/anki/anki-cards.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
@@ -284,7 +284,7 @@
 ;; (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
-(setq org-roam-directory "~/Dropbox/to-encfs/text/roam")
+(setq org-roam-directory "~/Documents/to-encfs/text/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -372,9 +372,9 @@
    (lambda (html-text title post-slug)
      (progn (let* ((re-str "\\/home\\/.+?\\.png"))
               (let* ((files-list (s-match-strings-all re-str html-text)))
-                (dolist (file-path files-list)
+                (dolist (file-path files-list) ;; TODO rewrite with mapconcat
                   ;; (message (format "file-path: %s" (car file-path)))
-                  (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path))) ;; TODO rewrite with mapconcat
+                  (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path)))
                   (message cmd)
                   (shell-command cmd))))
             (replace-regexp-in-string
@@ -440,8 +440,8 @@
  :leader
  (:prefix-map ("," . "reverved keys")
   :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point-posframe
-  ;; :desc "spotify" "s" #'helm-spotify-plus
-  ;; :desc "podcaster" "p" #'podcaster
+  :desc "spotify" "s" #'helm-spotify-plus
+  :desc "podcaster" "p" #'podcaster
   :desc "leetcode" "l" #'leetcode
   :desc "counsel-search" "g" #'counsel-search
   :desc "clipboard-yank" "v" #'clipboard-yank
@@ -458,13 +458,13 @@
 ;; https://github.com/DogLooksGood/emacs-rime
 
 ;; org-journal
-(setq org-journal-dir "~/Dropbox/to-encfs/text/journal/"
+(setq org-journal-dir "~/Documents/to-encfs/text/journal/"
       org-journal-date-format "%A, %d %B %Y"
       org-journal-file-type 'monthly)
 
 
 ;; deft
-(setq deft-directory "~/Dropbox/to-encfs/text/deft/")
+(setq deft-directory "~/Documents/to-encfs/text/deft/")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
@@ -574,11 +574,11 @@
 
 
 ;; telega font
-(when (member "Sarasa Mono SC" (font-family-list))
-  (make-face 'telega-align-by-sarasa)
-  (set-face-font 'telega-align-by-sarasa (font-spec :family "Sarasa Mono SC"))
-  (add-hook! '(telega-chat-mode-hook telega-root-mode-hook)
-    (buffer-face-set 'telega-align-by-sarasa)))
+;; (when (member "Sarasa Mono SC" (font-family-list))
+;;   (make-face 'telega-align-by-sarasa)
+;;   (set-face-font 'telega-align-by-sarasa (font-spec :family "Sarasa Mono SC"))
+;;   (add-hook! '(telega-chat-mode-hook telega-root-mode-hook)
+;;     (buffer-face-set 'telega-align-by-sarasa)))
 
 
 (when (member "Noto Color Emoji" (font-family-list))
@@ -594,3 +594,7 @@
 
 ;; delay when org-capture
 (setq pdf-view-use-unicode-ligther nil)
+
+;; eaf
+;; https://github.com/manateelazycat/emacs-application-framework
+(use-package! eaf)
