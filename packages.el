@@ -24,6 +24,7 @@
 (package! anki-vocabulary)
 (package! anki-mode)
 (package! telega)
+(package! circadian)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
@@ -50,10 +51,18 @@
            :repo "casouri/valign"
            :branch "master"))
 
-(package! eaf
-  :recipe (:host github
-           :repo "manateelazycat/emacs-application-framework"
-           :branch "master"))
+;; (package! eaf
+;;   :recipe (:host github
+;;            :repo "manateelazycat/emacs-application-framework"
+;;            :branch "master"
+;;            :files (
+;;                    ("app" "app")
+;;                    ("core" "core")
+;;                    ("eaf-org.el" "eaf-org.el")
+;;                    ("eaf-evil.el" "eaf-evil.el")
+;;                    ("eaf.el" "eaf.el")
+;;                    )
+;;            ))
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify

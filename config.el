@@ -26,10 +26,11 @@
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
 ;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
-(setq doom-font (font-spec :family "Consolas" :size 16)
+(setq doom-font (font-spec :family "Consolas" :size 15)
       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
-      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
+      ;; doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17)
+      )
 ;; ;; (setq doom-font (font-spec :family "Monaco" :size 16)
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
@@ -72,7 +73,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/to-encfs/text/org")
+(setq org-directory "/home/wd/Dropbox/to-encfs/text/org")
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -113,12 +114,12 @@
 ;; (require 'loadhist)
 ;; (file-dependents (feature-file 'cl))
 
-;;
-(eval-and-compile
-  (setq use-package-always-ensure t)
-  (setq use-package-always-defer t)
-  (setq use-package-expand-minimally t)
-  (setq use-package-enable-imenu-support t))
+;; not use when you know it's for speed when emacs start
+;; (eval-and-compile
+;;   (setq use-package-always-ensure t)
+;;   (setq use-package-always-defer t)
+;;   (setq use-package-expand-minimally t)
+;;   (setq use-package-enable-imenu-support t))
 
 
 ;; autosave
@@ -141,7 +142,7 @@
   :custom
   (leetcode-prefer-language "cpp")
   (leetcode-save-solutions t)
-  (leetcode-directory "~/Documents/to-encfs/text/leetcode"))
+  (leetcode-directory "/home/wd/Dropbox/to-encfs/text/leetcode"))
 
 ;; counsel
 (use-package! counsel
@@ -157,32 +158,32 @@
   :init
   (progn (require 'find-lisp)
          (require 'org-refile)
-         (setq org-agenda-files (find-lisp-find-files "~/Documents/to-encfs/text" org-agenda-file-regexp))
+         (setq org-agenda-files (find-lisp-find-files "/home/wd/Dropbox/to-encfs/text" org-agenda-file-regexp))
          (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
                       '("ztr" "Book Reading Task" entry
-                        (file+olp "~/Documents/to-encfs/text/org/task.org" "Reading" "Book")
+                        (file+olp "/home/wd/Dropbox/to-encfs/text/org/task.org" "Reading" "Book")
                         "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
                       '("ztw" "Work Task" entry
-                        (file+headline "~/Documents/to-encfs/text/org/task.org" "Work")
+                        (file+headline "/home/wd/Dropbox/to-encfs/text/org/task.org" "Work")
                         "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
-                      '("zj" "Journal" entry (file "~/Documents/to-encfs/text/org/journal.org")
-                        "* %U - %^{heading}\n  %?"))
+                      '("zj" "journal" entry (file "/home/wd/dropbox/to-encfs/text/org/journal.org")
+                        "* %u - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
-                      '("zi" "Inbox" entry (file "~/Documents/to-encfs/text/org/inbox.org")
-         (add-to-list 'org-capture-templates
-                        "* %U - %^{heading} %^g\n %?\n"))
-                      '("zn" "Notes" entry (file "~/Documents/to-encfs/text/org/notes.org")
+                      '("zi" "Inbox" entry (file "/home/wd/Dropbox/to-encfs/text/org/inbox.org")
+                        (add-to-list 'org-capture-templates
+                                     "* %U - %^{heading} %^g\n %?\n"))
+                      '("zn" "Notes" entry (file "/home/wd/Dropbox/to-encfs/text/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestone" entry (file "~/Documents/to-encfs/text/org/milestone.org")
-                        "* %^{heading} %t %^g\n%?\n" :prepend t))
+                      '("wm" "Milestone" entry (file+headline "/home/wd/Dropbox/to-encfs/text/org/milestone.org" "milestone")
+                        "* %^{heading} %u %^g\n%?\n" :prepend t))
 
          ;; https://github.com/bastibe/org-journal
          (defun org-journal-find-location ()
@@ -223,21 +224,21 @@
              (org-end-of-subtree)))
          (add-to-list 'org-capture-templates
                       '("zb" "Billing" plain
-                        (file+function "~/Documents/to-encfs/text/org/billing.org" find-month-tree)
+                        (file+function "/home/wd/Dropbox/to-encfs/text/org/billing.org" find-month-tree)
                         " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
          (add-to-list 'org-capture-templates
-                      '("zc" "Contacts" table-line (file "~/Documents/to-encfs/text/org/contacts.org")
+                      '("zc" "Contacts" table-line (file "/home/wd/Dropbox/to-encfs/text/org/contacts.org")
                         "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
          (add-to-list 'org-capture-templates '("zp" "Protocol"))
          (add-to-list 'org-capture-templates
                       '("zpb" "Protocol Bookmarks" entry
-                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Bookmarks")
+                        (file+headline "/home/wd/Dropbox/to-encfs/text/org/web.org" "Bookmarks")
                         "* %U - %:annotation" :immediate-finish t :kill-buffer t))
          (add-to-list 'org-capture-templates
                       '("zpn" "Protocol Bookmarks" entry
-                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Notes")
+                        (file+headline "/home/wd/Dropbox/to-encfs/text/org/web.org" "Notes")
                         "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
                       (org-capture-put :target (list 'file+headline
                                                      (nth 1 (org-capture-get :target))
@@ -254,7 +255,7 @@
                           (insert "* " hd "\n"))))
          (add-to-list 'org-capture-templates
                       '("zpa" "Protocol Annotation" plain
-                        (file+function "~/Documents/to-encfs/text/org/web.org" org-capture-template-goto-link)
+                        (file+function "/home/wd/Dropbox/to-encfs/text/org/web.org" org-capture-template-goto-link)
                         "  %U - %?\n\n  %:initial" :empty-lines 1))
          (defun generate-anki-note-body ()
            (interactive)
@@ -275,16 +276,16 @@
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "~/Documents/to-encfs/text/anki/anki-cards.org" "Vocabulary")
+                        (file+headline "/home/wd/Dropbox/to-encfs/text/anki/anki-cards.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org picture
-(setq org-image-actual-width (/ (display-pixel-width) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+(setq org-image-actual-width (/ (display-pixel-width) 2)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 ;; (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
-(setq org-roam-directory "~/Documents/to-encfs/text/roam")
+(setq org-roam-directory "/home/wd/Dropbox/to-encfs/text/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -355,19 +356,6 @@
   :custom
   (org2nikola-output-root-directory "~/.config/nikola")
   (org2nikola-use-verbose-metadata t)
-  ;; (org2nikola-process-output-html-function
-  ;;  (lambda (html-text title post-slug)
-  ;;    (progn
-  ;;      (let* ((re-str "\\/home\\/.+?\\.\\(png\\|jpg\\|jpeg\\|bmp\\)"))
-  ;;        (let* ((files-list (s-match-strings-all re-str html-text)))
-  ;;          (dolist (file-path files-list)
-  ;;            (shell-command
-  ;;             cmd (format "cp %s /home/wd/.config/nikola/images/"
-  ;;                         (car file-path))))))
-  ;;      (replace-regexp-in-string
-  ;;       "\\(file:.+?\\/\\)[0-9a-zA-Z_-]+?\\(.png\\|.jpeg\\|.bmp\\|.gif\\|.jpg\\)"
-  ;;       "https://raw.githubusercontent.com/fpGHwd/fpghwd.github.io/master/images/"
-  ;;       html-text nil nil 1))))
   (org2nikola-process-output-html-function
    (lambda (html-text title post-slug)
      (progn (let* ((re-str "\\/home\\/.+?\\.png"))
@@ -383,23 +371,19 @@
              html-text))))
   :init
   (progn
-    (defun org2nikola-after-hook-setup (title slug)
-      "see https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/ for setup
- run `ln -s ~/projs/redguardtoo.github.io ~/.config/nikola/output`, btw"
-      (let ((url (concat "https://fpghwd.github.io/posts/" slug "/index.html"))
-            (cmd nil)
-            (nikola-dir (file-truename "~/.config/nikola/"))
-            (nikola-output-path (file-truename "~/.config/nikola/output")))
-        ;; nikola is building posts ...
-        ;; copy the blog url into kill-ring
-        (kill-new url)
-        (message "%s => kill-ring" url)
-        (shell-command (format "cd %s && nikola build" nikola-dir))
-        (setq cmd (format "cd %s && git add . && git commit -m 'updated' && git push origin master" nikola-output-path))
-        ;; (message cmd)
-        (shell-command cmd)))
-
-    (add-hook 'org2nikola-after-hook 'org2nikola-after-hook-setup)))
+    (add-hook 'org2nikola-after-hook (lambda (title slug)
+                                       (let ((url (concat "https://fpghwd.github.io/posts/" slug "/index.html"))
+                                             (cmd nil)
+                                             (nikola-dir (file-truename "~/.config/nikola/"))
+                                             (nikola-output-path (file-truename "~/.config/nikola/output")))
+                                         ;; nikola is building posts ...
+                                         ;; copy the blog url into kill-ring
+                                         (kill-new url)
+                                         (message "%s => kill-ring" url)
+                                         (shell-command (format "cd %s && nikola build" nikola-dir))
+                                         (setq cmd (format "cd %s && git add . && git commit -m 'updated' && git push origin master" nikola-output-path))
+                                         ;; (message cmd)
+                                         (shell-command cmd))))))
 
 
 ;; telega
@@ -427,7 +411,7 @@
 
 
 ;; latex
-; https://emacs-china.org/t/emacs-latex/12658/4
+                                        ; https://emacs-china.org/t/emacs-latex/12658/4
 (setq latex-run-command "xelatex")
 (setq TeX-global-PDF-mode t TeX-engine 'xetex)
 (setq TeX-command-default "XeLaTeX")
@@ -458,13 +442,13 @@
 ;; https://github.com/DogLooksGood/emacs-rime
 
 ;; org-journal
-(setq org-journal-dir "~/Documents/to-encfs/text/journal/"
+(setq org-journal-dir "/home/wd/Dropbox/to-encfs/text/org/journal/"
       org-journal-date-format "%A, %d %B %Y"
       org-journal-file-type 'monthly)
 
 
 ;; deft
-(setq deft-directory "~/Documents/to-encfs/text/deft/")
+(setq deft-directory "/home/wd/Dropbox/to-encfs/text/deft/")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
@@ -552,13 +536,13 @@
 (use-package! anki-editor)
 (use-package! anki-connect)
 
-(use-package! rainbow-fart
-  :hook (prog-mode . rainbow-fart-mode)
-  :custom
-  (rainbow-fart-voice-model "JustKowalski")
-  (rainbow-fart-keyword-interval 10)
-  (rainbow-fart-time-interval nil))
-;; https://github.com/lujun9972/emacs-rainbow-fart
+;; (use-package! rainbow-fart
+;;   :hook (prog-mode . rainbow-fart-mode)
+;;   :custom
+;;   (rainbow-fart-voice-model "JustKowalski")
+;;   (rainbow-fart-keyword-interval 10)
+;;   (rainbow-fart-time-interval nil))
+;; ;; https://github.com/lujun9972/emacs-rainbow-fart
 
 
 ;; TODO autosave prog-mode
@@ -582,9 +566,9 @@
 
 
 (when (member "Noto Color Emoji" (font-family-list))
-    (set-fontset-font 't 'symbol
-      (font-spec :family "Noto Color Emoji")
-      nil 'prepend))
+  (set-fontset-font 't 'symbol
+                    (font-spec :family "Noto Color Emoji")
+                    nil 'prepend))
 
 
 ;; valign
@@ -597,4 +581,20 @@
 
 ;; eaf
 ;; https://github.com/manateelazycat/emacs-application-framework
-(use-package! eaf)
+;; (use-package! eaf
+;;   :custom
+;;   (eaf-find-alternate-file-in-dired t))
+
+;; maximum windows not fullscreen
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; eaf
+;; /home/wd/Dropbox/emacs-packages/emacs-application-framework
+;; (use-package eaf
+;;   :load-path "/home/wd/Dropbox/emacs-packages/emacs-application-framework";; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
+;;   :custom
+;;   (eaf-find-alternate-file-in-dired t)
+;;   :config
+;;   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+;;   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+;;   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
