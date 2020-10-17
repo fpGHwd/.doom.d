@@ -182,7 +182,7 @@
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestone" entry (file+headline "/home/wd/Dropbox/to-encfs/text/org/milestone.org" "milestone")
+                      '("wm" "Milestones" entry (file+headline "/home/wd/Dropbox/to-encfs/text/org/notes.org" "Milestones")
                         "* %^{heading} %u %^g\n%?\n" :prepend t))
 
          ;; https://github.com/bastibe/org-journal
@@ -423,7 +423,7 @@
 (map!
  :leader
  (:prefix-map ("," . "reverved keys")
-  :desc "youdao-input-search" "y" #'youdao-dictionary-search-at-point-posframe
+  :desc "youdao-input-search" "yp" #'youdao-dictionary-search-at-point-posframe
   :desc "spotify" "s" #'helm-spotify-plus
   :desc "podcaster" "p" #'podcaster
   :desc "leetcode" "l" #'leetcode
@@ -435,6 +435,7 @@
   :desc "deft" "f" #'deft
   :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
   :desc "org-roam-find-file" "r" #'org-roam-find-file
+  :desc "youdao-dictionary-search-from-input" "yi" #'youdao-dictionary-search-from-input
   ))
 ;; TODO org-roam-find-file r f f
 
@@ -598,3 +599,8 @@
 ;;   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
 ;;   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
 ;;   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
+
+
+;; rss
+(setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org")))
+(add-hook! 'elfeed-search-mode-hook 'elfeed-update)

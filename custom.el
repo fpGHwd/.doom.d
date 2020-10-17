@@ -9,7 +9,7 @@
  '(geiser-default-implementation 'mit)
  '(global-prettify-symbols-mode t)
  '(latex-run-command "xelatex")
- '(org-archive-location "~/Documents/to-encfs/text/org/archive.org::* From %s")
+ '(org-archive-location "~/Dropbox/to-encfs/text/org/archive.org::* From %s")
  '(scheme-mit-dialect t)
  '(telega-notifications-mode t t)
  '(woman-locale "en_US.UTF-8"))
