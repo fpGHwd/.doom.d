@@ -276,7 +276,7 @@
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "/home/wd/Dropbox/to-encfs/text/anki/anki-cards.org" "Vocabulary")
+                        (file+headline "/home/wd/Dropbox/to-encfs/text/org/anki/anki-cards.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
@@ -285,7 +285,7 @@
 ;; (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
-(setq org-roam-directory "/home/wd/Dropbox/to-encfs/text/roam")
+(setq org-roam-directory "/home/wd/Dropbox/to-encfs/text/org/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -449,7 +449,7 @@
 
 
 ;; deft
-(setq deft-directory "/home/wd/Dropbox/to-encfs/text/deft/")
+(setq deft-directory "/home/wd/Dropbox/to-encfs/text/org/deft/")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
