@@ -313,6 +313,14 @@
 ;; rime
 ;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
 ;; https://github.com/DogLooksGood/emacs-rime
+;;
+;; telega reply conflict with rime input "r"
+(defun rime-probe-telega-msg-p ()
+  "Return if current point is at a telega button."
+  (unless (s-contains? "telega" (symbol-name (get-text-property (point)
+                                                            'category)))
+      (rime-predicate-auto-english-p)))
+
 (use-package! rime
   :init
   (progn
@@ -341,10 +349,13 @@
                                   :foreground-color "#dcdccc"
                                   :font "Sarasa UI SC"))
   (rime-show-candidate 'posframe)
-  (rime-disable-predicates '(rime-predicate-auto-english-p
+  (rime-disable-predicates '(
+                             rime-predicate-auto-english-p
                              ;; rime-predicate-space-after-cc-p
-                             rime-predicate-current-uppercase-letter-p)) 
-  ;;; support shift-l, shift-r, control-l, control-r
+                             rime-predicate-current-uppercase-letter-p
+                             ;; rime-probe-telega-msg-p
+                             ))
+;;; support shift-l, shift-r, control-l, control-r
   (rime-inline-ascii-trigger 'shift-l))
 ;; temporary english predict
 ;; https://github.com/DogLooksGood/emacs-rime
@@ -604,3 +615,17 @@
 ;; rss
 (setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org")))
 (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+
+
+;; nyan-mode
+(nyan-mode 1)
+
+
+;; telega reply conflict with rime input "r"
+(defun +pyim-probe-telega-msg ()
+  "Return if current point is at a telega button."
+  (s-contains? "telega" (symbol-name (get-text-property (point)
+                                                        'category))))
+
+;; TODO
+;; (add-to-list 'pyim-english-input-switch-functions #'+pyim-probe-telega-msg)
