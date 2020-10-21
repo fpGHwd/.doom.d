@@ -159,7 +159,7 @@
   (progn (require 'find-lisp)
          (require 'org-refile)
          (setq org-agenda-files (find-lisp-find-files "/home/wd/Dropbox/to-encfs/text" org-agenda-file-regexp))
-         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
+         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
@@ -313,6 +313,7 @@
 ;; rime
 ;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
 ;; https://github.com/DogLooksGood/emacs-rime
+;; TODO 参考重构 config commands 部分 https://github.com/jwiegley/use-package
 (use-package! rime
   :init
   (progn
@@ -348,6 +349,7 @@
   (rime-inline-ascii-trigger 'shift-l))
 ;; temporary english predict
 ;; https://github.com/DogLooksGood/emacs-rime
+;; (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
 
 
 ;; nikola
@@ -430,13 +432,16 @@
   :desc "counsel-search" "g" #'counsel-search
   :desc "clipboard-yank" "v" #'clipboard-yank
   :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
-  :desc "org-download-screenshot" "d" #'org-download-screenshot
+  ;; :desc "org-download-screenshot" "d" #'org-download-screenshot
   :desc "org-journal-new-insert" "j" #'org-journal-new-entry
   :desc "deft" "f" #'deft
   :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
   :desc "org-roam-find-file" "r" #'org-roam-find-file
   :desc "youdao-dictionary-search-from-input" "yi" #'youdao-dictionary-search-from-input
-  ))
+  :desc "pdf-annot-underline-marked-text" "m" #'pdf-annot-add-underline-markup-annotation
+  :desc "pdf-annot-delete" "d" #'pdf-annot-delete
+  )
+ :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation)
 ;; TODO org-roam-find-file r f f
 
 ;; TODO rime-force-enable keybinding
