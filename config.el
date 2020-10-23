@@ -131,13 +131,15 @@
 ;;       (if (and (buffer-file-name) (buffer-modified-p))
 ;;           (basic-save-buffer)))))
 ;; (add-hook 'auto-save-hook 'full-auto-save)
-(defun save-all ()
-  (interactive)
-  (message (concat  "saving buffers at " (current-time-string)))
-  (save-some-buffers t))
+
+;; (defun save-all ()
+;;   (interactive)
+;;   (message (concat  "saving buffers at " (current-time-string)))
+;;   (save-some-buffers t))
 ;; (remove-hook 'focus-out-hook #'save-all)
-(cancel-function-timers #'save-all)
-(run-with-idle-timer 30 1 #'save-all)
+;; (cancel-function-timers #'save-all)
+;; (run-with-idle-timer 60 1 #'save-all)
+
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Idle-Timers.html
 ;; SPC idle timer list timer-idle-list
 ;; TODO auto-save do-auto-save documentation
