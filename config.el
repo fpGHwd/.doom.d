@@ -29,7 +29,7 @@
 (setq doom-font (font-spec :family "Consolas" :size 15)
       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
-      ;; doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17)
+      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17)
       )
 ;; ;; (setq doom-font (font-spec :family "Monaco" :size 16)
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
@@ -134,12 +134,15 @@
 
 ;; (defun save-all ()
 ;;   (interactive)
-;;   (message (concat  "saving buffers at " (current-time-string)))
+;;   (message (concat  "Saving buffers at " (current-time-string)))
 ;;   (save-some-buffers t))
 ;; (remove-hook 'focus-out-hook #'save-all)
 ;; (cancel-function-timers #'save-all)
-;; (run-with-idle-timer 60 1 #'save-all)
-
+;; (run-with-idle-timer 300 1 #'save-all)
+;;
+;; (cancel-function-timers #'do-auto-save)
+;; (run-with-idle-timer 10 1 #'do-auto-save)
+;;
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Idle-Timers.html
 ;; SPC idle timer list timer-idle-list
 ;; TODO auto-save do-auto-save documentation

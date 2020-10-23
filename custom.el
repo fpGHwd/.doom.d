@@ -20,7 +20,7 @@
      ("\\.docx\\'" . "libreoffice \"%s\"")
      ("\\.doc\\'" . "libreoffice \"%s\"")))
  '(scheme-mit-dialect t)
- '(telega-notifications-mode t t)
+ '(telega-notifications-mode t)
  '(woman-locale "en_US.UTF-8"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
