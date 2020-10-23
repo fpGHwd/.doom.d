@@ -48,10 +48,10 @@
            :branch "master"
            :files (:defaults "voices")))
 
-(package! valign
-  :recipe (:host github
-           :repo "casouri/valign"
-           :branch "master"))
+;; (package! valign
+;;   :recipe (:host github
+;;            :repo "casouri/valign"
+;;            :branch "master"))
 
 ;; (package! eaf
 ;;   :recipe (:host github

@@ -441,7 +441,8 @@
   :desc "pdf-annot-underline-marked-text" "m" #'pdf-annot-add-underline-markup-annotation
   :desc "pdf-annot-delete" "d" #'pdf-annot-delete
   )
- :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation)
+ :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
+ )
 ;; TODO org-roam-find-file r f f
 
 ;; TODO rime-force-enable keybinding
@@ -578,7 +579,7 @@
 
 
 ;; valign
-(add-hook 'org-mode-hook #'valign-mode)
+;; (add-hook 'org-mode-hook #'valign-mode)
 ;; https://github.com/casouri/valign
 
 
