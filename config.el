@@ -146,8 +146,8 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Idle-Timers.html
 ;; SPC idle timer list timer-idle-list
 ;; TODO auto-save do-auto-save documentation
-(cancel-function-timers #'save-some-buffers)
-(run-with-idle-timer (* (* 3 60) 60) 1 #'save-some-buffers)
+;; (cancel-function-timers #'save-some-buffers)
+;; (run-with-idle-timer (* (* 3 60) 60) 1 #'save-some-buffers)
 
 ;; leetcode 
 (use-package! leetcode
