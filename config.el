@@ -27,7 +27,7 @@
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
 ;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
 (setq doom-font (font-spec :family "Consolas" :size 15)
-      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
+      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17)
       )
@@ -146,7 +146,8 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Idle-Timers.html
 ;; SPC idle timer list timer-idle-list
 ;; TODO auto-save do-auto-save documentation
-
+(cancel-function-timers #'save-some-buffers)
+(run-with-idle-timer (* (* 3 60) 60) 1 #'save-some-buffers)
 
 ;; leetcode 
 (use-package! leetcode
@@ -292,8 +293,8 @@
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org picture
-(setq org-image-actual-width (/ (display-pixel-width) 2)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
-;; (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+;; (setq org-image-actual-width (/ (display-pixel-width) 2)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+(setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; org-roam
 (setq org-roam-directory "/home/wd/Dropbox/to-encfs/text/org/roam")
