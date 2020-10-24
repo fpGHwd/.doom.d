@@ -13,8 +13,8 @@
 (package! youdao-dictionary)
 (package! posframe)
 (package! leetcode)
-(package! w3m)
-(package! helm-w3m)
+;; (package! w3m)
+;; (package! helm-w3m)
 (package! podcaster)
 (package! org-roam-server)
 (package! command-log-mode)
@@ -53,18 +53,20 @@
 ;;            :repo "casouri/valign"
 ;;            :branch "master"))
 
-;; (package! eaf
-;;   :recipe (:host github
-;;            :repo "manateelazycat/emacs-application-framework"
-;;            :branch "master"
-;;            :files (
-;;                    ("app" "app")
-;;                    ("core" "core")
-;;                    ("eaf-org.el" "eaf-org.el")
-;;                    ("eaf-evil.el" "eaf-evil.el")
-;;                    ("eaf.el" "eaf.el")
-;;                    )
-;;            ))
+
+(package! eaf :recipe
+  (:host github
+    :repo "manateelazycat/emacs-application-framework"
+    :branch "master"
+    :files ("app" "core" "docker" "screenshot" "eaf.py" "eaf.el")))
+
+
+(package! liberime :recipe
+  (:host github
+    :repo "merrickluo/liberime"
+    :branch "master"
+    :files ("CMakeLists.txt" "Makefile" "src" "liberime*.el" "liberime-config.el" "emacs-module")))
+
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify

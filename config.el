@@ -71,6 +71,8 @@
 ;; (setq doom-theme 'doom-moonlight)
 ;; (setq doom-theme 'doom-gruvbox-light)
 
+(load! "lib/tools")
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "/home/wd/Dropbox/to-encfs/text/org")
@@ -148,6 +150,8 @@
 ;; TODO auto-save do-auto-save documentation
 ;; (cancel-function-timers #'save-some-buffers)
 ;; (run-with-idle-timer (* (* 3 60) 60) 1 #'save-some-buffers)
+
+(setq sync-directory "/home/wd/Dropbox/to-encfs/text/")
 
 ;; leetcode 
 (use-package! leetcode
@@ -555,13 +559,12 @@
 (use-package! anki-editor)
 (use-package! anki-connect)
 
-;; (use-package! rainbow-fart
-;;   :hook (prog-mode . rainbow-fart-mode)
-;;   :custom
-;;   (rainbow-fart-voice-model "JustKowalski")
-;;   (rainbow-fart-keyword-interval 10)
-;;   (rainbow-fart-time-interval nil))
-;; ;; https://github.com/lujun9972/emacs-rainbow-fart
+(use-package! rainbow-fart
+  :hook (prog-mode . rainbow-fart-mode)
+  :custom
+  (rainbow-fart-voice-model "JustKowalski")
+  (rainbow-fart-keyword-interval (* 1 10)))
+;; https://github.com/lujun9972/emacs-rainbow-fart
 
 
 ;; TODO autosave prog-mode
@@ -637,3 +640,10 @@
                                                         'category))))
 (add-to-list 'rime-disable-predicates #'+pyim-probe-telega-msg)
 ;; (add-to-list 'pyim-english-input-switch-functions #'+pyim-probe-telega-msg)
+
+
+;; https://github.com/locez/Loceziazation/blob/master/.doom.d/config.el
+;; https://github.com/SteamedFish/emacszh-tg-configs
+
+
+(use-package! eaf)
