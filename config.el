@@ -134,12 +134,13 @@
 ;;           (basic-save-buffer)))))
 ;; (add-hook 'auto-save-hook 'full-auto-save)
 
-;; (defun save-all ()
-;;   (interactive)
-;;   (message (concat  "Saving buffers at " (current-time-string)))
-;;   (save-some-buffers t))
+(defun save-all ()
+  (interactive)
+  (message (concat  "Saving buffers at " (current-time-string)))
+  (save-some-buffers t))
 ;; (remove-hook 'focus-out-hook #'save-all)
-;; (cancel-function-timers #'save-all)
+(cancel-function-timers #'save-all)
+(run-with-idle-timer (* 30 60) 1 #'save-all)
 ;; (run-with-idle-timer 300 1 #'save-all)
 ;;
 ;; (cancel-function-timers #'do-auto-save)
@@ -149,7 +150,7 @@
 ;; SPC idle timer list timer-idle-list
 ;; TODO auto-save do-auto-save documentation
 ;; (cancel-function-timers #'save-some-buffers)
-(run-with-idle-timer (* 30 60) 1 #'save-some-buffers)
+;; (run-with-idle-timer (* 30 60) 1 #'save-some-buffers)
 
 (setq sync-directory "/home/wd/Documents/to-encfs/text/")
 
