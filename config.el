@@ -529,7 +529,7 @@
 ;; TODO emacs hook
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
 ;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen #'+workspace/restore-last-session)
-(add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
+;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
 
 
 ;; lunar
@@ -647,3 +647,7 @@
 
 
 (use-package! eaf)
+
+
+;; org archive file
+(setq org-archive-location "~/Documents/to-encfs/text/org/archive.org::* From %s")

@@ -10,7 +10,6 @@
  '(global-prettify-symbols-mode t)
  '(latex-run-command "xelatex")
  '(nyan-mode t)
- '(org-archive-location "~/Documents/to-encfs/text/org/archive.org::* From %s")
  '(org-file-apps
    '((auto-mode . emacs)
      (directory . emacs)
