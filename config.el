@@ -108,7 +108,7 @@
 
 ;; garbage
 (setq gc-cons-threshold most-positive-fixnum)
-(add-hook 'focus-out-hook #'garbage-collect)
+;; (add-hook 'focus-out-hook #'garbage-collect)
 (add-hook 'after-init-hook #'(lambda () (setq gc-cons-threshold (* 50 1024 1024))))
 
 
@@ -157,7 +157,7 @@
 ;; leetcode 
 (use-package! leetcode
   :custom
-  (leetcode-prefer-language "cpp")
+  (leetcode-prefer-language "python")
   (leetcode-save-solutions t)
   (leetcode-directory "/home/wd/Documents/to-encfs/text/leetcode"))
 
@@ -201,6 +201,11 @@
          (add-to-list 'org-capture-templates
                       '("wm" "Milestones" entry (file+headline "/home/wd/Documents/to-encfs/text/org/notes.org" "Milestones")
                         "* %^{heading} %u %^g\n%?\n" :prepend t))
+
+         (add-to-list 'org-capture-templates
+                      '("s" "Code Snippet" entry (file "/home/wd/Documents/to-encfs/text/org/snippets.org")
+                        ;; Prompt for tag and language
+                        "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC"))
 
          ;; https://github.com/bastibe/org-journal
          (defun org-journal-find-location ()
@@ -300,6 +305,31 @@
 ;; org picture
 ;; (setq org-image-actual-width (/ (display-pixel-width) 2)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+
+;; https://www.zmonster.me/2018/02/28/org-mode-capture.html
+;; org publish project alist
+(setq org-publish-project-alist
+      '(("blog-org"
+         :base-directory "~/Documents/to-encfs/text/org/blog/"
+         :base-extension "org"
+         :publishing-directory "~/Projects/github-pages/"
+         :recursive t
+         :htmlized-source t
+         :section-numbers nil
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :html-extension "html"
+         :body-only t               ; Only export section between <body> </body>
+         :table-of-contents nil
+         )
+        ("blog-static"
+         :base-directory "~/Documents/to-encfs/text/org/blog/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+         :publishing-directory "~/Projects/github-pages/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ("blog" :components ("blog-org" "blog-static"))))
 
 ;; org-roam
 (setq org-roam-directory "/home/wd/Documents/to-encfs/text/org/roam")
@@ -560,11 +590,11 @@
 (use-package! anki-editor)
 (use-package! anki-connect)
 
-(use-package! rainbow-fart
-  :hook (prog-mode . rainbow-fart-mode)
-  :custom
-  (rainbow-fart-voice-model "JustKowalski")
-  (rainbow-fart-keyword-interval (* 1 10)))
+;; (use-package! rainbow-fart
+;;   :hook (prog-mode . rainbow-fart-mode)
+;;   :custom
+;;   (rainbow-fart-voice-model "JustKowalski")
+;;   (rainbow-fart-keyword-interval (* 1 10)))
 ;; https://github.com/lujun9972/emacs-rainbow-fart
 
 
@@ -577,7 +607,7 @@
 
 
 ;; unsave query functions when left with unsaved customization
-(add-hook 'kill-emacs-query-functions 'custom-prompt-customize-unsaved-options)
+;; (add-hook 'kill-emacs-query-functions 'custom-prompt-customize-unsaved-options)
 
 
 ;; telega font

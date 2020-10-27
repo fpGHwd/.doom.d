@@ -11,7 +11,7 @@
 (package! helm-spotify-plus)
 (package! rime)
 (package! youdao-dictionary)
-(package! posframe)
+;; (package! posframe)
 (package! leetcode)
 ;; (package! w3m)
 ;; (package! helm-w3m)
@@ -23,10 +23,11 @@
 (package! anki-editor)
 (package! anki-vocabulary)
 (package! anki-mode)
-(package! telega)
+;; (package! telega)
 (package! circadian)
-(package! i3wm-config-mode)
+;; (package! i3wm-config-mode)
 (package! nyan-mode)
+(package! org-dotemacs)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
@@ -36,17 +37,17 @@
 (package! org2nikola
   :recipe (:host github :repo "redguardtoo/org2nikola"))
 
-;; (package! telega
-;;   :recipe (:host github
-;;            :repo "zevlg/telega.el"
-;;            :branch "master"
-;;            :files (:defaults "etc" "server" "Makefile")))
-
-(package! rainbow-fart
+(package! telega
   :recipe (:host github
-           :repo "stardiviner/emacs-rainbow-fart"
+           :repo "zevlg/telega.el"
            :branch "master"
-           :files (:defaults "voices")))
+           :files (:defaults "etc" "server" "Makefile")))
+
+;; (package! rainbow-fart
+;;   :recipe (:host github
+;;            :repo "stardiviner/emacs-rainbow-fart"
+;;            :branch "master"
+;;            :files (:defaults "voices")))
 
 ;; (package! valign
 ;;   :recipe (:host github
@@ -54,18 +55,18 @@
 ;;            :branch "master"))
 
 
-(package! eaf :recipe
-  (:host github
-    :repo "manateelazycat/emacs-application-framework"
-    :branch "master"
-    :files ("app" "core" "docker" "screenshot" "eaf.py" "eaf.el")))
+;; (package! eaf :recipe
+;;   (:host github
+;;     :repo "manateelazycat/emacs-application-framework"
+;;     :branch "master"
+;;     :files ("app" "core" "docker" "screenshot" "eaf.py" "eaf.el")))
 
 
-(package! liberime :recipe
-  (:host github
-    :repo "merrickluo/liberime"
-    :branch "master"
-    :files ("CMakeLists.txt" "Makefile" "src" "liberime*.el" "liberime-config.el" "emacs-module")))
+;; (package! liberime :recipe
+;;   (:host github
+;;     :repo "merrickluo/liberime"
+;;     :branch "master"
+;;     :files ("CMakeLists.txt" "Makefile" "src" "liberime*.el" "liberime-config.el" "emacs-module")))
 
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
