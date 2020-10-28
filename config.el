@@ -491,8 +491,7 @@
  :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
  )
 
-(evil-define-key* 'insert 'global
-  (kbd "M-j") #'rime-force-enable)
+(evil-define-key* 'insert 'global (kbd "M-\/") #'rime-force-enable)
 
 
 ;; TODO org-roam-find-file r f f
