@@ -205,7 +205,7 @@
          (add-to-list 'org-capture-templates
                       '("s" "Code Snippet" entry (file "/home/wd/Documents/to-encfs/text/org/snippets.org")
                         ;; Prompt for tag and language
-                        "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC"))
+                        "* %?\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC" :prepend t))
 
          ;; https://github.com/bastibe/org-journal
          (defun org-journal-find-location ()
@@ -490,6 +490,11 @@
   )
  :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
  )
+
+(evil-define-key* 'insert 'global
+  (kbd "M-j") #'rime-force-enable)
+
+
 ;; TODO org-roam-find-file r f f
 
 ;; TODO rime-force-enable keybinding
@@ -677,7 +682,7 @@
 ;; https://github.com/SteamedFish/emacszh-tg-configs
 
 
-(use-package! eaf)
+;; (use-package! eaf)
 
 
 ;; org archive file
