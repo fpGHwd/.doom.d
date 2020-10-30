@@ -29,8 +29,7 @@
 (setq doom-font (font-spec :family "Consolas" :size 15)
       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
-      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17)
-      )
+      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17))
 ;; ;; (setq doom-font (font-spec :family "Monaco" :size 16)
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
@@ -77,6 +76,7 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "/home/wd/Documents/to-encfs/text/org")
 
+;; (doom/toggle-profiler)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -337,24 +337,24 @@
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
 ;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
-(use-package org-roam-server
-  :init
-  (require 'org-roam-protocol)
-  :hook
-  ((after-init . server-start) ;; emacs-server starts
-   (after-init . org-roam-server-mode))
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 9090
-        org-roam-server-authenticate nil
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
+;; (use-package org-roam-server
+;;   :init
+;;   (require 'org-roam-protocol)
+;;   :hook
+;;   ((after-init . server-start) ;; emacs-server starts
+;;    (after-init . org-roam-server-mode))
+;;   :config
+;;   (setq org-roam-server-host "127.0.0.1"
+;;         org-roam-server-port 9090
+;;         org-roam-server-authenticate nil
+;;         org-roam-server-export-inline-images t
+;;         org-roam-server-serve-files nil
+;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+;;         org-roam-server-network-poll t
+;;         org-roam-server-network-arrows nil
+;;         org-roam-server-network-label-truncate t
+;;         org-roam-server-network-label-truncate-length 60
+;;         org-roam-server-network-label-wrap-length 20))
 
 
 ;; rime
@@ -491,7 +491,7 @@
  :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
  )
 
-(evil-define-key* 'insert 'global (kbd "M-\/") #'rime-force-enable)
+(evil-define-key* 'insert 'global (kbd "M-\\") #'rime-force-enable)
 
 
 ;; TODO org-roam-find-file r f f
@@ -665,7 +665,7 @@
 ;; nyan-mode
 (nyan-mode 1)
 (nyan-start-animation)
-(nyan-toggle-wavy-trail)
+;; (nyan-toggle-wavy-trail)
 ;; (nyan-start-music)
 
 ;; telega reply conflict with rime input "r"
@@ -686,3 +686,10 @@
 
 ;; org archive file
 (setq org-archive-location "~/Documents/to-encfs/text/org/archive.org::* From %s")
+
+;; edit by sandbox
+;; (doom/toggle-profiler)
+
+
+;; switch to buffer scratch
+(switch-to-buffer "*scratch*")
