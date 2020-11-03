@@ -188,7 +188,7 @@
                         (file+headline "/home/wd/Documents/to-encfs/text/org/task.org" "Work")
                         "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
-                      '("zj" "journal" entry (file "/home/wd/dropbox/to-encfs/text/org/journal.org")
+                      '("zj" "journal" entry (file "/home/wd/Documents/to-encfs/text/org/journal.org")
                         "* %u - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
                       '("zi" "Inbox" entry (file "/home/wd/Documents/to-encfs/text/org/inbox.org")
@@ -200,7 +200,7 @@
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
                       '("wm" "Milestones" entry (file+headline "/home/wd/Documents/to-encfs/text/org/notes.org" "Milestones")
-                        "* %^{heading} %u %^g\n%?\n" :prepend t))
+                        "* %u %^{heading} %^g\n%?\n" :prepend t))
 
          (add-to-list 'org-capture-templates
                       '("s" "Code Snippet" entry (file "/home/wd/Documents/to-encfs/text/org/snippets.org")
@@ -692,4 +692,8 @@
 
 
 ;; switch to buffer scratch
-(switch-to-buffer "*scratch*")
+;; (switch-to-buffer "*scratch*")
+;; (add-hook! 'emacs-startup-hook (lambda () (switch-to-buffer "*scratch*")))
+
+;; load credential part
+(load! "~/.doom.d/credentials.el" 'noerror)
