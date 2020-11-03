@@ -48,6 +48,7 @@
        (window-select +switch-window +numbers)     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
        zen               ; distraction-free coding or writing
+       (emoji +ascii +github +unicode)
 
        :editor
        (evil +everywhere)  ; come to the dark side, we have cookies
@@ -71,8 +72,8 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       eshell            ; the elisp shell that works everywhere
-       shell             ; simple shell REPL for Emacs
+       ;; eshell            ; the elisp shell that works everywhere
+       ;; shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs
 
@@ -148,7 +149,7 @@
        ;;purescript        ; javascript, but functional
        (python +lsp +pyenv)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       ;;racket            ; a DSL for DSLs
+       racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
@@ -165,12 +166,12 @@
        (yaml +lsp)              ; JSON, but readable
 
        :email
-       ;; (mu4e +gmail)
+       (mu4e +gmail)
        ;;notmuch
        ;; (wanderlust +gmail)
 
        :app
-       ;; calendar
+       calendar
        ;; irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
        ;; twitter           ; twitter client https://twitter.com/vnought
