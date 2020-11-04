@@ -214,7 +214,7 @@
          (add-to-list 'org-capture-templates
                       '("wt" "Personal todo" entry
                         (file+headline +org-capture-todo-file "Inbox")
-                        "* [ ] %?\n%i\n%u\n%a" :prepend t))
+                        "* TODO %?\n%i\n%u\n%a" :prepend t))
 
          (add-to-list 'org-capture-templates
                       '("wn" "Personal notes" entry
@@ -470,11 +470,16 @@
 ;; https://github.com/lujun9972/podcaster
 (use-package! podcaster
   :custom
-  (podcaster-feeds-urls '("http://voice.beartalking.com/rss"
+  (podcaster-feeds-urls '(
+                          "http://voice.beartalking.com/rss"
                           "https://feed.podbean.com/speakmylanguage/feed.xml"
                           "http://feed.thisamericanlife.org/talpodcast"
                           "https://fs.blog/knowledge-project/feed/"
-                          "https://jamesaltucher.com/podcasts/feed/")))
+                          "https://jamesaltucher.com/podcasts/feed/"
+                          "https://adhk.me/episodes/feed.xml"
+                          "https://anchor.fm/s/2ad39814/podcast/rss"
+                          "https://zhiyi.life/episodes/feed.xml"
+                          )))
 ;; https://www.douban.com/note/763676277/
 
 
