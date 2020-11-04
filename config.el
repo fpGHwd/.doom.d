@@ -604,8 +604,10 @@
   :config
   (setq calendar-latitude 30.4)
   (setq calendar-longitude 114.9)
-  (setq circadian-themes '((:sunrise . doom-one-light)
-                           (:sunset  . doom-one)))
+  ;; (setq circadian-themes '((:sunrise . doom-one-light)
+  ;;                          (:sunset  . doom-one)))
+  (setq circadian-themes '((:sunrise . doom-solarized-light)
+                           (:sunset  . doom-gruvbox-light)))
   (circadian-setup))
 
 ;; TODO anki vocabulary capture failed

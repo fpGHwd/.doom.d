@@ -36,13 +36,19 @@
                                         ;(package! another-package
                                         ;  :recipe (:host github :repo "username/repo"))
 (package! org2nikola
-  :recipe (:host github :repo "redguardtoo/org2nikola"))
+  :recipe (:host github
+           :repo "redguardtoo/org2nikola"))
 
 (package! telega
   :recipe (:host github
            :repo "zevlg/telega.el"
            :branch "master"
            :files (:defaults "etc" "server" "Makefile")))
+
+(package! shengci
+  :recipe (:host github
+           :repo "EvanMeek/shengci.el"
+           :branch "master"))
 
 ;; (package! rainbow-fart
 ;;   :recipe (:host github
