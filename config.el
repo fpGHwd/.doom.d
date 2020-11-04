@@ -69,6 +69,7 @@
 ;; (setq doom-theme 'doom-one)
 ;; (setq doom-theme 'doom-moonlight)
 ;; (setq doom-theme 'doom-gruvbox-light)
+;; (setq doom-theme 'doom-girly-heart)
 
 (load! "lib/tools")
 
@@ -213,7 +214,7 @@
          (add-to-list 'org-capture-templates
                       '("wt" "Personal todo" entry
                         (file+headline +org-capture-todo-file "Inbox")
-                        "* [ ] %u %?\n%i\n%a" :prepend t))
+                        "* [ ] %?\n%i\n%u\n%a" :prepend t))
 
          (add-to-list 'org-capture-templates
                       '("wn" "Personal notes" entry
@@ -490,7 +491,7 @@
 (map!
  :leader
  (:prefix-map ("," . "reverved keys")
-  :desc "youdao-input-search" "yp" #'youdao-dictionary-search-at-point-posframe
+  ;; :desc "youdao-input-search" "yp" #'youdao-dictionary-search-at-point-posframe
   :desc "spotify" "s" #'helm-spotify-plus
   :desc "podcaster" "p" #'podcaster
   :desc "leetcode" "l" #'leetcode
@@ -502,11 +503,12 @@
   :desc "deft" "f" #'deft
   :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
   :desc "org-roam-find-file" "r" #'org-roam-find-file
-  :desc "youdao-dictionary-search-from-input" "yi" #'youdao-dictionary-search-from-input
+  ;; :desc "youdao-dictionary-search-from-input" "yi" #'youdao-dictionary-search-from-input
   :desc "pdf-annot-underline-marked-text" "m" #'pdf-annot-add-underline-markup-annotation
   :desc "pdf-annot-delete" "d" #'pdf-annot-delete
   )
  :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
+  :desc "youdao-dictionary-search-from-input" "y" #'youdao-dictionary-search-from-input
  )
 
 (evil-define-key* 'insert 'global (kbd "M-\\") #'rime-force-enable)
@@ -606,9 +608,14 @@
   (setq calendar-longitude 114.9)
   ;; (setq circadian-themes '((:sunrise . doom-one-light)
   ;;                          (:sunset  . doom-one)))
-  (setq circadian-themes '((:sunrise . doom-solarized-light)
+  ;; (setq circadian-themes '((:sunrise . doom-solarized-light)
+  ;;                          (:sunset  . doom-gruvbox-light)))
+  ;; (setq circadian-themes '((:sunrise . doom-gruvbox-light)
+  ;;                          (:sunset  . doom-gruvbox-light)))
+  (setq circadian-themes '((:sunrise . tango)
                            (:sunset  . doom-gruvbox-light)))
-  (circadian-setup))
+ (circadian-setup)
+  )
 
 ;; TODO anki vocabulary capture failed
 (use-package! anki-editor)
@@ -721,3 +728,5 @@
 ;; shengci
 (use-package! shengci)
 (setq shengci-cache-word-dir-path "~/Documents/to-encfs/text/shengci/")
+
+;; (setq doom-theme 'doom-girly-heart)

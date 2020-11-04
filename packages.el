@@ -50,6 +50,11 @@
            :repo "EvanMeek/shengci.el"
            :branch "master"))
 
+;; (package! doom-girly-heart-theme
+;;   :recipe (:host github
+;;            :repo "locez/doom-girly-heart-theme.el"
+;;            :branch "master"))
+
 ;; (package! rainbow-fart
 ;;   :recipe (:host github
 ;;            :repo "stardiviner/emacs-rainbow-fart"
