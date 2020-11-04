@@ -74,7 +74,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "/home/wd/Documents/to-encfs/text/org")
+(setq org-directory "~/Documents/to-encfs/text/org")
 
 ;; (doom/toggle-profiler)
 
@@ -152,14 +152,14 @@
 ;; (cancel-function-timers #'save-some-buffers)
 ;; (run-with-idle-timer (* 30 60) 1 #'save-some-buffers)
 
-(setq sync-directory "/home/wd/Documents/to-encfs/text/")
+(setq sync-directory "~/Documents/to-encfs/text/")
 
 ;; leetcode 
 (use-package! leetcode
   :custom
   (leetcode-prefer-language "python")
   (leetcode-save-solutions t)
-  (leetcode-directory "/home/wd/Documents/to-encfs/text/leetcode"))
+  (leetcode-directory "~/Documents/to-encfs/text/leetcode"))
 
 ;; counsel
 (use-package! counsel
@@ -168,6 +168,14 @@
   :custom
   (counsel-search-engine 'google))
 
+;; TODO
+;; (setq org-agenda-files-tmp (find-lisp-find-files "~/Documents/to-encfs/text" org-agenda-file-regexp))
+;; (setq roam-files-tmp (find-lisp-find-files "~/Documents/to-encfs/text/org/roam" org-agenda-file-regexp))
+;; (setq deft-files-tmp (find-lisp-find-files "~/Documents/to-encfs/text/org/deft" org-agenda-file-regexp))
+;; (setq ignore-org-files-tmp )
+;; (mapc (lambda (item) (delq item org-agenda-files-temp)) roam-files-temp)
+;; (mapc (lambda (item) (delq item org-agenda-files-temp)) deft-files-temp)
+
 ;; org
 (use-package! org
   :custom
@@ -175,37 +183,47 @@
   :init
   (progn (require 'find-lisp)
          (require 'org-refile)
-         (setq org-agenda-files (find-lisp-find-files "/home/wd/Documents/to-encfs/text" org-agenda-file-regexp))
+         (setq org-agenda-files (find-lisp-find-files "~/Documents/to-encfs/text" org-agenda-file-regexp))
          (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
                       '("ztr" "Book Reading Task" entry
-                        (file+olp "/home/wd/Documents/to-encfs/text/org/task.org" "Reading" "Book")
+                        (file+olp "~/Documents/to-encfs/text/org/task.org" "Reading" "Book")
                         "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
                       '("ztw" "Work Task" entry
-                        (file+headline "/home/wd/Documents/to-encfs/text/org/task.org" "Work")
+                        (file+headline "~/Documents/to-encfs/text/org/task.org" "Work")
                         "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
-                      '("zj" "journal" entry (file "/home/wd/Documents/to-encfs/text/org/journal.org")
+                      '("zj" "journal" entry (file "~/Documents/to-encfs/text/org/journal.org")
                         "* %u - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
-                      '("zi" "Inbox" entry (file "/home/wd/Documents/to-encfs/text/org/inbox.org")
+                      '("zi" "Inbox" entry (file "~/Documents/to-encfs/text/org/inbox.org")
                         (add-to-list 'org-capture-templates
                                      "* %U - %^{heading} %^g\n %?\n"))
-                      '("zn" "Notes" entry (file "/home/wd/Documents/to-encfs/text/org/notes.org")
+                      '("zn" "Notes" entry (file "~/Documents/to-encfs/text/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestones" entry (file+headline "/home/wd/Documents/to-encfs/text/org/notes.org" "Milestones")
+                      '("wm" "Milestones" entry (file+headline "~/Documents/to-encfs/text/org/notes.org" "Milestones")
                         "* %u %^{heading} %^g\n%?\n" :prepend t))
 
          (add-to-list 'org-capture-templates
-                      '("s" "Code Snippet" entry (file "/home/wd/Documents/to-encfs/text/org/snippets.org")
+                      '("wt" "Personal todo" entry
+                        (file+headline +org-capture-todo-file "Inbox")
+                        "* [ ] %u %?\n%i\n%a" :prepend t))
+
+         (add-to-list 'org-capture-templates
+                      '("wn" "Personal notes" entry
+                        (file+headline +org-capture-notes-file "Inbox")
+                        "* %u %? %^G\n%i\n%a" :prepend t))
+
+         (add-to-list 'org-capture-templates
+                      '("ws" "Code Snippet" entry (file "~/Documents/to-encfs/text/org/snippets.org")
                         ;; Prompt for tag and language
-                        "* %?\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC" :prepend t))
+                        "* %?\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC\n" :prepend t))
 
          ;; https://github.com/bastibe/org-journal
          (defun org-journal-find-location ()
@@ -246,21 +264,21 @@
              (org-end-of-subtree)))
          (add-to-list 'org-capture-templates
                       '("zb" "Billing" plain
-                        (file+function "/home/wd/Documents/to-encfs/text/org/billing.org" find-month-tree)
+                        (file+function "~/Documents/to-encfs/text/org/billing.org" find-month-tree)
                         " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
          (add-to-list 'org-capture-templates
-                      '("zc" "Contacts" table-line (file "/home/wd/Documents/to-encfs/text/org/contacts.org")
+                      '("zc" "Contacts" table-line (file "~/Documents/to-encfs/text/org/contacts.org")
                         "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
          (add-to-list 'org-capture-templates '("zp" "Protocol"))
          (add-to-list 'org-capture-templates
                       '("zpb" "Protocol Bookmarks" entry
-                        (file+headline "/home/wd/Documents/to-encfs/text/org/web.org" "Bookmarks")
+                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Bookmarks")
                         "* %U - %:annotation" :immediate-finish t :kill-buffer t))
          (add-to-list 'org-capture-templates
                       '("zpn" "Protocol Bookmarks" entry
-                        (file+headline "/home/wd/Documents/to-encfs/text/org/web.org" "Notes")
+                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Notes")
                         "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
                       (org-capture-put :target (list 'file+headline
                                                      (nth 1 (org-capture-get :target))
@@ -277,7 +295,7 @@
                           (insert "* " hd "\n"))))
          (add-to-list 'org-capture-templates
                       '("zpa" "Protocol Annotation" plain
-                        (file+function "/home/wd/Documents/to-encfs/text/org/web.org" org-capture-template-goto-link)
+                        (file+function "~/Documents/to-encfs/text/org/web.org" org-capture-template-goto-link)
                         "  %U - %?\n\n  %:initial" :empty-lines 1))
          (defun generate-anki-note-body ()
            (interactive)
@@ -298,7 +316,7 @@
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "/home/wd/Documents/to-encfs/text/org/anki/anki-cards.org" "Vocabulary")
+                        (file+headline "~/Documents/to-encfs/text/org/anki/anki-cards.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
@@ -332,7 +350,7 @@
         ("blog" :components ("blog-org" "blog-static"))))
 
 ;; org-roam
-(setq org-roam-directory "/home/wd/Documents/to-encfs/text/org/roam")
+(setq org-roam-directory "~/Documents/to-encfs/text/org/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -411,7 +429,7 @@
               (let* ((files-list (s-match-strings-all re-str html-text)))
                 (dolist (file-path files-list) ;; TODO rewrite with mapconcat
                   ;; (message (format "file-path: %s" (car file-path)))
-                  (setq cmd (format "cp %s /home/wd/.config/nikola/images/" (car file-path)))
+                  (setq cmd (format "cp %s ~/.config/nikola/images/" (car file-path)))
                   (message cmd)
                   (shell-command cmd))))
             (replace-regexp-in-string
@@ -500,13 +518,13 @@
 ;; https://github.com/DogLooksGood/emacs-rime
 
 ;; org-journal
-(setq org-journal-dir "/home/wd/Documents/to-encfs/text/org/journal/"
+(setq org-journal-dir "~/Documents/to-encfs/text/org/journal/"
       org-journal-date-format "%A, %d %B %Y"
       org-journal-file-type 'monthly)
 
 
 ;; deft
-(setq deft-directory "/home/wd/Documents/to-encfs/text/org/deft/")
+(setq deft-directory "~/Documents/to-encfs/text/org/deft/")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
@@ -646,9 +664,9 @@
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; eaf
-;; /home/wd/Documents/emacs-packages/emacs-application-framework
+;; ~/Documents/emacs-packages/emacs-application-framework
 ;; (use-package eaf
-;;   :load-path "/home/wd/Documents/emacs-packages/emacs-application-framework";; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
+;;   :load-path "~/Documents/emacs-packages/emacs-application-framework";; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
 ;;   :custom
 ;;   (eaf-find-alternate-file-in-dired t)
 ;;   :config
@@ -697,3 +715,7 @@
 
 ;; load credential part
 (load! "~/.doom.d/credentials.el" 'noerror)
+
+;; shengci
+(use-package! shengci)
+(setq shengci-cache-word-dir-path "~/Documents/to-encfs/text/shengci/")
