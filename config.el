@@ -460,7 +460,7 @@
   :commands (telega)
   :defer t
   :custom
-  (telega-notifications-mode 1)
+  ;; (telega-notifications-mode 1)
   (telega-proxies (list
                    '(:server "127.0.0.1" :port 1080 :enable t
                      :type (:@type "proxyTypeSocks5")))))
@@ -732,6 +732,6 @@
 
 ;; shengci
 (use-package! shengci)
-(setq shengci-cache-word-dir-path "~/Documents/to-encfs/text/shengci/")
+;; (setq shengci-cache-word-dir-path "~/Documents/to-encfs/text/shengci/")
 
 ;; (setq doom-theme 'doom-girly-heart)

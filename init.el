@@ -135,7 +135,7 @@
        ;;julia             ; a better, faster MATLAB
        ;; kotlin            ; a better, slicker Java(Script)
        (latex +lsp)             ; writing papers in Emacs has never been so fun
-       ;;lean
+       lean
        ;;factor
        ledger            ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
@@ -172,9 +172,9 @@
 
        :app
        calendar
-       ;; irc               ; how neckbeards socialize
+       irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
-       ;; twitter           ; twitter client https://twitter.com/vnought
+       twitter           ; twitter client https://twitter.com/vnought
 
        :config
        ;;literate
