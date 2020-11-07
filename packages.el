@@ -50,6 +50,12 @@
            :repo "EvanMeek/shengci.el"
            :branch "master"))
 
+(package! evernote-mode
+  :recipe (:host github
+           :repo "pymander/evernote-mode"
+           :branch "master"
+           :files ("ruby" "doc" "credits.txt" "evernote-client.el" "evernote-mode.el" "org-evernote.el")))
+
 ;; (package! doom-girly-heart-theme
 ;;   :recipe (:host github
 ;;            :repo "locez/doom-girly-heart-theme.el"
