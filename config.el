@@ -26,10 +26,10 @@
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
 ;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
-(setq doom-font (font-spec :family "Consolas" :size 15)
-      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
-      doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
-      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17))
+(setq doom-font (font-spec :family "Consolas" :size 16)
+      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 17)
+      doom-unicode-font (font-spec :family "Sarasa Term SC" :size 17)
+      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
 ;; ;; (setq doom-font (font-spec :family "Monaco" :size 16)
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
@@ -208,8 +208,8 @@
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestones" entry (file+headline "~/Documents/to-encfs/text/org/notes.org" "Milestones")
-                        "* %u %^{heading} %^g\n%?\n" :prepend t))
+                      '("wm" "Milestones" entry (file+headline "~/Documents/to-encfs/text/org/notes.org" "Inbox")
+                        "* %u %^{heading} :milestone:\n%?\n" :prepend t))
 
          (add-to-list 'org-capture-templates
                       '("wt" "Personal todo" entry
@@ -495,39 +495,37 @@
 ;; https://emacs-china.org/t/topic/5089
 (map!
  :leader
- (:prefix-map ("," . "reverved keys")
+ ;; (:prefix-map ("a" . "self-defined")
   ;; :desc "youdao-input-search" "yp" #'youdao-dictionary-search-at-point-posframe
-  :desc "spotify" "s" #'helm-spotify-plus
-  :desc "podcaster" "p" #'podcaster
-  :desc "leetcode" "l" #'leetcode
-  :desc "counsel-search" "g" #'counsel-search
-  :desc "clipboard-yank" "v" #'clipboard-yank
-  :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
+  ;; :desc "spotify" "s" #'helm-spotify-plus
+  ;; :desc "podcaster" "p" #'podcaster
+  ;; :desc "leetcode" "l" #'leetcode
+  ;; :desc "counsel-search" "g" #'counsel-search
+  ;; :desc "clipboard-yank" "v" #'clipboard-yank
+  ;; :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
   ;; :desc "org-download-screenshot" "d" #'org-download-screenshot
-  :desc "org-journal-new-insert" "j" #'org-journal-new-entry
-  :desc "deft" "f" #'deft
-  :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
-  :desc "org-roam-find-file" "r" #'org-roam-find-file
-  ;; :desc "youdao-dictionary-search-from-input" "yi" #'youdao-dictionary-search-from-input
-  :desc "pdf-annot-underline-marked-text" "m" #'pdf-annot-add-underline-markup-annotation
-  :desc "pdf-annot-delete" "d" #'pdf-annot-delete
-  )
- :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
+  ;; :desc "org-journal-new-insert" "j" #'org-journal-new-entry
+  ;; :desc "deft" "f" #'deft
+  ;; :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
+  ;; :desc "org-roam-find-file" "r" #'org-roam-find-file
   :desc "youdao-dictionary-search-from-input" "y" #'youdao-dictionary-search-from-input
+  ;; :desc "pdf-annot-underline-marked-text" "m" #'pdf-annot-add-underline-markup-annotation
+  ;; :desc "pdf-annot-delete" "d" #'pdf-annot-delete
+  ;; )
+ ;; :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
+  ;; :desc "youdao-dictionary-search-from-input" "y" #'youdao-dictionary-search-from-input
  )
 
+;; DONE rime-force-enable keybinding
+;; https://github.com/DogLooksGood/emacs-rime
 (evil-define-key* 'insert 'global (kbd "M-\\") #'rime-force-enable)
-
 
 ;; TODO org-roam-find-file r f f
 
-;; TODO rime-force-enable keybinding
-;; https://github.com/DogLooksGood/emacs-rime
-
 ;; org-journal
-(setq org-journal-dir "~/Documents/to-encfs/text/org/journal/"
-      org-journal-date-format "%A, %d %B %Y"
-      org-journal-file-type 'monthly)
+;; (setq org-journal-dir "~/Documents/to-encfs/text/org/journal/"
+;;       org-journal-date-format "%A, %d %B %Y"
+;;       org-journal-file-type 'monthly)
 
 
 ;; deft
@@ -728,10 +726,73 @@
 ;; (add-hook! 'emacs-startup-hook (lambda () (switch-to-buffer "*scratch*")))
 
 ;; load credential part
-(load! "~/.doom.d/credentials.el" 'noerror)
+;; (load! "~/.doom.d/credentials.el" 'noerror)
 
 ;; shengci
 (use-package! shengci)
 ;; (setq shengci-cache-word-dir-path "~/Documents/to-encfs/text/shengci/")
 
 ;; (setq doom-theme 'doom-girly-heart)
+
+;; evernote
+(use-package! evernote-mode)
+
+;; writing blog
+(require 'ox-publish)
+(setq org-publish-project-alist
+      '(
+    ("org-wd"
+     ;; Path to your org files.
+     :base-directory "~/Documents/blog/org/"
+     :base-extension "org"
+     ;; Path to your Jekyll project.
+     :publishing-directory "~/Documents/blog/fpghwd.github.io-0622/"
+     :recursive t
+     :publishing-function org-html-publish-to-html
+     :headline-levels 4
+     :html-extension "html"
+     :body-only t ;; Only export section between <body> </body>
+     )
+    ("org-static-wd"
+     :base-directory "~/Documents/blog/org"
+     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+     :publishing-directory "~/Documents/blog/fpghwd.github.io-0622/"
+     :recursive t
+     :publishing-function org-publish-attachment
+     )
+    ("blog-wd" :components ("org-wd" "org-static-wd"))
+    ))
+
+;; Write Blog
+(setq post-dir "~/Documents/blog/org/_posts/")
+(defun blog-post (title)
+  (interactive "sEnter title: ")
+  (let ((post-file (concat post-dir
+                           (format-time-string "%Y-%m-%d")
+                           "-"
+                           title
+                           ".org")))
+    (progn
+      (switch-to-buffer (find-file-noselect post-file))
+      (insert (concat "#+startup: showall\n"
+                      "#+options: toc:nil\n"
+                      "#+begin_export html\n"
+                      "---\n"
+                      "layout     : post\n"
+                      "title      : \n"
+                      "categories : \n"
+                      "tags       : \n"
+                      "---\n"
+                      "#+end_export\n"
+                      "#+TOC: headlines 2\n"))))
+  )
+;; (define-key global-map "\C-cp" 'blog-post)
+
+(defun publish-project (project no-cache)
+  (interactive "sName of project: \nsNo-cache?[y/n] ")
+  (if (or (string= no-cache "y")
+          (string= no-cache "Y"))
+      (setq org-publish-use-timestamps-flag nil))
+  (org-publish-project project)
+  (setq org-publish-use-timestamps-flag t))
+;; (define-key global-map "\C-xp" 'publish-project)
