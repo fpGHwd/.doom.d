@@ -29,8 +29,8 @@
 (setq doom-font (font-spec :family "Consolas" :size 16)
       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 17)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 17)
-      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
-;; ;; (setq doom-font (font-spec :family "Monaco" :size 16)
+      doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17))
+;; (setq doom-font (font-spec :family "Monaco" :size 16)
 ;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
 ;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
 ;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
@@ -70,12 +70,13 @@
 ;; (setq doom-theme 'doom-moonlight)
 ;; (setq doom-theme 'doom-gruvbox-light)
 ;; (setq doom-theme 'doom-girly-heart)
+(setq doom-theme 'tango)
 
 (load! "lib/tools")
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/to-encfs/text/org")
+(setq org-directory "~/Documents/text/org")
 
 ;; (doom/toggle-profiler)
 
@@ -106,6 +107,8 @@
 
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
+;; (setq fancy-splash-image "~/.doom.d/logo/spacemacs-mega.png")
+;; (setq fancy-splash-image "~/.doom.d/logo/mega-1.png")
 
 ;; garbage
 (setq gc-cons-threshold most-positive-fixnum)
@@ -135,13 +138,14 @@
 ;;           (basic-save-buffer)))))
 ;; (add-hook 'auto-save-hook 'full-auto-save)
 
+;; TODO print saved buffer
 (defun save-all ()
   (interactive)
   (message (concat  "Saving buffers at " (current-time-string)))
   (save-some-buffers t))
 ;; (remove-hook 'focus-out-hook #'save-all)
 (cancel-function-timers #'save-all)
-(run-with-idle-timer (* 30 60) 1 #'save-all)
+(run-with-idle-timer (* 10 60) 1 #'save-all)
 ;; (run-with-idle-timer 300 1 #'save-all)
 ;;
 ;; (cancel-function-timers #'do-auto-save)
@@ -153,14 +157,14 @@
 ;; (cancel-function-timers #'save-some-buffers)
 ;; (run-with-idle-timer (* 30 60) 1 #'save-some-buffers)
 
-(setq sync-directory "~/Documents/to-encfs/text/")
+(setq sync-directory "~/Documents/text/")
 
 ;; leetcode 
 (use-package! leetcode
   :custom
   (leetcode-prefer-language "python")
   (leetcode-save-solutions t)
-  (leetcode-directory "~/Documents/to-encfs/text/leetcode"))
+  (leetcode-directory "~/Documents/text/leetcode"))
 
 ;; counsel
 (use-package! counsel
@@ -170,9 +174,9 @@
   (counsel-search-engine 'google))
 
 ;; TODO
-;; (setq org-agenda-files-tmp (find-lisp-find-files "~/Documents/to-encfs/text" org-agenda-file-regexp))
-;; (setq roam-files-tmp (find-lisp-find-files "~/Documents/to-encfs/text/org/roam" org-agenda-file-regexp))
-;; (setq deft-files-tmp (find-lisp-find-files "~/Documents/to-encfs/text/org/deft" org-agenda-file-regexp))
+;; (setq org-agenda-files-tmp (find-lisp-find-files "~/Documents/text" org-agenda-file-regexp))
+;; (setq roam-files-tmp (find-lisp-find-files "~/Documents/text/org/roam" org-agenda-file-regexp))
+;; (setq deft-files-tmp (find-lisp-find-files "~/Documents/text/org/deft" org-agenda-file-regexp))
 ;; (setq ignore-org-files-tmp )
 ;; (mapc (lambda (item) (delq item org-agenda-files-temp)) roam-files-temp)
 ;; (mapc (lambda (item) (delq item org-agenda-files-temp)) deft-files-temp)
@@ -184,31 +188,31 @@
   :init
   (progn (require 'find-lisp)
          (require 'org-refile)
-         (setq org-agenda-files (find-lisp-find-files "~/Documents/to-encfs/text" org-agenda-file-regexp))
-         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
+         (setq org-agenda-files (find-lisp-find-files "~/Documents/text" org-agenda-file-regexp))
+         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
                       '("ztr" "Book Reading Task" entry
-                        (file+olp "~/Documents/to-encfs/text/org/task.org" "Reading" "Book")
+                        (file+olp "~/Documents/text/org/task.org" "Reading" "Book")
                         "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
                       '("ztw" "Work Task" entry
-                        (file+headline "~/Documents/to-encfs/text/org/task.org" "Work")
+                        (file+headline "~/Documents/text/org/task.org" "Work")
                         "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
-                      '("zj" "journal" entry (file "~/Documents/to-encfs/text/org/journal.org")
+                      '("zj" "journal" entry (file "~/Documents/text/org/journal/journal.org")
                         "* %u - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
-                      '("zi" "Inbox" entry (file "~/Documents/to-encfs/text/org/inbox.org")
+                      '("zi" "Inbox" entry (file "~/Documents/text/org/inbox.org")
                         (add-to-list 'org-capture-templates
                                      "* %U - %^{heading} %^g\n %?\n"))
-                      '("zn" "Notes" entry (file "~/Documents/to-encfs/text/org/notes.org")
+                      '("zn" "Notes" entry (file "~/Documents/text/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestones" entry (file+headline "~/Documents/to-encfs/text/org/notes.org" "Inbox")
+                      '("wm" "Milestones" entry (file+headline "~/Documents/text/org/notes.org" "Inbox")
                         "* %u %^{heading} :milestone:\n%?\n" :prepend t))
 
          (add-to-list 'org-capture-templates
@@ -222,7 +226,7 @@
                         "* %u %? %^G\n%i\n%a" :prepend t))
 
          (add-to-list 'org-capture-templates
-                      '("ws" "Code Snippet" entry (file "~/Documents/to-encfs/text/org/snippets.org")
+                      '("ws" "Code Snippet" entry (file "~/Documents/text/org/snippets.org")
                         ;; Prompt for tag and language
                         "* %?\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC\n" :prepend t))
 
@@ -265,21 +269,21 @@
              (org-end-of-subtree)))
          (add-to-list 'org-capture-templates
                       '("zb" "Billing" plain
-                        (file+function "~/Documents/to-encfs/text/org/billing.org" find-month-tree)
+                        (file+function "~/Documents/text/org/billing.org" find-month-tree)
                         " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
          (add-to-list 'org-capture-templates
-                      '("zc" "Contacts" table-line (file "~/Documents/to-encfs/text/org/contacts.org")
+                      '("zc" "Contacts" table-line (file "~/Documents/text/org/contacts.org")
                         "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
          (add-to-list 'org-capture-templates '("zp" "Protocol"))
          (add-to-list 'org-capture-templates
                       '("zpb" "Protocol Bookmarks" entry
-                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Bookmarks")
+                        (file+headline "~/Documents/text/org/web.org" "Bookmarks")
                         "* %U - %:annotation" :immediate-finish t :kill-buffer t))
          (add-to-list 'org-capture-templates
                       '("zpn" "Protocol Bookmarks" entry
-                        (file+headline "~/Documents/to-encfs/text/org/web.org" "Notes")
+                        (file+headline "~/Documents/text/org/web.org" "Notes")
                         "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
                       (org-capture-put :target (list 'file+headline
                                                      (nth 1 (org-capture-get :target))
@@ -296,7 +300,7 @@
                           (insert "* " hd "\n"))))
          (add-to-list 'org-capture-templates
                       '("zpa" "Protocol Annotation" plain
-                        (file+function "~/Documents/to-encfs/text/org/web.org" org-capture-template-goto-link)
+                        (file+function "~/Documents/text/org/web.org" org-capture-template-goto-link)
                         "  %U - %?\n\n  %:initial" :empty-lines 1))
          (defun generate-anki-note-body ()
            (interactive)
@@ -317,19 +321,19 @@
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "~/Documents/to-encfs/text/org/anki/anki-cards.org" "Vocabulary")
+                        (file+headline "~/Documents/text/org/anki/anki-cards.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org picture
-;; (setq org-image-actual-width (/ (display-pixel-width) 2)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
-(setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+(setq org-image-actual-width (/ (display-pixel-width) 4)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+;; (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
 
 ;; https://www.zmonster.me/2018/02/28/org-mode-capture.html
 ;; org publish project alist
 (setq org-publish-project-alist
       '(("blog-org"
-         :base-directory "~/Documents/to-encfs/text/org/blog/"
+         :base-directory "~/Documents/text/org/blog/"
          :base-extension "org"
          :publishing-directory "~/Projects/github-pages/"
          :recursive t
@@ -342,7 +346,7 @@
          :table-of-contents nil
          )
         ("blog-static"
-         :base-directory "~/Documents/to-encfs/text/org/blog/"
+         :base-directory "~/Documents/text/org/blog/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
          :publishing-directory "~/Projects/github-pages/"
          :recursive t
@@ -351,7 +355,7 @@
         ("blog" :components ("blog-org" "blog-static"))))
 
 ;; org-roam
-(setq org-roam-directory "~/Documents/to-encfs/text/org/roam")
+(setq org-roam-directory "~/Documents/text/org/roam")
 
 ;; org-roam-server
 ;; https://github.com/org-roam/org-roam-server
@@ -485,9 +489,9 @@
 
 ;; latex
                                         ; https://emacs-china.org/t/emacs-latex/12658/4
-(setq latex-run-command "xelatex")
-(setq TeX-global-PDF-mode t TeX-engine 'xetex)
-(setq TeX-command-default "XeLaTeX")
+;; (setq latex-run-command "xelatex")
+;; (setq TeX-global-PDF-mode t TeX-engine 'xetex)
+;; (setq TeX-command-default "XeLaTeX")
 
 
 ;; map!
@@ -520,16 +524,16 @@
 ;; https://github.com/DogLooksGood/emacs-rime
 (evil-define-key* 'insert 'global (kbd "M-\\") #'rime-force-enable)
 
-;; TODO org-roam-find-file r f f
+;; DONE org-roam-find-file r f f
 
 ;; org-journal
-;; (setq org-journal-dir "~/Documents/to-encfs/text/org/journal/"
+;; (setq org-journal-dir "~/Documents/text/org/journal/"
 ;;       org-journal-date-format "%A, %d %B %Y"
 ;;       org-journal-file-type 'monthly)
 
 
 ;; deft
-(setq deft-directory "~/Documents/to-encfs/text/org/deft/")
+(setq deft-directory "~/Documents/text/org/deft/")
 
 ;; wayland not support maim
 ;; https://github.com/naelstrof/maim/issues/67
@@ -605,20 +609,20 @@
 
 ;; carcadian
 ;; https://github.com/guidoschmidt/circadian.el
-(use-package! circadian
-  :config
-  (setq calendar-latitude 30.4)
-  (setq calendar-longitude 114.9)
+;; (use-package! circadian
+;;   :config
+;;   (setq calendar-latitude 30.4)
+;;   (setq calendar-longitude 114.9)
   ;; (setq circadian-themes '((:sunrise . doom-one-light)
   ;;                          (:sunset  . doom-one)))
   ;; (setq circadian-themes '((:sunrise . doom-solarized-light)
   ;;                          (:sunset  . doom-gruvbox-light)))
   ;; (setq circadian-themes '((:sunrise . doom-gruvbox-light)
   ;;                          (:sunset  . doom-gruvbox-light)))
-  (setq circadian-themes '((:sunrise . tango)
-                           (:sunset  . doom-gruvbox-light)))
- (circadian-setup)
-  )
+ ;;  (setq circadian-themes '((:sunrise . tango)
+ ;;                           (:sunset  . doom-one)))
+ ;; (circadian-setup)
+ ;;  )
 
 ;; TODO anki vocabulary capture failed
 (use-package! anki-editor)
@@ -715,7 +719,7 @@
 
 
 ;; org archive file
-(setq org-archive-location "~/Documents/to-encfs/text/org/archive.org::* From %s")
+(setq org-archive-location "~/Documents/text/org/archive.org::* From %s")
 
 ;; edit by sandbox
 ;; (doom/toggle-profiler)
@@ -726,11 +730,11 @@
 ;; (add-hook! 'emacs-startup-hook (lambda () (switch-to-buffer "*scratch*")))
 
 ;; load credential part
-;; (load! "~/.doom.d/credentials.el" 'noerror)
+(load! "~/.doom.d/credentials.el" 'noerror)
 
 ;; shengci
 (use-package! shengci)
-;; (setq shengci-cache-word-dir-path "~/Documents/to-encfs/text/shengci/")
+;; (setq shengci-cache-word-dir-path "~/Documents/text/shengci/")
 
 ;; (setq doom-theme 'doom-girly-heart)
 
@@ -762,6 +766,7 @@
      )
     ("blog-wd" :components ("org-wd" "org-static-wd"))
     ))
+;; 这里面存储的主要是目录转换逻辑
 
 ;; Write Blog
 (setq post-dir "~/Documents/blog/org/_posts/")
@@ -796,3 +801,11 @@
   (org-publish-project project)
   (setq org-publish-use-timestamps-flag t))
 ;; (define-key global-map "\C-xp" 'publish-project)
+
+;; (add-hook! youdao-dictionary-mode-hook #'shengci-capture-word-and-save)
+
+(add-hook! doom-after-reload-hook #'posframe-delete-all)
+
+(use-package! org-alert
+  :config
+  (setq alert-default-style 'libnotify))

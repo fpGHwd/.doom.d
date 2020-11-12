@@ -90,7 +90,7 @@
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       ;; gist              ; interacting with github gists
+       gist              ; interacting with github gists
        (lookup +dictionary +docsets +offline)              ; navigate your code and its documentation
        (lsp +peek)
        ;;macos             ; MacOS-specific commands
@@ -124,7 +124,7 @@
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       ;; (go +lsp)
+       (go +lsp)
                                         ; the hipster dialect
        ;; (haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
