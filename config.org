@@ -168,7 +168,7 @@
 ;; leetcode
 (use-package! leetcode
   :custom
-  (leetcode-prefer-language "python")
+  (leetcode-prefer-language "c")
   (leetcode-save-solutions t)
   (leetcode-directory "~/Documents/text/leetcode"))
 
