@@ -30,6 +30,7 @@
 ;; (package! org-dotemacs)
 (package! wakatime-mode)
 (package! org-alert)
+(package! bing-dict)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
@@ -68,11 +69,11 @@
 ;;            :branch "master"
 ;;            :files (:defaults "voices")))
 
-;; (package! valign
-;;   :recipe (:host github
-;;            :repo "casouri/valign"
-;;            :branch "master"))
+(package! valign
+  :recipe (:host github :repo "casouri/valign"))
 
+(package! org-latex-instant-preview
+  :recipe (:host github :repo "yangsheng6810/org-latex-instant-preview" :branch "develop"))
 
 ;; (package! eaf :recipe
 ;;   (:host github
@@ -121,3 +122,10 @@
                                         ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
+;; (package! org-protocol)
+
+(package! org-protocol-capture-html
+  :recipe (:host github
+                 :repo "alphapapa/org-protocol-capture-html"))
+
+(package! wucuo)
