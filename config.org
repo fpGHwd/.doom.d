@@ -1,6 +1,6 @@
 #+TITLE: Config
 
-* initial doom config
+* doom config
 
 #+begin_src emacs-lisp
 
@@ -78,11 +78,10 @@
 ;; (setq doom-theme 'doom-girly-heart)
 (setq doom-theme 'tango)
 
-(load! "lib/tools")
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/text/org")
+(setq org-directory "~/Documents/org")
 
 ;; (doom/toggle-profiler)
 
@@ -133,7 +132,6 @@
 ;;   (setq use-package-expand-minimally t)
 ;;   (setq use-package-enable-imenu-support t))
 
-
 ;; autosave
 ;; (defun full-auto-save ()
 ;;   (interactive)
@@ -143,6 +141,12 @@
 ;;       (if (and (buffer-file-name) (buffer-modified-p))
 ;;           (basic-save-buffer)))))
 ;; (add-hook 'auto-save-hook 'full-auto-save)
+
+#+end_src
+
+* auto-save
+
+#+begin_src emacs-lisp
 
 ;; TODO print saved buffer
 (defun save-all ()
@@ -163,57 +167,51 @@
 ;; (cancel-function-timers #'save-some-buffers)
 ;; (run-with-idle-timer (* 30 60) 1 #'save-some-buffers)
 
-(setq sync-directory "~/Documents/text/")
 
-;; leetcode
-(use-package! leetcode
-  :custom
-  (leetcode-prefer-language "c")
-  (leetcode-save-solutions t)
-  (leetcode-directory "~/Documents/text/leetcode"))
+#+end_src
 
-;; counsel
-(use-package! counsel
-  ;; :bind
-  ;; ("C-x w g" . counsel-google)
-  :custom
-  (counsel-search-engine 'google))
+* leetcode
 
-;; TODO
-;; (setq org-agenda-files-tmp (find-lisp-find-files "~/Documents/text" org-agenda-file-regexp))
-;; (setq roam-files-tmp (find-lisp-find-files "~/Documents/text/org/roam" org-agenda-file-regexp))
-;; (setq deft-files-tmp (find-lisp-find-files "~/Documents/text/org/deft" org-agenda-file-regexp))
-;; (setq ignore-org-files-tmp )
-;; (mapc (lambda (item) (delq item org-agenda-files-temp)) roam-files-temp)
-;; (mapc (lambda (item) (delq item org-agenda-files-temp)) deft-files-temp)
+
+* org
+
+#+begin_src emacs-lisp
+
+(use-package! org-refile)
 
 ;; org
 (use-package! org
   :custom
   (org-log-done 'time)
   :init
-  (progn (require 'find-lisp)
-         (require 'org-refile)
-         (setq org-agenda-files (find-lisp-find-files "~/Documents/text" org-agenda-file-regexp))
-         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
+  (progn
+         (setq org-agenda-files
+               '("~/Documents/org/todo.org"
+                 "~/Documents/org/Birthdays.org"
+                 "~/Documents/org/dissertations.org"
+                 "~/Documents/org/gcal.org"
+                 "~/Documents/org/notes.org"))
+
+         (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
+
          (add-to-list 'org-capture-templates '("z" "ZMonster"))
          (add-to-list 'org-capture-templates '("zt" "Tasks"))
          (add-to-list 'org-capture-templates
                       '("ztr" "Book Reading Task" entry
-                        (file+olp "~/Documents/text/org/task.org" "Reading" "Book")
+                        (file+olp "~/Documents/org/task.org" "Reading" "Book")
                         "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
                       '("ztw" "Work Task" entry
-                        (file+headline "~/Documents/text/org/task.org" "Work")
+                        (file+headline "~/Documents/org/task.org" "Work")
                         "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
          (add-to-list 'org-capture-templates
-                      '("zj" "journal" entry (file "~/Documents/text/org/journal/journal.org")
+                      '("zj" "journal" entry (file "~/Documents/org/journal/journal.org")
                         "* %u - %^{heading}\n  %?"))
          (add-to-list 'org-capture-templates
-                      '("zi" "Inbox" entry (file "~/Documents/text/org/inbox.org")
+                      '("zi" "Inbox" entry (file "~/Documents/org/inbox.org")
                         (add-to-list 'org-capture-templates
                                      "* %U - %^{heading} %^g\n %?\n"))
-                      '("zn" "Notes" entry (file "~/Documents/text/org/notes.org")
+                      '("zn" "Notes" entry (file "~/Documents/org/notes.org")
                         "* %^{heading} %t %^g\n  %?\n"))
          (add-to-list 'org-capture-templates
                       `("zb" "Blog" plain (file ,(concat "~/Documents/blog/org"
@@ -232,7 +230,7 @@
 
          (add-to-list 'org-capture-templates '("w" "Wangding"))
          (add-to-list 'org-capture-templates
-                      '("wm" "Milestones" entry (file+headline "~/Documents/text/org/notes.org" "Inbox")
+                      '("wm" "Milestones" entry (file+headline "~/Documents/org/notes.org" "Inbox")
                         "* %u %^{heading} :milestone:\n%?\n" :prepend t))
 
          (add-to-list 'org-capture-templates
@@ -246,7 +244,7 @@
                         "* %u %? %^G\n%i\n%a" :prepend t))
 
          (add-to-list 'org-capture-templates
-                      '("ws" "Code Snippet" entry (file "~/Documents/text/org/snippets.org")
+                      '("ws" "Code Snippet" entry (file "~/Documents/org/snippets.org")
                         ;; Prompt for tag and language
                         "* %?\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC\n" :prepend t))
 
@@ -289,21 +287,21 @@
              (org-end-of-subtree)))
          (add-to-list 'org-capture-templates
                       '("zb" "Billing" plain
-                        (file+function "~/Documents/text/org/billing.org" find-month-tree)
+                        (file+function "~/Documents/org/billing.org" find-month-tree)
                         " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
          (add-to-list 'org-capture-templates
-                      '("zc" "Contacts" table-line (file "~/Documents/text/org/contacts.org")
+                      '("zc" "Contacts" table-line (file "~/Documents/org/contacts.org")
                         "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
          (add-to-list 'org-capture-templates '("zp" "Protocol"))
          (add-to-list 'org-capture-templates
                       '("zpb" "Protocol Bookmarks" entry
-                        (file+headline "~/Documents/text/org/web.org" "Bookmarks")
+                        (file+headline "~/Documents/org/web.org" "Bookmarks")
                         "* %U - %:annotation" :immediate-finish t :kill-buffer t))
          (add-to-list 'org-capture-templates
                       '("zpn" "Protocol Bookmarks" entry
-                        (file+headline "~/Documents/text/org/web.org" "Notes")
+                        (file+headline "~/Documents/org/web.org" "Notes")
                         "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))(defun org-capture-template-goto-link ()
                       (org-capture-put :target (list 'file+headline
                                                      (nth 1 (org-capture-get :target))
@@ -320,7 +318,7 @@
                           (insert "* " hd "\n"))))
          (add-to-list 'org-capture-templates
                       '("zpa" "Protocol Annotation" plain
-                        (file+function "~/Documents/text/org/web.org" org-capture-template-goto-link)
+                        (file+function "~/Documents/org/web.org" org-capture-template-goto-link)
                         "  %U - %?\n\n  %:initial" :empty-lines 1))
          (defun generate-anki-note-body ()
            (interactive)
@@ -341,19 +339,32 @@
                                 "\n\n"))))
          (add-to-list 'org-capture-templates
                       `("zv" "Vocabulary" entry
-                        (file+headline "~/Documents/text/org/anki/anki-cards.org" "Vocabulary")
+                        (file+headline "~/Documents/org/anki/anki-cards.org" "Vocabulary")
                         ,(concat "* %^{heading} :note:\n"
                                  "%(generate-anki-note-body)\n")))))
 
 ;; org picture
 (setq org-image-actual-width (/ (display-pixel-width) 4)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
-;; (setq org-image-actual-height (/ (display-pixel-height) 3)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+
+
+
+;; org archive file
+(setq org-archive-location "~/Documents/org/archive.org::* From %s")
+
+;; delay when org-capture
+(setq pdf-view-use-unicode-ligther nil)
+
+#+end_src
+
+* blog
+
+#+begin_src emacs-lisp
 
 ;; https://www.zmonster.me/2018/02/28/org-mode-capture.html
 ;; org publish project alist
 (setq org-publish-project-alist
       '(("blog-org"
-         :base-directory "~/Documents/text/org/blog/"
+         :base-directory "~/Documents/org/blog/"
          :base-extension "org"
          :publishing-directory "~/Projects/github-pages/"
          :recursive t
@@ -366,80 +377,13 @@
          :table-of-contents nil
          )
         ("blog-static"
-         :base-directory "~/Documents/text/org/blog/"
+         :base-directory "~/Documents/org/blog/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
          :publishing-directory "~/Projects/github-pages/"
          :recursive t
          :publishing-function org-publish-attachment
          )
         ("blog" :components ("blog-org" "blog-static"))))
-
-;; org-roam
-(setq org-roam-directory "~/Documents/text/org/roam")
-
-;; org-roam-server
-;; https://github.com/org-roam/org-roam-server
-;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
-;; (use-package org-roam-server
-;;   :init
-;;   (require 'org-roam-protocol)
-;;   :hook
-;;   ((after-init . server-start) ;; emacs-server starts
-;;    (after-init . org-roam-server-mode))
-;;   :config
-;;   (setq org-roam-server-host "127.0.0.1"
-;;         org-roam-server-port 9090
-;;         org-roam-server-authenticate nil
-;;         org-roam-server-export-inline-images t
-;;         org-roam-server-serve-files nil
-;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-;;         org-roam-server-network-poll t
-;;         org-roam-server-network-arrows nil
-;;         org-roam-server-network-label-truncate t
-;;         org-roam-server-network-label-truncate-length 60
-;;         org-roam-server-network-label-wrap-length 20))
-
-
-;; rime
-;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
-;; https://github.com/DogLooksGood/emacs-rime
-;; TODO 参考重构 config commands 部分 https://github.com/jwiegley/use-package
-(use-package! rime
-  :init
-  (progn
-    (require 'posframe)
-    (require 'rime)
-    ;; https://github.com/DogLooksGood/emacs-rime 候选框最后一项不显示
-    (defun +rime--posframe-display-content-a (args)
-      "给 `rime--posframe-display-content' 传入的字符串加一个全角空
-格，以解决 `posframe' 偶尔吃字的问题。"
-      (cl-destructuring-bind (content) args
-        (let ((newresult (if (string-blank-p content)
-                             content
-                           (concat content "　"))))
-          (list newresult))))
-
-    (if (fboundp 'rime--posframe-display-content)
-        (advice-add 'rime--posframe-display-content
-                    :filter-args
-                    #'+rime--posframe-display-content-a)
-      (error "Function `rime--posframe-display-content' is not available."))
-    )
-  :custom
-  (default-input-method "rime")
-  (rime-user-data-dir "~/.doom.d/rime")
-  (rime-posframe-properties (list :background-color "#333333"
-                                  :foreground-color "#dcdccc"
-                                  :font "Sarasa UI SC"))
-  (rime-show-candidate 'posframe)
-  (rime-disable-predicates '(rime-predicate-auto-english-p
-                             ;; rime-predicate-space-after-cc-p
-                             rime-predicate-current-uppercase-letter-p))
-  ;;; support shift-l, shift-r, control-l, control-r
-  (rime-inline-ascii-trigger 'shift-l))
-;; temporary english predict
-;; https://github.com/DogLooksGood/emacs-rime
-;; (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
 
 
 ;; nikola
@@ -477,289 +421,6 @@
                                          ;; (message cmd)
                                          (shell-command cmd))))))
 
-
-;; telega
-;; https://github.com/zevlg/telega.el
-(use-package! telega
-  :commands (telega)
-  :defer t
-  :custom
-  ;; (telega-notifications-mode 1)
-  (telega-proxies (list
-                   '(:server "127.0.0.1" :port 1080 :enable t
-                     :type (:@type "proxyTypeSocks5")))))
-
-
-;; podcaster
-;; https://github.com/lujun9972/podcaster
-(use-package! podcaster
-  :custom
-  (podcaster-feeds-urls '(
-                          "http://voice.beartalking.com/rss"
-                          "https://feed.podbean.com/speakmylanguage/feed.xml"
-                          "http://feed.thisamericanlife.org/talpodcast"
-                          "https://fs.blog/knowledge-project/feed/"
-                          "https://jamesaltucher.com/podcasts/feed/"
-                          "https://adhk.me/episodes/feed.xml"
-                          "https://anchor.fm/s/2ad39814/podcast/rss"
-                          "https://zhiyi.life/episodes/feed.xml"
-                          )))
-;; https://www.douban.com/note/763676277/
-
-
-;; latex
-                                        ; https://emacs-china.org/t/emacs-latex/12658/4
-;; (setq latex-run-command "xelatex")
-;; (setq TeX-global-PDF-mode t TeX-engine 'xetex)
-;; (setq TeX-command-default "XeLaTeX")
-
-
-;; map!
-;; map is just like a evil-define-key's warpper
-;; https://emacs-china.org/t/topic/5089
-(map!
- :leader
- ;; (:prefix-map ("a" . "self-defined")
- ;; :desc "youdao-input-search" "yp" #'youdao-dictionary-search-at-point-posframe
- ;; :desc "spotify" "s" #'helm-spotify-plus
- ;; :desc "podcaster" "p" #'podcaster
- ;; :desc "leetcode" "l" #'leetcode
- ;; :desc "counsel-search" "g" #'counsel-search
- ;; :desc "clipboard-yank" "v" #'clipboard-yank
- ;; :desc "clipboard-kill-ring-save" "c" #'clipboard-kill-ring-save
- ;; :desc "org-download-screenshot" "d" #'org-download-screenshot
- ;; :desc "org-journal-new-insert" "j" #'org-journal-new-entry
- ;; :desc "deft" "f" #'deft
- ;; :desc "eshell" "e" #'eshell ;; SPC o E or SPC o T
- ;; :desc "org-roam-find-file" "r" #'org-roam-find-file
- :desc "youdao-dictionary-search-from-input" "y" #'youdao-dictionary-search-from-input
- ;; :desc "pdf-annot-underline-marked-text" "m" #'pdf-annot-add-underline-markup-annotation
- ;; :desc "pdf-annot-delete" "d" #'pdf-annot-delete
- ;; )
- ;; :desc "pdf-underline-markded-text" "a" #'pdf-annot-add-underline-markup-annotation
- ;; :desc "youdao-dictionary-search-from-input" "y" #'youdao-dictionary-search-from-input
- )
-
-;; DONE rime-force-enable keybinding
-;; https://github.com/DogLooksGood/emacs-rime
-(evil-define-key* 'insert 'global (kbd "M-\\") #'rime-force-enable)
-
-;; DONE org-roam-find-file r f f
-
-;; org-journal
-;; (setq org-journal-dir "~/Documents/text/org/journal/"
-;;       org-journal-date-format "%A, %d %B %Y"
-;;       org-journal-file-type 'monthly)
-
-
-;; deft
-(setq deft-directory "~/Documents/text/org/deft/")
-
-;; wayland not support maim
-;; https://github.com/naelstrof/maim/issues/67
-;; org-download-screenshot
-;; (use-package! org-download
-;;  :config
-;;  (org-download-screenshot-method "gnome-screenshot -a -f %s"))
-;; (setq org-download-screenshot-method "gnome-screenshot -a -f %s")
-;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
-
-;; tabnine
-;; https://github.com/TommyX12/company-tabnine
-;; (use-package! company-tabnine
-;;   :init
-;;   (add-to-list 'company-backends 'company-tabnine))
-;; (add-to-list 'company-backends 'company-tabnine)
-;; TODO https://emacs-china.org/t/tabnine/9988/39
-;; (defun company//sort-by-tabnine (candidates)
-;;   (if (or (functionp company-backend)
-;;           (not (and (listp company-backend) (memq 'company-tabnine company-backend))))
-;;       candidates
-;;     (let ((candidates-table (make-hash-table :test #'equal))
-;;           candidates-1
-;;           candidates-2)
-;;       (dolist (candidate candidates)
-;;         (if (eq (get-text-property 0 'company-backend candidate)
-;;                 'company-tabnine)
-;;             (unless (gethash candidate candidates-table)
-;;               (push candidate candidates-2))
-;;           (push candidate candidates-1)
-;;           (puthash candidate t candidates-table)))
-;;       (setq candidates-1 (nreverse candidates-1))
-;;       (setq candidates-2 (nreverse candidates-2))
-;;       (nconc (seq-take candidates-1 2)
-;;              (seq-take candidates-2 2)
-;;              (seq-drop candidates-1 2)
-;;              (seq-drop candidates-2 2)))))
-
-;; (add-to-list 'company-transformers 'company//sort-by-tabnine t)
-;; `:separate`  使得不同 backend 分开排序
-;; (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))
-
-;; The free version of TabNine is good enough,
-;; and below code is recommended that TabNine not always
-;; prompt me to purchase a paid version in a large project.
-;; (defadvice company-echo-show (around disable-tabnine-upgrade-message activate)
-;;   (let ((company-message-func (ad-get-arg 0)))
-;;     (when (and company-message-func
-;;                (stringp (funcall company-message-func)))
-;;       (unless (string-match "The free version of TabNine only indexes up to" (funcall company-message-func))
-;;         ad-do-it))))
-
-
-;; TODO fullscreen after emacs start(hook)
-;; TODO emacs hook
-;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
-;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen #'+workspace/restore-last-session)
-;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
-
-
-;; lunar
-;; https://emacs-china.org/t/topic/2119/13
-;; (defun my--diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
-;;   (if year
-;;       (let* ((d-date (diary-make-date lunar-month lunar-day year))
-;;              (a-date (calendar-absolute-from-gregorian d-date))
-;;              (c-date (calendar-chinese-from-absolute a-date))
-;;              (cycle (car c-date))
-;;              (yy (cadr c-date))
-;;              (y (+ (* 100 cycle) yy)))
-;;         (diary-chinese-anniversary lunar-month lunar-day y mark))
-;;     (diary-chinese-anniversary lunar-month lunar-day year mark)))
-
-;; carcadian
-;; https://github.com/guidoschmidt/circadian.el
-;; (use-package! circadian
-;;   :config
-;;   (setq calendar-latitude 30.4)
-;;   (setq calendar-longitude 114.9)
-;; (setq circadian-themes '((:sunrise . doom-one-light)
-;;                          (:sunset  . doom-one)))
-;; (setq circadian-themes '((:sunrise . doom-solarized-light)
-;;                          (:sunset  . doom-gruvbox-light)))
-;; (setq circadian-themes '((:sunrise . doom-gruvbox-light)
-;;                          (:sunset  . doom-gruvbox-light)))
-;;  (setq circadian-themes '((:sunrise . tango)
-;;                           (:sunset  . doom-one)))
-;; (circadian-setup)
-;;  )
-
-;; TODO anki vocabulary capture failed
-(use-package! anki-editor)
-(use-package! anki-connect)
-
-;; (use-package! rainbow-fart
-;;   :hook (prog-mode . rainbow-fart-mode)
-;;   :custom
-;;   (rainbow-fart-voice-model "JustKowalski")
-;;   (rainbow-fart-keyword-interval (* 1 10)))
-;; https://github.com/lujun9972/emacs-rainbow-fart
-
-
-;; TODO autosave prog-mode
-;; TODO balance window when change
-
-
-;; TODO clang-format
-;; https://clang.llvm.org/docs/ClangFormatStyleOptions.html
-
-
-;; unsave query functions when left with unsaved customization
-;; (add-hook 'kill-emacs-query-functions 'custom-prompt-customize-unsaved-options)
-
-
-;; telega font
-;; (when (member "Sarasa Mono SC" (font-family-list))
-;;   (make-face 'telega-align-by-sarasa)
-;;   (set-face-font 'telega-align-by-sarasa (font-spec :family "Sarasa Mono SC"))
-;;   (add-hook! '(telega-chat-mode-hook telega-root-mode-hook)
-;;     (buffer-face-set 'telega-align-by-sarasa)))
-
-
-(when (member "Noto Color Emoji" (font-family-list))
-  (set-fontset-font 't 'symbol
-                    (font-spec :family "Noto Color Emoji")
-                    nil 'prepend))
-
-
-;; valign
-;; (add-hook 'org-mode-hook #'valign-mode)
-;; https://github.com/casouri/valign
-
-
-;; delay when org-capture
-(setq pdf-view-use-unicode-ligther nil)
-
-;; eaf
-;; https://github.com/manateelazycat/emacs-application-framework
-;; (use-package! eaf
-;;   :custom
-;;   (eaf-find-alternate-file-in-dired t))
-
-;; maximum windows not fullscreen
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; eaf
-;; ~/Documents/emacs-packages/emacs-application-framework
-;; (use-package eaf
-;;   :load-path "~/Documents/emacs-packages/emacs-application-framework";; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
-;;   :custom
-;;   (eaf-find-alternate-file-in-dired t)
-;;   :config
-;;   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
-
-
-;; rss
-(setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org")))
-(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
-
-
-;; nyan-mode
-(nyan-mode 1)
-(nyan-start-animation)
-;; (nyan-toggle-wavy-trail)
-;; (nyan-start-music)
-
-;; telega reply conflict with rime input "r"
-(defun +pyim-probe-telega-msg ()
-  "Return if current point is at a telega button."
-  (s-contains? "telega" (symbol-name (get-text-property (point)
-                                                        'category))))
-(add-to-list 'rime-disable-predicates #'+pyim-probe-telega-msg)
-;; (add-to-list 'pyim-english-input-switch-functions #'+pyim-probe-telega-msg)
-
-
-;; https://github.com/locez/Loceziazation/blob/master/.doom.d/config.el
-;; https://github.com/SteamedFish/emacszh-tg-configs
-
-
-;; (use-package! eaf)
-
-
-;; org archive file
-(setq org-archive-location "~/Documents/text/org/archive.org::* From %s")
-
-;; edit by sandbox
-;; (doom/toggle-profiler)
-
-
-;; switch to buffer scratch
-;; (switch-to-buffer "*scratch*")
-;; (add-hook! 'emacs-startup-hook (lambda () (switch-to-buffer "*scratch*")))
-
-;; load credential part
-(load! "~/.doom.d/credentials.el" 'noerror)
-
-;; shengci
-(use-package! shengci)
-;; (setq shengci-cache-word-dir-path "~/Documents/text/shengci/")
-
-;; (setq doom-theme 'doom-girly-heart)
-
-;; evernote
-(use-package! evernote-mode)
 
 ;; writing blog
 (require 'ox-publish)
@@ -822,6 +483,438 @@
   (setq org-publish-use-timestamps-flag t))
 ;; (define-key global-map "\C-xp" 'publish-project)
 
+#+end_src
+
+#+RESULTS:
+: org2nikola
+
+* org-roam
+#+begin_src emacs-lisp
+
+        ;; org-roam
+(setq org-roam-directory "~/Documents/org/roam")
+
+;; org-roam-server
+;; https://github.com/org-roam/org-roam-server
+;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
+;; (use-package org-roam-server
+;;   :init
+;;   (require 'org-roam-protocol)
+;;   :hook
+;;   ((after-init . server-start) ;; emacs-server starts
+;;    (after-init . org-roam-server-mode))
+;;   :config
+;;   (setq org-roam-server-host "127.0.0.1"
+;;         org-roam-server-port 9090
+;;         org-roam-server-authenticate nil
+;;         org-roam-server-export-inline-images t
+;;         org-roam-server-serve-files nil
+;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+;;         org-roam-server-network-poll t
+;;         org-roam-server-network-arrows nil
+;;         org-roam-server-network-label-truncate t
+;;         org-roam-server-network-label-truncate-length 60
+;;         org-roam-server-network-label-wrap-length 20))
+
+#+end_src
+
+
+* org-download
+
+#+begin_src emacs-lisp
+
+        ;; wayland not support maim
+;; https://github.com/naelstrof/maim/issues/67
+;; org-download-screenshot
+;; (use-package! org-download
+;;  :config
+;;  (org-download-screenshot-method "gnome-screenshot -a -f %s"))
+;; (setq org-download-screenshot-method "gnome-screenshot -a -f %s")
+;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
+
+#+end_src
+
+
+* chinese-input
+
+#+begin_src emacs-lisp
+
+        ;; rime
+;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
+;; https://github.com/DogLooksGood/emacs-rime
+;; TODO 参考重构 config commands 部分 https://github.com/jwiegley/use-package
+(use-package! rime
+  :init
+  (progn
+    (require 'posframe)
+    (require 'rime)
+    ;; https://github.com/DogLooksGood/emacs-rime 候选框最后一项不显示
+    (defun +rime--posframe-display-content-a (args)
+      "给 `rime--posframe-display-content' 传入的字符串加一个全角空
+格，以解决 `posframe' 偶尔吃字的问题。"
+      (cl-destructuring-bind (content) args
+        (let ((newresult (if (string-blank-p content)
+                             content
+                           (concat content "　"))))
+          (list newresult))))
+
+    (if (fboundp 'rime--posframe-display-content)
+        (advice-add 'rime--posframe-display-content
+                    :filter-args
+                    #'+rime--posframe-display-content-a)
+      (error "Function `rime--posframe-display-content' is not available."))
+    )
+  :custom
+  (default-input-method "rime")
+  (rime-user-data-dir "~/.doom.d/rime")
+  (rime-posframe-properties (list :background-color "#333333"
+                                  :foreground-color "#dcdccc"
+                                  :font "Sarasa UI SC"))
+  (rime-show-candidate 'posframe)
+  (rime-disable-predicates '(rime-predicate-auto-english-p
+                             ;; rime-predicate-space-after-cc-p
+                             rime-predicate-current-uppercase-letter-p))
+  ;;; support shift-l, shift-r, control-l, control-r
+  (rime-inline-ascii-trigger 'shift-l))
+;; temporary english predict
+;; https://github.com/DogLooksGood/emacs-rime
+;; (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
+
+
+;; DONE rime-force-enable keybinding
+;; https://github.com/DogLooksGood/emacs-rime
+(evil-define-key* 'insert 'global (kbd "M-\\") #'rime-force-enable)
+
+
+;; telega reply conflict with rime input "r"
+(defun +pyim-probe-telega-msg ()
+  "Return if current point is at a telega button."
+  (s-contains? "telega" (symbol-name (get-text-property (point)
+                                                        'category))))
+(add-to-list 'rime-disable-predicates #'+pyim-probe-telega-msg)
+;; (add-to-list 'pyim-english-input-switch-functions #'+pyim-probe-telega-msg)
+#+end_src
+
+
+* leetcode
+
+#+begin_src emacs-lisp
+
+ ;; leetcode
+(use-package! leetcode
+  :custom
+  (leetcode-prefer-language "c")
+  (leetcode-save-solutions t)
+  (leetcode-directory "~/Documents/text/leetcode"))
+
+#+end_src
+
+* deft
+
+#+begin_src emacs-lisp
+
+        ;; deft
+(setq deft-directory "~/Documents/org/deft/")
+
+#+end_src
+
+* circadian
+
+#+begin_src emacs-lisp
+
+        ;; carcadian
+;; https://github.com/guidoschmidt/circadian.el
+;; (use-package! circadian
+;;   :config
+;;   (setq calendar-latitude 30.4)
+;;   (setq calendar-longitude 114.9)
+;; (setq circadian-themes '((:sunrise . doom-one-light)
+;;                          (:sunset  . doom-one)))
+;; (setq circadian-themes '((:sunrise . doom-solarized-light)
+;;                          (:sunset  . doom-gruvbox-light)))
+;; (setq circadian-themes '((:sunrise . doom-gruvbox-light)
+;;                          (:sunset  . doom-gruvbox-light)))
+;;  (setq circadian-themes '((:sunrise . tango)
+;;                           (:sunset  . doom-one)))
+;; (circadian-setup)
+;;  )
+
+#+end_src
+
+
+* elfeed
+
+#+begin_src emacs-lisp
+
+
+;; rss
+(setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org")))
+(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+
+
+#+end_src
+
+* telega
+
+#+begin_src emacs-lisp
+
+        ;; telega
+;; https://github.com/zevlg/telega.el
+(use-package! telega
+  :commands (telega)
+  :defer t
+  :custom
+  ;; (telega-notifications-mode 1)
+  (telega-proxies (list
+                   '(:server "127.0.0.1" :port 1080 :enable t
+                     :type (:@type "proxyTypeSocks5")))))
+
+
+;; telega font
+;; (when (member "Sarasa Mono SC" (font-family-list))
+;;   (make-face 'telega-align-by-sarasa)
+;;   (set-face-font 'telega-align-by-sarasa (font-spec :family "Sarasa Mono SC"))
+;;   (add-hook! '(telega-chat-mode-hook telega-root-mode-hook)
+;;     (buffer-face-set 'telega-align-by-sarasa)))
+
+
+
+#+end_src
+
+* nyan
+
+#+begin_src emacs-lisp
+
+
+;; nyan-mode
+(nyan-mode 1)
+(nyan-start-animation)
+;; (nyan-toggle-wavy-trail)
+;; (nyan-start-music)
+
+
+
+#+end_src
+
+* org-journal
+
+#+begin_src emacs-lisp
+
+
+;; org-journal
+;; (setq org-journal-dir "~/Documents/org/journal/"
+;;       org-journal-date-format "%A, %d %B %Y"
+;;       org-journal-file-type 'monthly)
+
+
+
+#+end_src
+
+* map
+#+begin_src emacs-lisp
+
+        ;; map!
+;; map is just like a evil-define-key's warpper
+;; https://emacs-china.org/t/topic/5089
+(map!
+ :leader
+ :desc "youdao-dictionary-search-from-input" "y" #'youdao-dictionary-search-from-input
+ )
+
+
+#+end_src
+
+* latex
+
+#+begin_src emacs-lisp
+
+
+;; latex
+                                        ; https://emacs-china.org/t/emacs-latex/12658/4
+;; (setq latex-run-command "xelatex")
+;; (setq TeX-global-PDF-mode t TeX-engine 'xetex)
+;; (setq TeX-command-default "XeLaTeX")
+
+
+#+end_src
+
+* tabnine
+
+#+begin_src emacs-lisp
+
+        ;; tabnine
+;; https://github.com/TommyX12/company-tabnine
+;; (use-package! company-tabnine
+;;   :init
+;;   (add-to-list 'company-backends 'company-tabnine))
+;; (add-to-list 'company-backends 'company-tabnine)
+;; TODO https://emacs-china.org/t/tabnine/9988/39
+;; (defun company//sort-by-tabnine (candidates)
+;;   (if (or (functionp company-backend)
+;;           (not (and (listp company-backend) (memq 'company-tabnine company-backend))))
+;;       candidates
+;;     (let ((candidates-table (make-hash-table :test #'equal))
+;;           candidates-1
+;;           candidates-2)
+;;       (dolist (candidate candidates)
+;;         (if (eq (get-text-property 0 'company-backend candidate)
+;;                 'company-tabnine)
+;;             (unless (gethash candidate candidates-table)
+;;               (push candidate candidates-2))
+;;           (push candidate candidates-1)
+;;           (puthash candidate t candidates-table)))
+;;       (setq candidates-1 (nreverse candidates-1))
+;;       (setq candidates-2 (nreverse candidates-2))
+;;       (nconc (seq-take candidates-1 2)
+;;              (seq-take candidates-2 2)
+;;              (seq-drop candidates-1 2)
+;;              (seq-drop candidates-2 2)))))
+
+;; (add-to-list 'company-transformers 'company//sort-by-tabnine t)
+;; `:separate`  使得不同 backend 分开排序
+;; (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate))
+
+;; The free version of TabNine is good enough,
+;; and below code is recommended that TabNine not always
+;; prompt me to purchase a paid version in a large project.
+;; (defadvice company-echo-show (around disable-tabnine-upgrade-message activate)
+;;   (let ((company-message-func (ad-get-arg 0)))
+;;     (when (and company-message-func
+;;                (stringp (funcall company-message-func)))
+;;       (unless (string-match "The free version of TabNine only indexes up to" (funcall company-message-func))
+;;         ad-do-it))))
+
+
+#+end_src
+
+
+* UI
+
+#+begin_src emacs-lisp
+
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
+;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen #'+workspace/restore-last-session)
+;; (add-hook! 'emacs-startup-hook #'toggle-frame-fullscreen)
+
+
+
+(when (member "Noto Color Emoji" (font-family-list))
+  (set-fontset-font 't 'symbol
+                    (font-spec :family "Noto Color Emoji")
+                    nil 'prepend))
+
+
+#+end_src
+
+* luna
+
+#+begin_src emacs-lisp
+
+
+;; lunar
+;; https://emacs-china.org/t/topic/2119/13
+;; (defun my--diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
+;;   (if year
+;;       (let* ((d-date (diary-make-date lunar-month lunar-day year))
+;;              (a-date (calendar-absolute-from-gregorian d-date))
+;;              (c-date (calendar-chinese-from-absolute a-date))
+;;              (cycle (car c-date))
+;;              (yy (cadr c-date))
+;;              (y (+ (* 100 cycle) yy)))
+;;         (diary-chinese-anniversary lunar-month lunar-day y mark))
+;;     (diary-chinese-anniversary lunar-month lunar-day year mark)))
+
+
+#+end_src
+
+* rainbow-fat
+
+#+begin_src emacs-lisp
+
+        ;; (use-package! rainbow-fart
+;;   :hook (prog-mode . rainbow-fart-mode)
+;;   :custom
+;;   (rainbow-fart-voice-model "JustKowalski")
+;;   (rainbow-fart-keyword-interval (* 1 10)))
+;; https://github.com/lujun9972/emacs-rainbow-fart
+
+
+#+end_src
+
+
+* wucuo
+
+# https://github.com/redguardtoo/wucuo
+
+#+begin_src emacs-lisp
+
+(add-hook 'prog-mode-hook #'wucuo-start)
+(add-hook 'text-mode-hook #'wucuo-start)
+
+#+end_src
+
+
+* podcaster
+
+#+begin_src emacs-lisp
+
+        ;podcaster
+;; https://github.com/lujun9972/podcaster
+(use-package! podcaster
+  :custom
+  (podcaster-feeds-urls '(
+                          "http://voice.beartalking.com/rss"
+                          "https://feed.podbean.com/speakmylanguage/feed.xml"
+                          "http://feed.thisamericanlife.org/talpodcast"
+                          "https://fs.blog/knowledge-project/feed/"
+                          "https://jamesaltucher.com/podcasts/feed/"
+                          "https://adhk.me/episodes/feed.xml"
+                          "https://anchor.fm/s/2ad39814/podcast/rss"
+                          "https://zhiyi.life/episodes/feed.xml"
+                          )))
+;; https://www.douban.com/note/763676277/
+
+#+end_src
+
+
+* other config
+
+#+begin_src emacs-lisp
+
+;; TODO anki vocabulary capture failed
+(use-package! anki-editor)
+(use-package! anki-connect)
+
+
+;; TODO autosave prog-mode
+;; TODO balance window when change
+
+
+;; unsave query functions when left with unsaved customization
+;; (add-hook 'kill-emacs-query-functions 'custom-prompt-customize-unsaved-options)
+
+
+;; https://github.com/locez/Loceziazation/blob/master/.doom.d/config.el
+;; https://github.com/SteamedFish/emacszh-tg-configs
+
+
+;; switch to buffer scratch
+;; (switch-to-buffer "*scratch*")
+;; (add-hook! 'emacs-startup-hook (lambda () (switch-to-buffer "*scratch*")))
+
+;; load credential part
+(load! "~/.doom.d/credentials.el" 'noerror)
+
+;; shengci
+(use-package! shengci)
+;; (setq shengci-cache-word-dir-path "~/Documents/text/shengci/")
+
+;; (setq doom-theme 'doom-girly-heart)
+
+;; evernote
+(use-package! evernote-mode)
+
+
 ;; (add-hook! youdao-dictionary-mode-hook #'shengci-capture-word-and-save)
 
 ;; (add-hook! doom-after-reload-hook #'posframe-delete-all)
@@ -839,16 +932,6 @@
 (use-package org-protocol
   :defer t)
 
-
 #+end_src
 
-* wucuo
-
-# https://github.com/redguardtoo/wucuo
-
-#+begin_src emacs-lisp
-
-(add-hook 'prog-mode-hook #'wucuo-start)
-(add-hook 'text-mode-hook #'wucuo-start)
-
-#+end_src
+#+RESULTS:
