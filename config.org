@@ -183,8 +183,9 @@
   :init
   (progn
     (require 'org-protocol)
+    (require 'org-refile)
     (setq org-agenda-files
-          '("~/Documents/org/todo.org"
+          '("~/Documents/org/tasks.org"
             "~/Documents/org/birthdays.org"
             "~/Documents/org/dissertation.org"
             "~/Documents/org/gcal.org"
@@ -195,39 +196,41 @@
 
     (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
 
-    (add-to-list 'org-capture-templates '("z" "ZMonster"))
-    (add-to-list 'org-capture-templates '("zt" "Tasks"))
-    (add-to-list 'org-capture-templates
-                 '("ztr" "Book Reading Task" entry
-                   (file+olp "~/Documents/org/task.org" "Reading" "Book")
-                   "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
-    (add-to-list 'org-capture-templates
-                 '("ztw" "Work Task" entry
-                   (file+headline "~/Documents/org/task.org" "Work")
-                   "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
-    (add-to-list 'org-capture-templates
-                 '("zj" "journal" entry (file "~/Documents/org/journal/journal.org")
-                   "* %u - %^{heading}\n  %?"))
-    (add-to-list 'org-capture-templates
-                 '("zi" "Inbox" entry (file "~/Documents/org/inbox.org")
-                   (add-to-list 'org-capture-templates
-                                "* %U - %^{heading} %^g\n %?\n"))
-                 '("zn" "Notes" entry (file "~/Documents/org/notes.org")
-                   "* %^{heading} %t %^g\n  %?\n"))
-    (add-to-list 'org-capture-templates
-                 `("zb" "Blog" plain (file ,(concat "~/Documents/blog/org"
-                                                    (format-time-string "%Y-%m-%d.org")))
-                   ,(concat "\n#+startup: showall\n"
-                            "#+options: toc:nil\n"
-                            "#+begin_export html\n"
-                            "---\n"
-                            "layout     : post\n"
-                            "title      : %^{标题}\n"
-                            "categories : %^{类别}\n"
-                            "tags       : %^{标签}\n"
-                            "---\n"
-                            "#+end_export\n"
-                            "#+TOC: headlines 2\n")))
+    ;; TODO: reset journal note and todo file and opreations
+    ;;
+    ;; (add-to-list 'org-capture-templates '("z" "ZMonster"))
+    ;; (add-to-list 'org-capture-templates '("zt" "Tasks"))
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("ztr" "Book Reading Task" entry
+    ;;                (file+olp "~/Documents/org/task.org" "Reading" "Book")
+    ;;                "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("ztw" "Work Task" entry
+    ;;                (file+headline "~/Documents/org/task.org" "Work")
+    ;;                "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("zj" "journal" entry (file "~/Documents/org/journal/journal.org")
+    ;;                "* %u - %^{heading}\n  %?"))
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("zi" "Inbox" entry (file "~/Documents/org/inbox.org")
+    ;;                (add-to-list 'org-capture-templates
+    ;;                             "* %U - %^{heading} %^g\n %?\n"))
+    ;;              '("zn" "Notes" entry (file "~/Documents/org/notes.org")
+    ;;                "* %^{heading} %t %^g\n  %?\n"))
+    ;; (add-to-list 'org-capture-templates
+    ;;              `("zb" "Blog" plain (file ,(concat "~/Documents/blog/org"
+    ;;                                                 (format-time-string "%Y-%m-%d.org")))
+    ;;                ,(concat "\n#+startup: showall\n"
+    ;;                         "#+options: toc:nil\n"
+    ;;                         "#+begin_export html\n"
+    ;;                         "---\n"
+    ;;                         "layout     : post\n"
+    ;;                         "title      : %^{标题}\n"
+    ;;                         "categories : %^{类别}\n"
+    ;;                         "tags       : %^{标签}\n"
+    ;;                         "---\n"
+    ;;                         "#+end_export\n"
+    ;;                         "#+TOC: headlines 2\n")))
 
     (add-to-list 'org-capture-templates '("w" "Wangding"))
     (add-to-list 'org-capture-templates
@@ -236,12 +239,12 @@
 
     (add-to-list 'org-capture-templates
                  '("wt" "Personal todo" entry
-                   (file+headline +org-capture-todo-file "Inbox")
+                   (file+headline "~/Documents/org/tasks.org" "Inbox")
                    "* TODO %?\n%i\n%u\n%a" :prepend t))
 
     (add-to-list 'org-capture-templates
                  '("wn" "Personal notes" entry
-                   (file+headline +org-capture-notes-file "Inbox")
+                   (file+headline  "~/Documents/org/notes.org" "Inbox")
                    "* %u %? %^G\n%i\n%a" :prepend t))
 
     (add-to-list 'org-capture-templates
@@ -262,38 +265,38 @@
                    "** %(format-time-string org-journal-time-format)%?"))
 
 
-    (defun get-year-and-month ()
-      (list (format-time-string "%Y年") (format-time-string "%m月")))
+    ;; (defun get-year-and-month ()
+    ;;   (list (format-time-string "%Y年") (format-time-string "%m月")))
 
-    (defun find-month-tree ()
-      (let* ((path (get-year-and-month))
-             (level 1)
-             end)
-        (unless (derived-mode-p 'org-mode)
-          (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
-        (goto-char (point-min))         ;移动到 buffer 的开始位置
-        ;; 先定位表示年份的 headline，再定位表示月份的 headline
-        (dolist (heading path)
-          (let ((re (format org-complex-heading-regexp-format
-                            (regexp-quote heading)))
-                (cnt 0))
-            (if (re-search-forward re end t)
-                (goto-char (point-at-bol)) ;如果找到了 headline 就移动到对应的位置
-              (progn                       ;否则就新建一个 headline
-                (or (bolp) (insert "\n"))
-                (if (/= (point) (point-min)) (org-end-of-subtree t t))
-                (insert (make-string level ?*) " " heading "\n"))))
-          (setq level (1+ level))
-          (setq end (save-excursion (org-end-of-subtree t t))))
-        (org-end-of-subtree)))
-    (add-to-list 'org-capture-templates
-                 '("zb" "Billing" plain
-                   (file+function "~/Documents/org/billing.org" find-month-tree)
-                   " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
+    ;; (defun find-month-tree ()
+    ;;   (let* ((path (get-year-and-month))
+    ;;          (level 1)
+    ;;          end)
+    ;;     (unless (derived-mode-p 'org-mode)
+    ;;       (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
+    ;;     (goto-char (point-min))         ;移动到 buffer 的开始位置
+    ;;     ;; 先定位表示年份的 headline，再定位表示月份的 headline
+    ;;     (dolist (heading path)
+    ;;       (let ((re (format org-complex-heading-regexp-format
+    ;;                         (regexp-quote heading)))
+    ;;             (cnt 0))
+    ;;         (if (re-search-forward re end t)
+    ;;             (goto-char (point-at-bol)) ;如果找到了 headline 就移动到对应的位置
+    ;;           (progn                       ;否则就新建一个 headline
+    ;;             (or (bolp) (insert "\n"))
+    ;;             (if (/= (point) (point-min)) (org-end-of-subtree t t))
+    ;;             (insert (make-string level ?*) " " heading "\n"))))
+    ;;       (setq level (1+ level))
+    ;;       (setq end (save-excursion (org-end-of-subtree t t))))
+    ;;     (org-end-of-subtree)))
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("zb" "Billing" plain
+    ;;                (file+function "~/Documents/org/billing.org" find-month-tree)
+    ;;                " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
 
-    (add-to-list 'org-capture-templates
-                 '("zc" "Contacts" table-line (file "~/Documents/org/contacts.org")
-                   "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("zc" "Contacts" table-line (file "~/Documents/org/contacts.org")
+    ;;                "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
 
     ;; (add-to-list 'org-capture-templates '("p" "Protocol"))
     ;; (add-to-list 'org-capture-templates
@@ -325,28 +328,28 @@
                    "  %U - %?\n\n  %:initial" :empty-lines 1))
 
 
-    (defun generate-anki-note-body ()
-      (interactive)
-      (message "Fetching note types...")
-      (let ((note-types (sort (anki-editor-note-types) #'string-lessp))
-            (decks (sort (anki-editor-deck-names) #'string-lessp))
-            deck note-type fields)
-        (setq deck (completing-read "Choose a deck: " decks))
-        (setq note-type (completing-read "Choose a note type: " note-types))
-        (message "Fetching note fields...")
-        (setq fields (anki-editor--anki-connect-invoke-result "modelFieldNames" `((modelName . ,note-type))))
-        (concat "  :PROPERTIES:\n"
-                "  :ANKI_DECK: " deck "\n"
-                "  :ANKI_NOTE_TYPE: " note-type "\n"
-                "  :END:\n\n"
-                (mapconcat (lambda (str) (concat "** " str))
-                           fields
-                           "\n\n"))))
-    (add-to-list 'org-capture-templates
-                 `("zv" "Vocabulary" entry
-                   (file+headline "~/Documents/org/anki/anki-cards.org" "Vocabulary")
-                   ,(concat "* %^{heading} :note:\n"
-                            "%(generate-anki-note-body)\n")))
+    ;; (defun generate-anki-note-body ()
+    ;;   (interactive)
+    ;;   (message "Fetching note types...")
+    ;;   (let ((note-types (sort (anki-editor-note-types) #'string-lessp))
+    ;;         (decks (sort (anki-editor-deck-names) #'string-lessp))
+    ;;         deck note-type fields)
+    ;;     (setq deck (completing-read "Choose a deck: " decks))
+    ;;     (setq note-type (completing-read "Choose a note type: " note-types))
+    ;;     (message "Fetching note fields...")
+    ;;     (setq fields (anki-editor--anki-connect-invoke-result "modelFieldNames" `((modelName . ,note-type))))
+    ;;     (concat "  :PROPERTIES:\n"
+    ;;             "  :ANKI_DECK: " deck "\n"
+    ;;             "  :ANKI_NOTE_TYPE: " note-type "\n"
+    ;;             "  :END:\n\n"
+    ;;             (mapconcat (lambda (str) (concat "** " str))
+    ;;                        fields
+    ;;                        "\n\n"))))
+    ;; (add-to-list 'org-capture-templates
+    ;;              `("zv" "Vocabulary" entry
+    ;;                (file+headline "~/Documents/org/anki/anki-cards.org" "Vocabulary")
+    ;;                ,(concat "* %^{heading} :note:\n"
+    ;;                         "%(generate-anki-note-body)\n")))
 
     ))
 
@@ -393,7 +396,7 @@
   :defer t
   :init
   (setq org-agenda-files
-        '("~/Documents/org/todo.org"
+        '("~/Documents/org/tasks.org"
           "~/Documents/org/birthdays.org"
           "~/Documents/org/dissertation.org"
           "~/Documents/org/gcal.org"
@@ -519,13 +522,17 @@
                     (:auto-category t
                      :order 9)))))))
      ("r" . "Weekly review")
+     ("rd" "Last day"
+      ((tags "CLOSED>=\"<-1d>\"/DONE"
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo))
+              (org-agenda-overriding-header "done last day")))))
      ("rw" "Last week"
       ((tags "TIMESTAMP_IA>=\"<-9d>\"+TIMESTAMP_IA<=\"<today>\"/DONE"
              ((org-agenda-overriding-header "Got inactive in the last week")))
        (tags "TIMESTAMP>=\"<-9d>\"+TIMESTAMP<=\"<today>\"/DONE"
              ((org-agenda-overriding-header "Happened in the last week")
               (org-agenda-files
-               '("~/Documents/org/todo.org"
+               '("~/Documents/org/tasks.org"
                  "~/Documents/org/birthdays.org"
                  "~/Documents/org/dissertation.org"
                  "~/Documents/org/gcal.org"
@@ -959,6 +966,8 @@
 
 * UI
 
+** font
+
 #+begin_src emacs-lisp
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
@@ -972,6 +981,19 @@
                     (font-spec :family "Noto Color Emoji")
                     nil 'prepend))
 
+
+#+end_src
+
+
+** Disable tool-bar and menu-bar
+
+#+begin_src emacs-lisp
+
+(when (version< emacs-version "27.0")
+  (when tool-bar-mode
+    (tool-bar-mode -1))
+  (when menu-bar-mode
+    (menu-bar-mode -1)))
 
 #+end_src
 
@@ -1149,3 +1171,19 @@
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
   #+END_SRC
+
+
+* imenu
+
+#+begin_src emacs-lisp
+
+(after! imenu
+  (setq imenu-auto-rescan t))
+
+(use-package! imenu-list
+  :commands (imenu-list-smart-toggle)
+  :config
+  (imenu-list-minor-mode))
+
+#+end_src
+

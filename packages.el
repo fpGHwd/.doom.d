@@ -130,3 +130,5 @@
 
 (package! wucuo)
 (package! org-super-agenda)
+
+(package! imenu-list)
