@@ -129,3 +129,4 @@
                  :repo "alphapapa/org-protocol-capture-html"))
 
 (package! wucuo)
+(package! org-super-agenda)
