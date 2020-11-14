@@ -132,3 +132,5 @@
 (package! org-super-agenda)
 
 (package! imenu-list)
+
+;; (package! org-roam-capture)

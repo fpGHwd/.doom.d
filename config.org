@@ -393,6 +393,8 @@
 
 #+begin_src emacs-lisp
 
+(eval-when-compile (require 'cl)) ;; fixing not lexical-let
+
 (use-package org-agenda
   :defer t
   :init
@@ -413,17 +415,17 @@
      are equal return t."
     (eval-when-compile (require 'cl)) ;; fixing not lexical-let
     (lexical-let ((prop prop))
-                 #'(lambda (a b)
-                     (let* ((a-pos (get-text-property 0 'org-marker a))
-                            (b-pos (get-text-property 0 'org-marker b))
-                            (a-date (or (org-entry-get a-pos prop)
-                                        (format "<%s>" (org-read-date t nil "now"))))
-                            (b-date (or (org-entry-get b-pos prop)
-                                        (format "<%s>" (org-read-date t nil "now"))))
-                            (cmp (compare-strings a-date nil nil b-date nil nil))
-                            )
-                       (if (eq cmp t) nil (signum cmp))
-                       )))
+      #'(lambda (a b)
+          (let* ((a-pos (get-text-property 0 'org-marker a))
+                 (b-pos (get-text-property 0 'org-marker b))
+                 (a-date (or (org-entry-get a-pos prop)
+                             (format "<%s>" (org-read-date t nil "now"))))
+                 (b-date (or (org-entry-get b-pos prop)
+                             (format "<%s>" (org-read-date t nil "now"))))
+                 (cmp (compare-strings a-date nil nil b-date nil nil))
+                 )
+            (if (eq cmp t) nil (signum cmp))
+            )))
     )
   (org-super-agenda-mode)
   (mapc
@@ -848,7 +850,6 @@
 
 
 ;; rss
-
 (use-package elfeed
   :defer t
   :config
@@ -1158,12 +1159,14 @@
 
 (after! ispell
   (setq ispell-extra-args '("--sug-mode=ultra")
-        ispell-dictionary "american"))
+        ispell-dictionary "american"
+        ispell-personal-dictionary nil)) ;; set ispell-personal-dictionary for I have no ispell-personal-dictionary
 
 #+end_src
 
 * Python
-  #+BEGIN_SRC emacs-lisp
+
+#+BEGIN_SRC emacs-lisp
 (use-package company-jedi             ;;; company-mode completion back-end for Python JEDI
   :defer t
   :config
@@ -1199,8 +1202,7 @@
 ;; optionally if you want to use debugger
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-  #+END_SRC
-
+#+END_SRC
 
 * imenu
 
@@ -1216,3 +1218,25 @@
 
 #+end_src
 
+* org-roam
+#+BEGIN_SRC emacs-lisp
+;; This is only a workaround
+;; (setq org-roam-directory (concat org-directory "/roam"))
+
+
+;; (setq org-roam-directory (concat org-directory "/roam")
+;;      org-roam-db-location "/tmp/org-roam.db")
+
+;; (use-package org-roam-capture
+;;   :defer t
+;;   :config
+;;   (setq org-roam-capture-ref-templates
+;;         '(("r" "ref" plain
+;;            #'org-roam-capture--get-point "%?"
+;;            :file-name "${slug}"
+;;            :head "#+title: ${title}\n#+roam_key: ${ref}\n[[${ref}][${title}]]\n"
+;;            :unnarrowed t))
+;;         org-roam-capture-templates
+;;         '(("d" "default" plain #'org-roam-capture--get-point "%?" :file-name "%<%Y%m%d%H%M%S>-${slug}" :head "#+title: ${title}\n#+roam_tags:" :unnarrowed t))))
+
+#+END_SRC
