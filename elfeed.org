@@ -1,0 +1,117 @@
+#+TITLE: elfeed
+#+STARTUP: overview
+#+STARTUP: indent
+
+
+* root :elfeed:
+** Programming :programming:
+*** http://blog.codingnow.com/atom.xml :cpp:
+*** https://planet.emacslife.com/atom.xml :elisp:
+** News :news:
+# *** http://www.ruanyifeng.com/blog/atom.xml :yyf:
+# *** https://rsshub.app/whu/cs/1 :whu:
+*** https://rsshub.app/whu/news/wdyw :whu:
+*** https://rsshub.app/hackernews/best/index :hacknews:
+*** https://rsshub.app/leetcode/articles :leetcode:
+** Blogs :blog:
+*** [[https://rsshub.app/blogs/wangyin]]
+*** https://fpghwd.github.io//rss.xml
+*** https://bnlt.org/atom.xml
+*** https://www.zmonster.me/atom.xml
+*** http://blog.binchen.org//rss.xml :chenbin:
+*** https://blog.lilydjwg.me/feed
+*** https://archive.casouri.cat/note/rss.xml
+** Video :video:
+*** https://rsshub.app/youtube/channel/UCq2a8muf_TCGJt1AhBfU-7A :kehuanmi:
+*** https://rsshub.app/youtube/channel/UCZ_HHuwxpqXGlTOFx1veVdw
+*** https://rsshub.app/youtube/channel/UCRjfqDnltvniD5CUvv14DOg
+*** https://rsshub.app/youtube/channel/UCYO_jab_esuFRV4b17AJtAw
+*** https://rsshub.app/youtube/channel/UC5xDNEcvb1vgw3lE21Ack2Q
+*** https://rsshub.app/youtube/channel/UCy-dvmsfmvYXBmt_huqqo1A
+*** https://rsshub.app/douban/movie/later :douban:
+*** https://rsshub.app/bilibili/partion/146 :bilibili:
+** Misc :misc:
+
+# *** https://rsshub.app/smzdm/ranking/pinlei/11/3
+** Forum :forum:
+*** https://forum.suse.org.cn/latest.rss
+*** https://emacs-china.org/latest.rss
+
+** Social :social:
+*** twitter :twitter:
+# **** https://rsshub.app/twitter/user/Desvl1998
+# **** https://rsshub.app/twitter/user/xiangjiaoguomin
+# **** https://rsshub.app/twitter/user/elonmusk
+# **** https://rsshub.app/twitter/user/avetojane
+# **** https://rsshub.app/twitter/followings/avetojane
+# **** https://rsshub.app/twitter/keyword/emacs
+# **** https://rsshub.app/twitter/keyword/magnet:?
+*** weibo :weibo:
+
+**** https://rsshub.app/weibo/user/1834459124
+**** https://rsshub.app/weibo/user/2966002294
+**** https://rsshub.app/weibo/user/3189842472
+**** https://rsshub.app/weibo/user/2915005333
+
+*** zhuanlan :zhuanlan:
+# **** https://rsshub.app/zhihu/zhuanlan/c_35038595
+** RSS Hub :rss:
+** Weixin :weixin:
+*** https://feedpress.me/wx-girlswhocode
+*** https://feedpress.me/wx-quiet-desk
+*** https://feedpress.me/wx-youyouluming
+** news
+*** https://rsshub.app/natgeo/dailyphoto
+** Emacs
+*** https://jherrlin.github.io/index.xml
+* Blogs :elfeed:
+** Research :research:
+*** [[http://cstheory-feed.org/atom.xml][CS Theory]]
+*** [[http://export.arxiv.org/api/query?search_query=cat:cs.DS&start=0&max_results=300&sortBy=submittedDate&sortOrder=descending][ArXiv Algorithms]]
+*** [[http://export.arxiv.org/api/query?search_query=cat:cs.CC&start=0&max_results=300&sortBy=submittedDate&sortOrder=descending][ArXiv Computation Complexity]]
+** Emacs
+*** [[https://planet.emacslife.com/atom.xml][Emacs Planet]] :emacs:
+*** [[https://jherrlin.github.io/index.xml][jherrlin]]
+** Friends
+*** [[https://bigeagle.me/index.xml][Big Eagle]]
+*** [[http://scateu.me/feed.xml][Scateu]]
+*** [[https://farseerfc.me/feeds/atom.xml][Farseerfc]]
+** Food :food:leisure:
+# *** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCg0m_Ah8P_MQbnn77-vYnYw][美食作家王刚]]
+*** [[https://rsshub.app/bilibili/user/video/419872064][老饭骨]]
+*** [[https://rsshub.app/bilibili/user/video/415479453][主厨农国栋]]
+*** [[https://rsshub.app/bilibili/user/video/290526283][美食作家王刚R]]
+# *** [[https://rsshub.app/bilibili/user/video/580315930][三叔来盘道]]
+** Anime :anime:leisure:
+*** [[https://rsshub.app/bilibili/user/video/411462][拉面套餐]]
+*** [[https://rsshub.app/bilibili/user/video/3907165][DY-爱衣单推]]
+*** [[https://rsshub.app/pixiv/ranking/week][Pixiv]]
+*** [[https://rsshub.app/konachan.net/post/popular_recent/1d][Konachan]]
+# *** [[https://rsshub.app/yande.re/post/popular_recent/1d][Yande.re]]
+# *** [[https://rsshub.app/jdlingyu/tuji][绝对领域]]
+** 知乎 :zhihu:leisure:
+*** [[https://rsshub.app/zhihu/collection/427264591][山高县]]
+*** [[https://rsshub.app/zhihu/collection/40631599][军队，武器，战争]]
+*** [[https://rsshub.app/zhihu/collection/44434804][打脸何其爽，你能奈我何]]
+*** [[https://rsshub.app/zhihu/collection/64483355][知乎神回复]]
+*** [[https://rsshub.app/zhihu/collection/19825336][犀利短评]]
+*** [[https://rsshub.app/zhihu/collection/23186304][吃点好的 很有必要]]
+*** [[https://rsshub.app/zhihu/collection/20094118][一图秒杀]]
+*** [[https://rsshub.app/zhihu/collection/45382427][长篇高级黑]]
+*** [[https://rsshub.app/zhihu/collection/37166127][只为逼格而存在]]
+*** [[https://rsshub.app/zhihu/daily][知乎日报]]
+** News :leisure:news:
+# *** [[https://rsshub.app/cnbeta][cnBeta]] :tech:
+*** [[https://rsshub.app/engadget-cn][Engadget]] :tech:
+# *** [[https://rsshub.app/ft/chinese/hotstoryby7day][FT 中文网]]
+*** [[https://rsshub.app/zaobao/realtime/china][Zaobao 中国]]
+*** [[https://rsshub.app/zaobao/realtime/world][Zaobao 世界]]
+*** [[https://rsshub.app/zaobao/znews/china][Zaobao 新闻 中国]]
+*** [[https://rsshub.app/zaobao/znews/world][Zaobao 新闻 世界]]
+# *** [[https://rsshub.app/nytimes/en][纽约时报]]
+*** [[https://medium.com/feed/boox-content-hub][Boox]]
+*** [[https://rsshub.app/natgeo/dailyphoto][国家地理 每日一图]]
+# *** [[https://rsshub.app/natgeo/environment/article][国家地理]]
+*** [[https://rsshub.app/smzdm/ranking/haowen/yc/48][什么值得买]] :buy:
+** Blog
+*** [[https://archive.casouri.cat/note/rss.xml][casouri]]
