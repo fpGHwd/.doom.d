@@ -186,6 +186,7 @@
     (require 'org-refile)
     (setq org-agenda-files
           '("~/Documents/org/tasks.org"
+            "~/Documents/org/todo.org"
             "~/Documents/org/birthdays.org"
             "~/Documents/org/dissertation.org"
             "~/Documents/org/gcal.org"
@@ -397,6 +398,7 @@
   :init
   (setq org-agenda-files
         '("~/Documents/org/tasks.org"
+          "~/Documents/org/todo.org"
           "~/Documents/org/birthdays.org"
           "~/Documents/org/dissertation.org"
           "~/Documents/org/gcal.org"
@@ -405,6 +407,24 @@
           "~/Documents/org/papers.org"
           "~/Documents/org/research.org"))
   :config
+  (defun cmp-date-property (prop)
+    "Compare two `org-mode' agenda entries, `A' and `B', by some date property.
+     If a is before b, return -1. If a is after b, return 1. If they
+     are equal return t."
+    (eval-when-compile (require 'cl)) ;; fixing not lexical-let
+    (lexical-let ((prop prop))
+                 #'(lambda (a b)
+                     (let* ((a-pos (get-text-property 0 'org-marker a))
+                            (b-pos (get-text-property 0 'org-marker b))
+                            (a-date (or (org-entry-get a-pos prop)
+                                        (format "<%s>" (org-read-date t nil "now"))))
+                            (b-date (or (org-entry-get b-pos prop)
+                                        (format "<%s>" (org-read-date t nil "now"))))
+                            (cmp (compare-strings a-date nil nil b-date nil nil))
+                            )
+                       (if (eq cmp t) nil (signum cmp))
+                       )))
+    )
   (org-super-agenda-mode)
   (mapc
    (lambda (value)
@@ -525,7 +545,10 @@
      ("rd" "Last day"
       ((tags "CLOSED>=\"<-1d>\"/DONE"
              ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo))
-              (org-agenda-overriding-header "done last day")))))
+              (org-agenda-overriding-header "done last day")
+              (org-agenda-cmp-user-defined (cmp-date-property
+                                            "CLOSED"))
+              (org-agenda-sorting-strategy '(user-defined-up))))))
      ("rw" "Last week"
       ((tags "TIMESTAMP_IA>=\"<-9d>\"+TIMESTAMP_IA<=\"<today>\"/DONE"
              ((org-agenda-overriding-header "Got inactive in the last week")))
@@ -533,6 +556,7 @@
              ((org-agenda-overriding-header "Happened in the last week")
               (org-agenda-files
                '("~/Documents/org/tasks.org"
+                 "~/Documents/org/todo.org"
                  "~/Documents/org/birthdays.org"
                  "~/Documents/org/dissertation.org"
                  "~/Documents/org/gcal.org"
@@ -824,8 +848,13 @@
 
 
 ;; rss
-(setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org")))
-(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+
+(use-package elfeed
+  :defer t
+  :config
+  (setq rmh-elfeed-org-files (list (concat doom-private-dir"/elfeed.org")))
+  (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+  )
 
 
 #+end_src
@@ -1072,13 +1101,13 @@
 
 #+begin_src emacs-lisp
 
-;; TODO anki vocabulary capture failed
-(use-package! anki-editor)
-(use-package! anki-connect)
+;; anki vocabulary capture failed
+;; (use-package! anki-editor)
+;; (use-package! anki-connect)
 
 
-;; TODO autosave prog-mode
-;; TODO balance window when change
+;; autosave prog-mode
+;; balance window when change
 
 
 ;; unsave query functions when left with unsaved customization
