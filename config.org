@@ -29,12 +29,6 @@
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 17)
       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17))
 
-
-;; italic when comment and keyword
-;; https://www.reddit.com/r/emacs/comments/f531pt/doom_wherehow_to_change_syntax_highlighting/
-(custom-set-faces! '(font-lock-comment-face :slant italic) '(font-lock-keyword-face :slant italic))
-
-
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -45,8 +39,6 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/org")
-
-;; (doom/toggle-profiler)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -75,18 +67,6 @@
 ;; (setq fancy-splash-image "~/.doom.d/logo/spacemacs-mega.png")
 ;; (setq fancy-splash-image "~/.doom.d/logo/mega-1.png")
 
-;; garbage
-(setq gc-cons-threshold most-positive-fixnum)
-(add-hook 'focus-out-hook #'garbage-collect)
-(add-hook 'after-init-hook #'(lambda () (setq gc-cons-threshold (* 50 1024 1024))))
-
-
-;; not use when you know it's for speed when emacs start
-(eval-and-compile
-  (setq use-package-always-ensure t)
-  (setq use-package-always-defer t)
-  (setq use-package-expand-minimally t)
-  (setq use-package-enable-imenu-support t))
 
 
 #+end_src
@@ -952,6 +932,15 @@
 
 #+end_src
 
+** italic
+#+begin_src emacs-lisp
+
+;; italic when comment and keyword
+;; https://www.reddit.com/r/emacs/comments/f531pt/doom_wherehow_to_change_syntax_highlighting/
+(custom-set-faces! '(font-lock-comment-face :slant italic) '(font-lock-keyword-face :slant italic))
+
+#+end_src
+
 * luna
 
 #+begin_src emacs-lisp
@@ -989,8 +978,6 @@
 
 * wucuo
 
-# https://github.com/redguardtoo/wucuo
-
 #+begin_src emacs-lisp
 
 (add-hook 'prog-mode-hook #'wucuo-start)
@@ -1020,7 +1007,7 @@
 
 #+end_src
 
-* other config
+* credentials
 
 #+begin_src emacs-lisp
 
@@ -1029,22 +1016,6 @@
 ;; (use-package! anki-connect)
 
 
-;; autosave prog-mode
-;; balance window when change
-
-
-;; unsave query functions when left with unsaved customization
-;; (add-hook 'kill-emacs-query-functions 'custom-prompt-customize-unsaved-options)
-
-
-;; https://github.com/locez/Loceziazation/blob/master/.doom.d/config.el
-;; https://github.com/SteamedFish/emacszh-tg-configs
-
-
-;; switch to buffer scratch
-;; (switch-to-buffer "*scratch*")
-;; (add-hook! 'emacs-startup-hook (lambda () (switch-to-buffer "*scratch*")))
-
 ;; load credential part
 (load! "~/.doom.d/credentials.el" 'noerror)
 
@@ -1052,17 +1023,15 @@
 (use-package! shengci)
 ;; (setq shengci-cache-word-dir-path "~/Documents/shengci/")
 
-;; (setq doom-theme 'doom-girly-heart)
-
 ;; evernote
 (use-package! evernote-mode)
 
 
-;; (add-hook! youdao-dictionary-mode-hook #'shengci-capture-word-and-save)
+#+end_src
 
-;; (add-hook! doom-after-reload-hook #'posframe-delete-all)
+* valign
 
-
+#+begin_src emacs-lisp
 
 (use-package! valign
   :defer t
@@ -1174,4 +1143,21 @@
 
 #+end_src
 
-* Projectile
+* performance
+
+#+begin_src emacs-lisp
+
+;; garbage
+(setq gc-cons-threshold most-positive-fixnum)
+(add-hook 'focus-out-hook #'garbage-collect)
+(add-hook 'after-init-hook #'(lambda () (setq gc-cons-threshold (* 50 1024 1024))))
+
+;; not use when you know it's for speed when emacs start
+(eval-and-compile
+  (setq use-package-always-ensure t)
+  (setq use-package-always-defer t)
+  (setq use-package-expand-minimally t)
+  (setq use-package-enable-imenu-support t))
+
+
+#+end_src
