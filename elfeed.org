@@ -5,65 +5,48 @@
 
 * root :elfeed:
 ** Programming :programming:
-*** http://blog.codingnow.com/atom.xml :cpp:
-*** https://planet.emacslife.com/atom.xml :elisp:
+*** [[http://blog.codingnow.com/atom.xml][云风]]
+*** [[https://planet.emacslife.com/atom.xml][Emacs Planet]]
 ** News :news:
-# *** http://www.ruanyifeng.com/blog/atom.xml :yyf:
-# *** https://rsshub.app/whu/cs/1 :whu:
-*** https://rsshub.app/whu/news/wdyw :whu:
-*** https://rsshub.app/hackernews/best/index :hacknews:
-*** https://rsshub.app/leetcode/articles :leetcode:
+*** [[http://www.ruanyifeng.com/blog/atom.xml][阮一峰]]
+*** [[https://rsshub.app/whu/news/wdyw][武大新闻]]
+*** [[https://rsshub.app/hackernews/best/index][Hacker News]]
+*** [[https://rsshub.app/leetcode/articles][Leetcode 文章]]
 ** Blogs :blog:
-*** [[https://rsshub.app/blogs/wangyin]]
-*** https://fpghwd.github.io//rss.xml
-*** https://bnlt.org/atom.xml
-*** https://www.zmonster.me/atom.xml
-*** http://blog.binchen.org//rss.xml :chenbin:
-*** https://blog.lilydjwg.me/feed
-*** https://archive.casouri.cat/note/rss.xml
+*** [[https://rsshub.app/blogs/wangyin][王垠]]
+*** [[https://www.zmonster.me/atom.xml][ZMonster]]
+*** [[http://blog.binchen.org//rss.xml][陈斌]]
+*** [[https://blog.lilydjwg.me/feed][依云]]
+*** [[https://archive.casouri.cat/note/rss.xml][Casouri]]
 ** Video :video:
-*** https://rsshub.app/youtube/channel/UCq2a8muf_TCGJt1AhBfU-7A :kehuanmi:
-*** https://rsshub.app/youtube/channel/UCZ_HHuwxpqXGlTOFx1veVdw
-*** https://rsshub.app/youtube/channel/UCRjfqDnltvniD5CUvv14DOg
-*** https://rsshub.app/youtube/channel/UCYO_jab_esuFRV4b17AJtAw
-*** https://rsshub.app/youtube/channel/UC5xDNEcvb1vgw3lE21Ack2Q
-*** https://rsshub.app/youtube/channel/UCy-dvmsfmvYXBmt_huqqo1A
-*** https://rsshub.app/douban/movie/later :douban:
-*** https://rsshub.app/bilibili/partion/146 :bilibili:
+*** [[https://rsshub.app/youtube/channel/UCq2a8muf_TCGJt1AhBfU-7A][科幻迷布玛]]
+*** [[https://rsshub.app/youtube/channel/UCZ_HHuwxpqXGlTOFx1veVdw][Winston Ou]]
+*** [[https://rsshub.app/youtube/channel/UCRjfqDnltvniD5CUvv14DOg][CodecastsJS]]
+*** [[https://rsshub.app/youtube/channel/UCYO_jab_esuFRV4b17AJtAw][3Blue1Brown]]
+*** [[https://rsshub.app/youtube/channel/UC5xDNEcvb1vgw3lE21Ack2Q][Hua Hua]]
+*** [[https://rsshub.app/youtube/channel/UCy-dvmsfmvYXBmt_huqqo1A][English Jade - Learn English (engVid)]]
+*** [[https://rsshub.app/douban/movie/later][豆瓣电影]]
+*** [[https://rsshub.app/bilibili/partion/146][B 站日本电影]]
 ** Misc :misc:
-
-# *** https://rsshub.app/smzdm/ranking/pinlei/11/3
+*** [[https://rsshub.app/smzdm/ranking/pinlei/11/3][什么值得买]]
 ** Forum :forum:
-*** https://forum.suse.org.cn/latest.rss
-*** https://emacs-china.org/latest.rss
+*** [[https://forum.suse.org.cn/latest.rss][SUSE 中文]]
+*** [[https://emacs-china.org/latest.rss][Emacs 中文]]
 
 ** Social :social:
 *** twitter :twitter:
-# **** https://rsshub.app/twitter/user/Desvl1998
-# **** https://rsshub.app/twitter/user/xiangjiaoguomin
-# **** https://rsshub.app/twitter/user/elonmusk
-# **** https://rsshub.app/twitter/user/avetojane
-# **** https://rsshub.app/twitter/followings/avetojane
-# **** https://rsshub.app/twitter/keyword/emacs
-# **** https://rsshub.app/twitter/keyword/magnet:?
+**** [[https://rsshub.app/twitter/user/xiangjiaoguomin][香蕉过敏]]
 *** weibo :weibo:
 
-**** https://rsshub.app/weibo/user/1834459124
-**** https://rsshub.app/weibo/user/2966002294
-**** https://rsshub.app/weibo/user/3189842472
-**** https://rsshub.app/weibo/user/2915005333
+**** [[https://rsshub.app/weibo/user/1834459124][agentzh]]
+**** [[https://rsshub.app/weibo/user/2966002294][陈新玲]]
+**** [[https://rsshub.app/weibo/user/3189842472][灰叽]]
+**** [[https://rsshub.app/weibo/user/2915005333][火神大斐]]
 
-*** zhuanlan :zhuanlan:
-# **** https://rsshub.app/zhihu/zhuanlan/c_35038595
-** RSS Hub :rss:
 ** Weixin :weixin:
-*** https://feedpress.me/wx-girlswhocode
-*** https://feedpress.me/wx-quiet-desk
-*** https://feedpress.me/wx-youyouluming
-** news
-*** https://rsshub.app/natgeo/dailyphoto
-** Emacs
-*** https://jherrlin.github.io/index.xml
+# *** https://feedpress.me/wx-girlswhocode
+# *** https://feedpress.me/wx-quiet-desk
+# *** https://feedpress.me/wx-youyouluming
 * Blogs :elfeed:
 ** Research :research:
 *** [[http://cstheory-feed.org/atom.xml][CS Theory]]
@@ -77,7 +60,7 @@
 *** [[http://scateu.me/feed.xml][Scateu]]
 *** [[https://farseerfc.me/feeds/atom.xml][Farseerfc]]
 ** Food :food:leisure:
-# *** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCg0m_Ah8P_MQbnn77-vYnYw][美食作家王刚]]
+*** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCg0m_Ah8P_MQbnn77-vYnYw][美食作家王刚]]
 *** [[https://rsshub.app/bilibili/user/video/419872064][老饭骨]]
 *** [[https://rsshub.app/bilibili/user/video/415479453][主厨农国栋]]
 *** [[https://rsshub.app/bilibili/user/video/290526283][美食作家王刚R]]
@@ -101,7 +84,7 @@
 *** [[https://rsshub.app/zhihu/collection/37166127][只为逼格而存在]]
 *** [[https://rsshub.app/zhihu/daily][知乎日报]]
 ** News :leisure:news:
-# *** [[https://rsshub.app/cnbeta][cnBeta]] :tech:
+*** [[https://rsshub.app/cnbeta][cnBeta]] :tech:
 *** [[https://rsshub.app/engadget-cn][Engadget]] :tech:
 # *** [[https://rsshub.app/ft/chinese/hotstoryby7day][FT 中文网]]
 *** [[https://rsshub.app/zaobao/realtime/china][Zaobao 中国]]

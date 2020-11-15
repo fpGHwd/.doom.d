@@ -23,27 +23,12 @@
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
 ;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-;;
-;; (setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 16)
-;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
-;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
-;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
+
 (setq doom-font (font-spec :family "Consolas" :size 16)
       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 17)
       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 17)
       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 17))
-;; (setq doom-font (font-spec :family "Monaco" :size 16)
-;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 15)
-;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 16)
-;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 18))
-;; (setq doom-font (font-spec :family "mononoki" :size 18 :weight 'light)
-;;       doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC Light" :size 16)
-;;       doom-unicode-font (font-spec :family "Sarasa Term SC" :size 17)
-;;       doom-big-font (font-spec :family "Sarasa Term SC Semiblold" :size 24))
+
 
 ;; italic when comment and keyword
 ;; https://www.reddit.com/r/emacs/comments/f531pt/doom_wherehow_to_change_syntax_highlighting/
@@ -71,11 +56,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-moonlight)
-;; (setq doom-theme 'doom-gruvbox-light)
-;; (setq doom-theme 'doom-girly-heart)
 (setq doom-theme 'tango)
 
 
@@ -126,21 +107,12 @@
 ;; (file-dependents (feature-file 'cl))
 
 ;; not use when you know it's for speed when emacs start
-;; (eval-and-compile
-;;   (setq use-package-always-ensure t)
-;;   (setq use-package-always-defer t)
-;;   (setq use-package-expand-minimally t)
-;;   (setq use-package-enable-imenu-support t))
+(eval-and-compile
+  (setq use-package-always-ensure t)
+  (setq use-package-always-defer t)
+  (setq use-package-expand-minimally t)
+  (setq use-package-enable-imenu-support t))
 
-;; autosave
-;; (defun full-auto-save ()
-;;   (interactive)
-;;   (save-excursion
-;;     (dolist (buf (buffer-list))
-;;       (set-buffer buf)
-;;       (if (and (buffer-file-name) (buffer-modified-p))
-;;           (basic-save-buffer)))))
-;; (add-hook 'auto-save-hook 'full-auto-save)
 
 #+end_src
 
@@ -720,7 +692,6 @@
 
 #+end_src
 
-
 * org-download
 
 #+begin_src emacs-lisp
@@ -735,7 +706,6 @@
 ;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
 
 #+end_src
-
 
 * chinese-input
 
@@ -797,7 +767,6 @@
 ;; (add-to-list 'pyim-english-input-switch-functions #'+pyim-probe-telega-msg)
 #+end_src
 
-
 * leetcode
 
 #+begin_src emacs-lisp
@@ -843,7 +812,6 @@
 
 #+end_src
 
-
 * elfeed
 
 #+begin_src emacs-lisp
@@ -858,7 +826,142 @@
   )
 
 
+
 #+end_src
+
+
+  #+BEGIN_SRC emacs-lisp
+;; needed for setf to work with elfeed-entry-content
+(eval-when-compile
+  (cl-defstruct (elfeed-entry (:constructor elfeed-entry--create))
+    "A single entry from a feed, normalized towards Atom."
+    id title link date content content-type enclosures tags feed-id meta))
+(use-package elfeed
+  :defer t
+  :commands (yang/elfeed-show-visit-gui
+             yang/elfeed-search-browse-url-gui
+             yang/elfeed-new-entry-parse
+             elfeed-view-mpv
+             elfeed-v-mpv)
+  :general
+  (:keymaps 'elfeed-show-mode-map
+   "B" #'yang/elfeed-show-visit-gui
+   :keymaps 'elfeed-search-mode-map
+   "B" #'yang/elfeed-search-browse-url-gui
+   "m" #'elfeed-toggle-star
+   "v" #'elfeed-view-mpv)
+  :init
+  (setq-default elfeed-search-filter "@2-weeks-ago +unread -news")
+  :config
+  (elfeed-org)
+  ;; do update every 1 hours
+  (run-at-time nil (* 1 60 60) #'elfeed-update)
+  (setq elfeed-search-filter "@2-weeks-ago +unread -news")
+
+  (defun yang/elfeed-set-face ()
+    (when (equal 'unspecified
+                 (face-attribute 'elfeed-search-title-face :inherit))
+      (set-face-attribute 'elfeed-search-title-face nil
+                          :fontset "fontset-fixed"
+                          :inherit 'fixed-pitch)
+      (set-face-attribute 'elfeed-search-unread-title-face nil
+                          :fontset "fontset-fixed"
+                          :inherit 'fixed-pitch)))
+
+  (add-hook 'elfeed-search-mode-hook #'yang/elfeed-set-face)
+
+  (defun yang/elfeed-new-entry-parse (type xml entry)
+    "Add author to ArXiv entries."
+    ;; (message "entry is %s" entry)
+    (setq yang/xml xml)
+    (setq yang/entry entry)
+    (let ((link (car (xml-query-all '(link *) xml)))
+          (authors (car(xml-query-all '(creator *) xml)))
+          updated-content)
+      ;; (message "link is %s" link)
+      ;; (message "authors is %s" authors)
+      (when (and link
+                 (s-contains? "arxiv.org" link))
+        (setq updated-content (concat "<p>Authors: " authors "</p>
+"
+                                      (elfeed-entry-content entry)))
+        ;; (message "updated-content is %s" updated-content)
+        (setf (elfeed-entry-content entry)
+              updated-content))))
+
+  (add-hook 'elfeed-new-entry-parse-hook #'yang/elfeed-new-entry-parse)
+
+  (defun yang/elfeed-show-visit-gui ()
+    "Wrapper for elfeed-show-visit to use gui browser instead of eww"
+    (interactive)
+    (let ((browse-url-generic-program "/usr/bin/xdg-open"))
+      (elfeed-show-visit t)))
+
+  (defun yang/elfeed-search-browse-url-gui ()
+    "Visit the current entry in your browser using `browse-url'.
+    If there is a prefix argument, visit the current entry in the
+    browser defined by `browse-url-generic-program'."
+    (interactive)
+    (let ((browse-url-generic-program "/usr/bin/xdg-open"))
+      (elfeed-search-browse-url t)))
+
+  (defalias 'elfeed-toggle-star
+    (elfeed-expose #'elfeed-search-toggle-all 'star))
+
+  (defun yang/elfeed-deduplicate ()
+    "Remove duplicate of CS Theory and ArXiv."
+    (interactive)
+    (let ((old-filter elfeed-search-filter))
+      (elfeed-search-set-filter "@2-weeks-ago -news +research")
+      (save-excursion
+        (goto-char (point-min))
+        (let ((cs-theory-list))
+          (while (re-search-forward (rx bol
+                                        (repeat 4 digit) "-" (repeat 2 digit) "-" (repeat 2 digit) " "
+                                        (group (one-or-more print))
+                                        " ArXiv"
+                                        (zero-or-more print)
+                                        eol) nil t)
+            (add-to-list 'cs-theory-list (buffer-substring-no-properties (match-beginning 1) (match-end 1))))
+          (dolist (title cs-theory-list)
+            (goto-char (point-min))
+            (when (re-search-forward (rx bol
+                                         (repeat 4 digit) "-" (repeat 2 digit) "-" (repeat 2 digit) " "
+                                         (literal title)
+                                         " CS Theory"
+                                         (zero-or-more print)
+                                         eol) nil t)
+              (goto-char (match-beginning 0))
+              (elfeed-search-tag-all 'duplicate)
+              ;; elfeed-search-tag-all automatically move cursor to the next line
+              (previous-line)
+              (elfeed-search-untag-all 'unread)))))
+      (elfeed-search-set-filter old-filter)))
+
+  ;; the following from:
+  ;; https://joshrollinswrites.com/help-desk-head-desk/20200611/
+  (defun elfeed-v-mpv (url)
+    "Watch a video from URL in MPV"
+    (async-shell-command (format "mpv %s" url)))
+
+  (defun elfeed-view-mpv (&optional use-generic-p)
+    "Youtube-feed link"
+    (interactive "P")
+    (let ((entries (elfeed-search-selected)))
+      (cl-loop for entry in entries
+	             do (elfeed-untag entry 'unread)
+	             when (elfeed-entry-link entry)
+	             do (elfeed-v-mpv it))
+      (mapc #'elfeed-search-update-entry entries)
+      (unless (use-region-p) (forward-line)))))
+
+(use-package elfeed-org
+  :defer t
+  :after (org)
+  :config
+  ;; (message "org-directory is %s" org-directory)
+  (setq rmh-elfeed-org-files (list "~/.doom.d/elfeed.org")))
+  #+END_SRC
 
 * telega
 
@@ -993,7 +1096,6 @@
 
 #+end_src
 
-
 * UI
 
 ** font
@@ -1062,7 +1164,6 @@
 
 #+end_src
 
-
 * wucuo
 
 # https://github.com/redguardtoo/wucuo
@@ -1073,7 +1174,6 @@
 (add-hook 'text-mode-hook #'wucuo-start)
 
 #+end_src
-
 
 * podcaster
 
@@ -1096,7 +1196,6 @@
 ;; https://www.douban.com/note/763676277/
 
 #+end_src
-
 
 * other config
 
@@ -1140,9 +1239,6 @@
 
 ;; (add-hook! doom-after-reload-hook #'posframe-delete-all)
 
-(use-package! org-alert
-  :config
-  (setq alert-default-style 'libnotify))
 
 
 (use-package! valign
@@ -1167,6 +1263,7 @@
 * Python
 
 #+BEGIN_SRC emacs-lisp
+
 (use-package company-jedi             ;;; company-mode completion back-end for Python JEDI
   :defer t
   :config
@@ -1182,14 +1279,14 @@
   :commands lsp)
 
 (use-package python
-  :commands wang/python-setup
+  :commands yang/python-setup
   :init
-  (add-hook 'python-mode-hook #'wang/python-setup)
+  (add-hook 'python-mode-hook #'yang/python-setup)
   :config
   (setq-default python-indent 4)
   ;; bug fix for python-mode
   (setq python-shell-native-complete nil)
-  (defun wang/python-setup ()
+  (defun yang/python-setup ()
     (set (make-local-variable 'company-idle-delay) 0.2)))
 
 
@@ -1202,6 +1299,8 @@
 ;; optionally if you want to use debugger
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+  #+END_SRC
+
 #+END_SRC
 
 * imenu
@@ -1219,24 +1318,37 @@
 #+end_src
 
 * org-roam
+
 #+BEGIN_SRC emacs-lisp
+
 ;; This is only a workaround
-;; (setq org-roam-directory (concat org-directory "/roam"))
+(setq org-roam-directory (concat org-directory "/roam")
+     org-roam-db-location "/tmp/org-roam.db")
 
-
-;; (setq org-roam-directory (concat org-directory "/roam")
-;;      org-roam-db-location "/tmp/org-roam.db")
-
-;; (use-package org-roam-capture
-;;   :defer t
-;;   :config
-;;   (setq org-roam-capture-ref-templates
-;;         '(("r" "ref" plain
-;;            #'org-roam-capture--get-point "%?"
-;;            :file-name "${slug}"
-;;            :head "#+title: ${title}\n#+roam_key: ${ref}\n[[${ref}][${title}]]\n"
-;;            :unnarrowed t))
-;;         org-roam-capture-templates
-;;         '(("d" "default" plain #'org-roam-capture--get-point "%?" :file-name "%<%Y%m%d%H%M%S>-${slug}" :head "#+title: ${title}\n#+roam_tags:" :unnarrowed t))))
+(use-package org-roam-capture
+  :defer t
+  :config
+  (setq org-roam-capture-ref-templates
+        '(("r" "ref" plain
+           #'org-roam-capture--get-point "%?"
+           :file-name "${slug}"
+           :head "#+title: ${title}\n#+roam_key: ${ref}\n[[${ref}][${title}]]\n"
+           :unnarrowed t))
+        org-roam-capture-templates
+        '(("d" "default" plain #'org-roam-capture--get-point "%?" :file-name "%<%Y%m%d%H%M%S>-${slug}" :head "#+title: ${title}\n#+roam_tags:" :unnarrowed t))))
 
 #+END_SRC
+
+* org-alert
+
+#+begin_src emacs-lisp
+
+(use-package! org-alert
+  :config
+  (setq alert-default-style 'libnotify)
+  (setq org-alert-interval 300)
+  (org-alert-enable))
+
+#+end_src
+
+* Projectile

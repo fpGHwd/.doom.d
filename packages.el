@@ -134,3 +134,6 @@
 (package! imenu-list)
 
 ;; (package! org-roam-capture)
+
+(package! pyenv-mode-auto)
+(package! pyvenv)
