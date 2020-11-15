@@ -34,24 +34,6 @@
 ;; https://www.reddit.com/r/emacs/comments/f531pt/doom_wherehow_to_change_syntax_highlighting/
 (custom-set-faces! '(font-lock-comment-face :slant italic) '(font-lock-keyword-face :slant italic))
 
-;; line spacing
-;; https://www.reddit.com/r/emacs/comments/3hag14/line_spacing/
-;; (setq line-spacing 0.2)
-;; http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html
-;; (defun xah-toggle-line-spacing ()
-;;   "Toggle line spacing between no extra space to extra half line height.
-;; URL `http://ergoemacs.org/emacs/emacs_toggle_line_spacing.html'
-;; Version 2017-06-02"
-;;   (interactive)
-;;   (if line-spacing
-;;       (setq line-spacing nil)
-;;     (setq line-spacing 0.2))
-;;   (redraw-frame (selected-frame)))
-;; https://stackoverflow.com/questions/7899949/is-there-an-emacs-hook-that-runs-after-every-buffer-is-created
-;; TODO change line-spacing when in programming buffer only
-;; (add-hook 'after-change-major-mode-hook 'xah-toggle-line-spacing)
-;; https://emacs.nasy.moe/
-;; TODO telega needn't line-spacing
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -88,9 +70,6 @@
 ;; they are implemented.
 
 
-;; my own config
-;; https://github.com/jwiegley/use-package
-
 ;; logo
 (setq fancy-splash-image "~/.doom.d/logo/Emacs-logo.svg")
 ;; (setq fancy-splash-image "~/.doom.d/logo/spacemacs-mega.png")
@@ -98,13 +77,9 @@
 
 ;; garbage
 (setq gc-cons-threshold most-positive-fixnum)
-;; (add-hook 'focus-out-hook #'garbage-collect)
+(add-hook 'focus-out-hook #'garbage-collect)
 (add-hook 'after-init-hook #'(lambda () (setq gc-cons-threshold (* 50 1024 1024))))
 
-
-;; https://github.com/hlissner/doom-emacs/issues/3372
-;; (require 'loadhist)
-;; (file-dependents (feature-file 'cl))
 
 ;; not use when you know it's for speed when emacs start
 (eval-and-compile
@@ -128,16 +103,7 @@
 ;; (remove-hook 'focus-out-hook #'save-all)
 (cancel-function-timers #'save-all)
 (run-with-idle-timer (* 10 60) 1 #'save-all)
-;; (run-with-idle-timer 300 1 #'save-all)
-;;
-;; (cancel-function-timers #'do-auto-save)
-;; (run-with-idle-timer 10 1 #'do-auto-save)
-;;
-;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Idle-Timers.html
-;; SPC idle timer list timer-idle-list
-;; TODO auto-save do-auto-save documentation
-;; (cancel-function-timers #'save-some-buffers)
-;; (run-with-idle-timer (* 30 60) 1 #'save-some-buffers)
+
 
 
 #+end_src
@@ -168,42 +134,6 @@
             "~/Documents/org/research.org"))
 
     (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
-
-    ;; TODO: reset journal note and todo file and opreations
-    ;;
-    ;; (add-to-list 'org-capture-templates '("z" "ZMonster"))
-    ;; (add-to-list 'org-capture-templates '("zt" "Tasks"))
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("ztr" "Book Reading Task" entry
-    ;;                (file+olp "~/Documents/org/task.org" "Reading" "Book")
-    ;;                "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("ztw" "Work Task" entry
-    ;;                (file+headline "~/Documents/org/task.org" "Work")
-    ;;                "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("zj" "journal" entry (file "~/Documents/org/journal/journal.org")
-    ;;                "* %u - %^{heading}\n  %?"))
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("zi" "Inbox" entry (file "~/Documents/org/inbox.org")
-    ;;                (add-to-list 'org-capture-templates
-    ;;                             "* %U - %^{heading} %^g\n %?\n"))
-    ;;              '("zn" "Notes" entry (file "~/Documents/org/notes.org")
-    ;;                "* %^{heading} %t %^g\n  %?\n"))
-    ;; (add-to-list 'org-capture-templates
-    ;;              `("zb" "Blog" plain (file ,(concat "~/Documents/blog/org"
-    ;;                                                 (format-time-string "%Y-%m-%d.org")))
-    ;;                ,(concat "\n#+startup: showall\n"
-    ;;                         "#+options: toc:nil\n"
-    ;;                         "#+begin_export html\n"
-    ;;                         "---\n"
-    ;;                         "layout     : post\n"
-    ;;                         "title      : %^{标题}\n"
-    ;;                         "categories : %^{类别}\n"
-    ;;                         "tags       : %^{标签}\n"
-    ;;                         "---\n"
-    ;;                         "#+end_export\n"
-    ;;                         "#+TOC: headlines 2\n")))
 
     (add-to-list 'org-capture-templates '("w" "Wangding"))
     (add-to-list 'org-capture-templates
@@ -238,49 +168,6 @@
                    "** %(format-time-string org-journal-time-format)%?"))
 
 
-    ;; (defun get-year-and-month ()
-    ;;   (list (format-time-string "%Y年") (format-time-string "%m月")))
-
-    ;; (defun find-month-tree ()
-    ;;   (let* ((path (get-year-and-month))
-    ;;          (level 1)
-    ;;          end)
-    ;;     (unless (derived-mode-p 'org-mode)
-    ;;       (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
-    ;;     (goto-char (point-min))         ;移动到 buffer 的开始位置
-    ;;     ;; 先定位表示年份的 headline，再定位表示月份的 headline
-    ;;     (dolist (heading path)
-    ;;       (let ((re (format org-complex-heading-regexp-format
-    ;;                         (regexp-quote heading)))
-    ;;             (cnt 0))
-    ;;         (if (re-search-forward re end t)
-    ;;             (goto-char (point-at-bol)) ;如果找到了 headline 就移动到对应的位置
-    ;;           (progn                       ;否则就新建一个 headline
-    ;;             (or (bolp) (insert "\n"))
-    ;;             (if (/= (point) (point-min)) (org-end-of-subtree t t))
-    ;;             (insert (make-string level ?*) " " heading "\n"))))
-    ;;       (setq level (1+ level))
-    ;;       (setq end (save-excursion (org-end-of-subtree t t))))
-    ;;     (org-end-of-subtree)))
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("zb" "Billing" plain
-    ;;                (file+function "~/Documents/org/billing.org" find-month-tree)
-    ;;                " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
-
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("zc" "Contacts" table-line (file "~/Documents/org/contacts.org")
-    ;;                "| %U | %^{姓名} | %^{手机号}| %^{邮箱} |"))
-
-    ;; (add-to-list 'org-capture-templates '("p" "Protocol"))
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("pb" "Protocol Bookmarks" entry
-    ;;                (file+headline "~/Documents/org/web.org" "Bookmarks")
-    ;;                "* %U - %:annotation" :immediate-finish t :kill-buffer t))
-    ;; (add-to-list 'org-capture-templates
-    ;;              '("pn" "Protocol Bookmarks" entry
-    ;;                (file+headline "~/Documents/org/web.org" "Notes")
-    ;;                "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))
-
     (defun org-capture-template-goto-link ()
       (org-capture-put :target (list 'file+headline
                                      (nth 1 (org-capture-get :target))
@@ -301,36 +188,9 @@
                    "  %U - %?\n\n  %:initial" :empty-lines 1))
 
 
-    ;; (defun generate-anki-note-body ()
-    ;;   (interactive)
-    ;;   (message "Fetching note types...")
-    ;;   (let ((note-types (sort (anki-editor-note-types) #'string-lessp))
-    ;;         (decks (sort (anki-editor-deck-names) #'string-lessp))
-    ;;         deck note-type fields)
-    ;;     (setq deck (completing-read "Choose a deck: " decks))
-    ;;     (setq note-type (completing-read "Choose a note type: " note-types))
-    ;;     (message "Fetching note fields...")
-    ;;     (setq fields (anki-editor--anki-connect-invoke-result "modelFieldNames" `((modelName . ,note-type))))
-    ;;     (concat "  :PROPERTIES:\n"
-    ;;             "  :ANKI_DECK: " deck "\n"
-    ;;             "  :ANKI_NOTE_TYPE: " note-type "\n"
-    ;;             "  :END:\n\n"
-    ;;             (mapconcat (lambda (str) (concat "** " str))
-    ;;                        fields
-    ;;                        "\n\n"))))
-    ;; (add-to-list 'org-capture-templates
-    ;;              `("zv" "Vocabulary" entry
-    ;;                (file+headline "~/Documents/org/anki/anki-cards.org" "Vocabulary")
-    ;;                ,(concat "* %^{heading} :note:\n"
-    ;;                         "%(generate-anki-note-body)\n")))
 
     ))
 
-
-;; (setq org-agenda-custom-commands
-;;    '(("d" . "DIARY + Name tag searches") ; describe prefix "h"
-;;      ("dd" tags "CLOSED>=\"<-1d>\"/DONE")
-;; ))
 
 
 (server-start)
@@ -665,30 +525,8 @@
 * org-roam
 #+begin_src emacs-lisp
 
-        ;; org-roam
 (setq org-roam-directory "~/Documents/org/roam")
 
-;; org-roam-server
-;; https://github.com/org-roam/org-roam-server
-;; https://www.orgroam.com/manual/Installation-_00281_0029.html#Installation-_00281_0029
-;; (use-package org-roam-server
-;;   :init
-;;   (require 'org-roam-protocol)
-;;   :hook
-;;   ((after-init . server-start) ;; emacs-server starts
-;;    (after-init . org-roam-server-mode))
-;;   :config
-;;   (setq org-roam-server-host "127.0.0.1"
-;;         org-roam-server-port 9090
-;;         org-roam-server-authenticate nil
-;;         org-roam-server-export-inline-images t
-;;         org-roam-server-serve-files nil
-;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-;;         org-roam-server-network-poll t
-;;         org-roam-server-network-arrows nil
-;;         org-roam-server-network-label-truncate t
-;;         org-roam-server-network-label-truncate-length 60
-;;         org-roam-server-network-label-wrap-length 20))
 
 #+end_src
 
@@ -696,25 +534,12 @@
 
 #+begin_src emacs-lisp
 
-        ;; wayland not support maim
-;; https://github.com/naelstrof/maim/issues/67
-;; org-download-screenshot
-;; (use-package! org-download
-;;  :config
-;;  (org-download-screenshot-method "gnome-screenshot -a -f %s"))
-;; (setq org-download-screenshot-method "gnome-screenshot -a -f %s")
-;; (setq org-download-screenshot-method "maim -s --delay=0.3 --quality=1 %s")
-
 #+end_src
 
 * chinese-input
 
 #+begin_src emacs-lisp
 
-        ;; rime
-;; https://manateelazycat.github.io/emacs/2020/03/22/emacs-rime.html
-;; https://github.com/DogLooksGood/emacs-rime
-;; TODO 参考重构 config commands 部分 https://github.com/jwiegley/use-package
 (use-package! rime
   :init
   (progn
@@ -774,9 +599,9 @@
  ;; leetcode
 (use-package! leetcode
   :custom
-  (leetcode-prefer-language "c")
+  (leetcode-prefer-language "python")
   (leetcode-save-solutions t)
-  (leetcode-directory "~/Documents/leetcode"))
+  (leetcode-directory "~/Documents/leetcode/"))
 
 #+end_src
 
@@ -793,22 +618,22 @@
 
 #+begin_src emacs-lisp
 
-        ;; carcadian
+;; carcadian
 ;; https://github.com/guidoschmidt/circadian.el
-;; (use-package! circadian
-;;   :config
-;;   (setq calendar-latitude 30.4)
-;;   (setq calendar-longitude 114.9)
-;; (setq circadian-themes '((:sunrise . doom-one-light)
-;;                          (:sunset  . doom-one)))
-;; (setq circadian-themes '((:sunrise . doom-solarized-light)
-;;                          (:sunset  . doom-gruvbox-light)))
-;; (setq circadian-themes '((:sunrise . doom-gruvbox-light)
-;;                          (:sunset  . doom-gruvbox-light)))
-;;  (setq circadian-themes '((:sunrise . tango)
-;;                           (:sunset  . doom-one)))
-;; (circadian-setup)
-;;  )
+(use-package! circadian
+  :config
+  (setq calendar-latitude 30.4)
+  (setq calendar-longitude 114.9)
+  (setq circadian-themes '((:sunrise . doom-one-light)
+                           (:sunset  . doom-one)))
+  (setq circadian-themes '((:sunrise . doom-solarized-light)
+                           (:sunset  . doom-gruvbox-light)))
+  (setq circadian-themes '((:sunrise . doom-gruvbox-light)
+                           (:sunset  . doom-gruvbox-light)))
+  (setq circadian-themes '((:sunrise . tango)
+                           (:sunset  . doom-one)))
+  (circadian-setup)
+  )
 
 #+end_src
 
@@ -980,11 +805,11 @@
 
 
 ;; telega font
-;; (when (member "Sarasa Mono SC" (font-family-list))
-;;   (make-face 'telega-align-by-sarasa)
-;;   (set-face-font 'telega-align-by-sarasa (font-spec :family "Sarasa Mono SC"))
-;;   (add-hook! '(telega-chat-mode-hook telega-root-mode-hook)
-;;     (buffer-face-set 'telega-align-by-sarasa)))
+(when (member "Sarasa Mono SC" (font-family-list))
+  (make-face 'telega-align-by-sarasa)
+  (set-face-font 'telega-align-by-sarasa (font-spec :family "Sarasa Mono SC"))
+  (add-hook! '(telega-chat-mode-hook telega-root-mode-hook)
+    (buffer-face-set 'telega-align-by-sarasa)))
 
 
 
@@ -1016,14 +841,12 @@
 ;;       org-journal-file-type 'monthly)
 
 
-
 #+end_src
 
 * map
 #+begin_src emacs-lisp
 
-        ;; map!
-;; map is just like a evil-define-key's warpper
+;; map!
 ;; https://emacs-china.org/t/topic/5089
 (map!
  :leader
@@ -1154,7 +977,7 @@
 
 #+begin_src emacs-lisp
 
-        ;; (use-package! rainbow-fart
+;; (use-package! rainbow-fart
 ;;   :hook (prog-mode . rainbow-fart-mode)
 ;;   :custom
 ;;   (rainbow-fart-voice-model "JustKowalski")
@@ -1179,7 +1002,7 @@
 
 #+begin_src emacs-lisp
 
-        ;podcaster
+;;podcaster
 ;; https://github.com/lujun9972/podcaster
 (use-package! podcaster
   :custom

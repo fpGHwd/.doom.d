@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(Man-width t)
  '(Man-width-max nil)
- '(browse-url-browser-function 'browse-url-firefox)
+ '(browse-url-browser-function 'browse-url-chromium)
  '(delete-selection-mode nil)
  '(fci-rule-color "#5B6268")
  '(geiser-default-implementation 'mit)
@@ -26,7 +26,6 @@
      ("\\.docx\\'" . "libreoffice \"%s\"")
      ("\\.doc\\'" . "libreoffice \"%s\"")))
  '(pdf-view-midnight-colors (cons "#bbc2cf" "#282c34"))
- '(projectile-globally-unignored-directories '(".git/"))
  '(rustic-ansi-faces
    ["#282c34" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#bbc2cf"])
  '(scheme-mit-dialect t)
