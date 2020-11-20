@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(Man-width t)
  '(Man-width-max nil)
- '(browse-url-browser-function 'browse-url-chromium)
+ '(browse-url-browser-function 'browse-url-firefox)
  '(delete-selection-mode nil)
  '(fci-rule-color "#5B6268")
  '(geiser-default-implementation 'mit)
@@ -17,14 +17,6 @@
  '(magit-repository-directories '(("~/Projects/" . 1)))
  '(nyan-mode t)
  '(objed-cursor-color "#ff6c6b")
- '(org-file-apps
-   '((auto-mode . emacs)
-     (directory . emacs)
-     ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" . default)
-     ("\\.pdf\\'" . "okular \"%s\"")
-     ("\\.docx\\'" . "libreoffice \"%s\"")
-     ("\\.doc\\'" . "libreoffice \"%s\"")))
  '(pdf-view-midnight-colors (cons "#bbc2cf" "#282c34"))
  '(rustic-ansi-faces
    ["#282c34" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#bbc2cf"])

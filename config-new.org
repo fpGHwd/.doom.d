@@ -1763,7 +1763,6 @@ https://github.com/casouri/quick-mathlive
   #+END_SRC
 
 * doc-view
-
   #+BEGIN_SRC emacs-lisp
     ;; doc-view
     (use-package doc-view
@@ -1778,3 +1777,4 @@ https://github.com/casouri/quick-mathlive
       :config
       (add-hook 'doc-view-mode-hook 'auto-revert-mode))
   #+END_SRC
+  

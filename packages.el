@@ -47,10 +47,10 @@
            :branch "master"
            :files (:defaults "etc" "server" "Makefile")))
 
-(package! shengci
-  :recipe (:host github
-           :repo "EvanMeek/shengci.el"
-           :branch "master"))
+;;(package! shengci
+;;  :recipe (:host github
+;;           :repo "EvanMeek/shengci.el"
+;;           :branch "master"))
 
 (package! evernote-mode
   :recipe (:host github
@@ -135,5 +135,10 @@
 
 ;; (package! org-roam-capture)
 
-(package! pyenv-mode-auto)
-(package! pyvenv)
+;; (package! pyenv-mode-auto)
+;; (package! pyvenv)
+
+;; (package! notmuch)
+(package! org-mime)
+(when (featurep! :completion ivy)
+  (package! counsel-notmuch))

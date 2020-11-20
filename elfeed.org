@@ -18,7 +18,7 @@
 *** [[http://blog.binchen.org//rss.xml][陈斌]]
 *** [[https://blog.lilydjwg.me/feed][依云]]
 *** [[https://archive.casouri.cat/note/rss.xml][Casouri]]
-** Video :video:
+** Video :video:news:
 *** [[https://rsshub.app/youtube/channel/UCq2a8muf_TCGJt1AhBfU-7A][科幻迷布玛]]
 *** [[https://rsshub.app/youtube/channel/UCZ_HHuwxpqXGlTOFx1veVdw][Winston Ou]]
 *** [[https://rsshub.app/youtube/channel/UCRjfqDnltvniD5CUvv14DOg][CodecastsJS]]
@@ -27,13 +27,13 @@
 *** [[https://rsshub.app/youtube/channel/UCy-dvmsfmvYXBmt_huqqo1A][English Jade - Learn English (engVid)]]
 *** [[https://rsshub.app/douban/movie/later][豆瓣电影]]
 *** [[https://rsshub.app/bilibili/partion/146][B 站日本电影]]
-** Misc :misc:
+** Misc :misc:news:
 *** [[https://rsshub.app/smzdm/ranking/pinlei/11/3][什么值得买]]
 ** Forum :forum:
 *** [[https://forum.suse.org.cn/latest.rss][SUSE 中文]]
 *** [[https://emacs-china.org/latest.rss][Emacs 中文]]
 
-** Social :social:
+** Social :social:news:
 *** twitter :twitter:
 **** [[https://rsshub.app/twitter/user/xiangjiaoguomin][香蕉过敏]]
 *** weibo :weibo:
