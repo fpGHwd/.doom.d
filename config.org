@@ -132,7 +132,7 @@
     (add-to-list 'org-capture-templates
                  '("ws" "Code Snippet" entry (file "~/Documents/org/snippets.org")
                    ;; Prompt for tag and language
-                   "* %?\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC\n" :prepend t))
+                   "* %? %u\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC\n\n" :prepend t))
 
     ;; https://github.com/bastibe/org-journal
     (defun org-journal-find-location ()
@@ -182,6 +182,9 @@
 
 
 #+end_src
+
+#+RESULTS:
+: ~/Documents/org/archive.org::* From %s
 
 * org-protocol
 
