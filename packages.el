@@ -143,18 +143,18 @@
 (when (featurep! :completion ivy)
   (package! counsel-notmuch))
 
-(unpin! org-roam company-org-roam)
+;; (unpin! org-roam company-org-roam)
 
 
-(package! org-mode
-  :recipe (:type git
-           :repo "https://code.orgmode.org/bzg/org-mode"
-           :files ("*.el" "lisp/*.el" "contrib/lisp/*.el"))
-  :pin "8402c4a778136a132833386c817732c58d60c637"
-  ;; Prevents built-in Org from sneaking into the byte-compilation of
-  ;; `org-plus-contrib', and inform other packages that `org-mode' satisfies the
-  ;; `org' dependency: https://github.com/raxod502/straight.el/issues/352
-  :shadow 'org)
+;; (package! org-mode
+;;   :recipe (:type git
+;;            :repo "https://code.orgmode.org/bzg/org-mode"
+;;            :files ("*.el" "lisp/*.el" "contrib/lisp/*.el"))
+;;   :pin "8402c4a778136a132833386c817732c58d60c637"
+;;   ;; Prevents built-in Org from sneaking into the byte-compilation of
+;;   ;; `org-plus-contrib', and inform other packages that `org-mode' satisfies the
+;;   ;; `org' dependency: https://github.com/raxod502/straight.el/issues/352
+;;   :shadow 'org)
 
 (package! org-download)
 
