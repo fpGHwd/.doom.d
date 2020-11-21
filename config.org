@@ -1386,7 +1386,7 @@ https://github.com/casouri/quick-mathlive
              #'hide-mode-line-mode))
 #+end_src
 
-** notmuch
+** COMMENT notmuch
    #+BEGIN_SRC emacs-lisp
      (after! org
        (condition-case err
