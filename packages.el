@@ -19,7 +19,7 @@
 ;; (package! org-roam-server)
 (package! command-log-mode)
 ;; (package! company-tabnine)
-;; (package! cal-china-x)
+(package! cal-china-x)
 (package! anki-editor)
 (package! anki-vocabulary)
 (package! anki-mode)

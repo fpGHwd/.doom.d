@@ -82,16 +82,14 @@
   (save-some-buffers t))
 ;; (remove-hook 'focus-out-hook #'save-all)
 (cancel-function-timers #'save-all)
-(run-with-idle-timer (* 10 60) 1 #'save-all)
-
+(run-with-idle-timer (* 5 60) 1 #'save-all)
+;; 5 分钟保存一次也比 focus-out-hook 保存要好得多。因为 focus-out-hook 保存会自动修改自己刚刚的格式，而我只需要一个不长的时间保留那个格式即可
 
 #+end_src
 
 * org
 
 #+begin_src emacs-lisp
-
-(use-package! org-refile)
 
 ;; org
 (use-package! org
@@ -102,35 +100,39 @@
     (require 'org-protocol)
     (require 'org-refile)
     (setq org-agenda-files
-          '("~/Documents/org/tasks.org"
+          '(
+            ;; "~/Documents/org/tasks.org"
             "~/Documents/org/todo.org"
-            "~/Documents/org/birthdays.org"
+            ;; "~/Documents/org/birthdays.org"
             "~/Documents/org/dissertation.org"
             "~/Documents/org/gcal.org"
-            "~/Documents/org/schedule.org"
-            "~/Documents/org/books.org"
-            "~/Documents/org/papers.org"
-            "~/Documents/org/research.org"))
+            "~/Documents/org/notes.org"
+            "~/Documents/org/gtd.org"
+            ;; "~/Documents/org/schedule.org"
+            ;; "~/Documents/org/books.org"
+            ;; "~/Documents/org/papers.org"
+            ;; "~/Documents/org/research.org"
+            ))
 
-    (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
+    (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 2))))
 
     (add-to-list 'org-capture-templates '("w" "Wangding"))
     (add-to-list 'org-capture-templates
                  '("wm" "Milestones" entry (file+headline "~/Documents/org/notes.org" "Milestones")
                    "* %u %^{heading} :milestone:\n%?\n" :prepend t))
 
-    (add-to-list 'org-capture-templates
-                 '("wt" "Personal todo" entry
-                   (file+headline "~/Documents/org/tasks.org" "Inbox")
-                   "* TODO %?\n%i\n%u\n%a" :prepend t))
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("wt" "Personal todo" entry
+    ;;                (file+headline "~/Documents/org/notes.org" "Todos")
+    ;;                "* TODO %?\n%i\n%u\n%a" :prepend t))
+
+    ;; (add-to-list 'org-capture-templates
+    ;;              '("wn" "Personal notes" entry
+    ;;                (file+headline  "~/Documents/org/notes.org" "Notes")
+    ;;                "* %u %? %^G\n%i\n%a" :prepend t))
 
     (add-to-list 'org-capture-templates
-                 '("wn" "Personal notes" entry
-                   (file+headline  "~/Documents/org/notes.org" "Inbox")
-                   "* %u %? %^G\n%i\n%a" :prepend t))
-
-    (add-to-list 'org-capture-templates
-                 '("ws" "Code Snippet" entry (file "~/Documents/org/snippets.org")
+                 '("ws" "Code Snippet" entry (file "~/Documents/org/notes.org")
                    ;; Prompt for tag and language
                    "* %? %u\t%^g\n\n#+BEGIN_SRC %^{language}\n\n\n#+END_SRC\n\n" :prepend t))
 
@@ -167,32 +169,20 @@
                    "  %U - %?\n\n  %:initial" :empty-lines 1))
 
 
+;; org archive file
+(setq org-archive-location "~/Documents/org/notes.org::* Archived")
+
+;; org picture
+(setq org-image-actual-width (/ (display-pixel-width) 2)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
+
+(server-start)
 
     ))
 
 
-
-(server-start)
-
-;; org picture
-(setq org-image-actual-width (/ (display-pixel-width) 4)) ;; 让图片显示的大小固定为屏幕宽度的三分之一
-
-;; org archive file
-(setq org-archive-location "~/Documents/org/archive.org::* From %s")
-
-
 #+end_src
 
-#+RESULTS:
-: ~/Documents/org/archive.org::* From %s
 
-* org-protocol
-
-#+begin_src emacs-lisp
-
-
-
-#+end_src
 
 * performance
 
@@ -218,6 +208,8 @@
           "~/Documents/org/birthdays.org"
           "~/Documents/org/dissertation.org"
           "~/Documents/org/gcal.org"
+          "~/Documents/org/gtd.org"
+          "~/Documents/org/notes.org"
           "~/Documents/org/schedule.org"
           "~/Documents/org/books.org"
           "~/Documents/org/papers.org"
@@ -376,6 +368,8 @@
                  "~/Documents/org/birthdays.org"
                  "~/Documents/org/dissertation.org"
                  "~/Documents/org/gcal.org"
+                 "~/Documents/org/gtd.org"
+                 "~/Documents/org/notes.org"
                  "~/Documents/org/schedule.org"
                  "~/Documents/org/books.org"
                  "~/Documents/org/papers.org"
@@ -398,8 +392,6 @@
 * blog
 
 #+begin_src emacs-lisp
-
-
 
 ;; nikola
 ;; https://github.com/redguardtoo/org2nikola
@@ -435,6 +427,12 @@
                                          (setq cmd (format "cd %s && git add . && git commit -m 'updated' && git push origin master" nikola-output-path))
                                          ;; (message cmd)
                                          (shell-command cmd))))))
+
+#+end_src
+
+* COMMENT blog2
+
+#+begin_src emacs-lisp
 
 ;; https://www.zmonster.me/2018/02/28/org-mode-capture.html
 ;; org publish project alist
@@ -509,12 +507,14 @@
 
 (setq org-roam-directory "~/Documents/org/roam")
 
-
 #+end_src
 
 * org-download
 
 #+begin_src emacs-lisp
+
+(use-package! org-download
+  )
 
 #+end_src
 
@@ -581,7 +581,7 @@
  ;; leetcode
 (use-package! leetcode
   :custom
-  (leetcode-prefer-language "python")
+  (leetcode-prefer-language "cpp")
   (leetcode-save-solutions t)
   (leetcode-directory "~/Documents/leetcode/"))
 
@@ -596,26 +596,26 @@
 
 #+end_src
 
-* circadian
+* COMMENT circadian
 
 #+begin_src emacs-lisp
 
 ;; carcadian
 ;; https://github.com/guidoschmidt/circadian.el
-;; (use-package! circadian
-;;   :config
-;;   (setq calendar-latitude 30.4)
-;;   (setq calendar-longitude 114.9)
-;;   (setq circadian-themes '((:sunrise . doom-one-light)
-;;                            (:sunset  . doom-one)))
-;;   (setq circadian-themes '((:sunrise . doom-solarized-light)
-;;                            (:sunset  . doom-gruvbox-light)))
-;;   (setq circadian-themes '((:sunrise . doom-gruvbox-light)
-;;                            (:sunset  . doom-gruvbox-light)))
-;;   (setq circadian-themes '((:sunrise . tango)
-;;                            (:sunset  . doom-one)))
-;;   (circadian-setup)
-;;   )
+(use-package! circadian
+  :config
+  (setq calendar-latitude 30.4)
+  (setq calendar-longitude 114.9)
+  (setq circadian-themes '((:sunrise . doom-one-light)
+                           (:sunset  . doom-one)))
+  (setq circadian-themes '((:sunrise . doom-solarized-light)
+                           (:sunset  . doom-gruvbox-light)))
+  (setq circadian-themes '((:sunrise . doom-gruvbox-light)
+                           (:sunset  . doom-gruvbox-light)))
+  (setq circadian-themes '((:sunrise . tango)
+                           (:sunset  . doom-one)))
+  (circadian-setup)
+  )
 
 #+end_src
 
@@ -950,16 +950,27 @@
 
 ;; lunar
 ;; https://emacs-china.org/t/topic/2119/13
-;; (defun my--diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
-;;   (if year
-;;       (let* ((d-date (diary-make-date lunar-month lunar-day year))
-;;              (a-date (calendar-absolute-from-gregorian d-date))
-;;              (c-date (calendar-chinese-from-absolute a-date))
-;;              (cycle (car c-date))
-;;              (yy (cadr c-date))
-;;              (y (+ (* 100 cycle) yy)))
-;;         (diary-chinese-anniversary lunar-month lunar-day y mark))
-;;     (diary-chinese-anniversary lunar-month lunar-day year mark)))
+(defun my--diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
+  (if year
+      (let* ((d-date (diary-make-date lunar-month lunar-day year))
+             (a-date (calendar-absolute-from-gregorian d-date))
+             (c-date (calendar-chinese-from-absolute a-date))
+             (cycle (car c-date))
+             (yy (cadr c-date))
+             (y (+ (* 100 cycle) yy)))
+        (diary-chinese-anniversary lunar-month lunar-day y mark))
+    (diary-chinese-anniversary lunar-month lunar-day year mark)))
+
+(use-package! cal-china-x
+  :after calendar
+  :config
+  (setq calendar-mark-holidays-flag t
+        cal-china-x-important-holidays cal-china-x-chinese-holidays
+        calendar-holidays (append
+                           cal-china-x-important-holidays
+                           cal-china-x-general-holidays)))
+
+;; define user-defined-holidays
 
 
 #+end_src

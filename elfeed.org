@@ -47,7 +47,7 @@
 # *** https://feedpress.me/wx-girlswhocode
 # *** https://feedpress.me/wx-quiet-desk
 # *** https://feedpress.me/wx-youyouluming
-* Blogs :elfeed:
+* yangsheng :elfeed:
 ** Research :research:
 *** [[http://cstheory-feed.org/atom.xml][CS Theory]]
 *** [[http://export.arxiv.org/api/query?search_query=cat:cs.DS&start=0&max_results=300&sortBy=submittedDate&sortOrder=descending][ArXiv Algorithms]]
